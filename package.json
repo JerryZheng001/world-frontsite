@@ -1,0 +1,123 @@
+{
+  "name": "Nft-website",
+  "version": "1.1.0",
+  "private": true,
+  "devDependencies": {
+    "@ethersproject/experimental": "^5.0.1",
+    "@popperjs/core": "^2.4.4",
+    "@reach/dialog": "^0.10.3",
+    "@reach/portal": "^0.10.3",
+    "@reduxjs/toolkit": "^1.8.1",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/react": "5",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/big.js": "^6.1.1",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/qs": "^6.9.2",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-redux": "^7.1.8",
+    "@types/react-router-dom": "^5.0.0",
+    "@types/rebass": "^4.0.5",
+    "@types/styled-components": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "@web3-react/core": "^6.0.9",
+    "@web3-react/fortmatic-connector": "^6.0.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/portis-connector": "^6.0.9",
+    "@web3-react/walletconnect-connector": "^6.1.1",
+    "@web3-react/walletlink-connector": "^6.0.9",
+    "qs": "^6.9.4",
+    "react": "^16.13.1",
+    "react-device-detect": "^1.6.2",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.17.2",
+    "react-error-overlay": "6.0.9",
+    "react-feather": "^2.0.8",
+    "react-ga": "^2.5.7",
+    "react-json-view": "^1.21.3",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.4.1",
+    "react-spring": "^8.0.27",
+    "react-use-gesture": "^9.1.3",
+    "rebass": "^4.0.7",
+    "redux-localstorage-simple": "^2.5.1",
+    "redux-thunk": "^2.4.1",
+    "sass": "^1.52.3",
+    "styled-components": "^5.3.3",
+    "typescript": "^3.8.3",
+    "workbox-core": "^6.1.0",
+    "workbox-expiration": "^6.1.0",
+    "workbox-precaching": "^6.1.0",
+    "workbox-routing": "^6.1.0",
+    "workbox-strategies": "^6.1.0"
+  },
+  "resolutions": {
+    "@walletconnect/web3-provider": "1.1.1-alpha.0"
+  },
+  "scripts": {
+    "start:dev": "dotenv -e .env.dev react-scripts start",
+    "start:prod": "dotenv -e .env.prod react-scripts start",
+    "start:service-worker": "yarn build && yarn serve -s build",
+    "build": "react-scripts build",
+    "build:dev": "dotenv -e .env.dev react-scripts build",
+    "build:prod": "dotenv -e .env.prod react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'",
+    "storybook": "start-storybook -p 9000 -c .storybook"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "ignorePatterns": [
+      "node_modules"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "antd": "^3.9.0",
+    "axios": "^0.24.0",
+    "big.js": "^6.1.1",
+    "copy-to-clipboard": "^3.3.1",
+    "dayjs": "^1.11.3",
+    "decimal.js-light": "^2.5.1",
+    "dotenv-cli": "^5.1.0",
+    "echarts": "^5.2.2",
+    "echarts-for-react": "^3.0.2",
+    "fortmatic": "^2.3.0",
+    "http-proxy-middleware": "^2.0.1",
+    "i18next": "^21.8.10",
+    "jsbi": "^4.3.0",
+    "polished": "^3.3.2",
+    "toformat": "^2.0.0",
+    "web-vitals": "^1.0.1",
+    "web3": "^1.7.3"
+  }
+}

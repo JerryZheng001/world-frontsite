@@ -1,0 +1,57 @@
+/* html, input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  font-display: fallback;
+}
+@supports (font-variation-settings: normal) {
+  html, input, textarea, button {
+    font-family: 'Roboto', sans-serif;
+  }
+} */
+
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  height:100%;
+}
+
+ a {
+   color: '#42B6D6'; 
+   text-decoration: none;
+ }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+
+ul li{
+  list-style: none;
+}
+
+button {
+  user-select: none;
+}
+
+html {
+  font-size: 16px;
+  font-variant: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
+  height:100%;
+  
+}
+.MuiTooltip-tooltip {
+  background: #2B3647 !important;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+  padding: 10px 15px !important;
+} */
+
+
+

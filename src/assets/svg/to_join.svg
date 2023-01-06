@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_lianjie</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="FAQ" transform="translate(-236.000000, -412.000000)">
+            <g id="编组-16" transform="translate(100.000000, 210.000000)">
+                <g id="编组-9" transform="translate(0.000000, 188.000000)">
+                    <g id="icon_lianjie" transform="translate(136.000000, 14.000000)">
+                        <g id="下拉" fill="#FFFFFF" fill-rule="nonzero" opacity="0">
+                            <rect id="矩形" x="0" y="0" width="20" height="20"></rect>
+                        </g>
+                        <g id="编组" transform="translate(5.580582, 7.125000)">
+                            <path d="M2.04441799,0.4194175 L8.09441799,0.4194175 C8.20487494,0.4194175 8.29441799,0.50896055 8.29441799,0.6194175 L8.29441799,6.6694175 L8.29441799,6.6694175" id="矩形" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round"></path>
+                            <path d="M-0.705582618,3.79441738 L9.54441738,3.79441738 C9.82055976,3.79441738 10.0444174,4.01827501 10.0444174,4.29441738 L10.0444174,4.54441738 C10.0444174,4.82055976 9.82055976,5.04441738 9.54441738,5.04441738 L-0.705582618,5.04441738 C-0.981724992,5.04441738 -1.20558262,4.82055976 -1.20558262,4.54441738 L-1.20558262,4.29441738 C-1.20558262,4.01827501 -0.981724992,3.79441738 -0.705582618,3.79441738 Z" id="矩形" fill="#FFFFFF" transform="translate(4.419417, 4.419417) rotate(-45.000000) translate(-4.419417, -4.419417) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
