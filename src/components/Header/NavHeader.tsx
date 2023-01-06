@@ -6,13 +6,11 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import { LanguageTitle } from "../../utils/base/language";
 import HeaderLogo from "../../assets/images/nav-icons/logoNew.svg";
 import styled from "styled-components";
 import {
   useWalletModalToggle
 } from "../../state/application/hooks"
-import { useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useActiveWeb3React } from "../../hooks";
 import Web3Status from "../Web3Status";
@@ -54,26 +52,7 @@ export const TitleIcon = styled.img`
   margin-right: 8px;
 `;
 
-const pageNames: { path: string; name: string }[] = [
-  { path: "/mynft/detail/", name: "My NFT" },
-  { path: "/mynft/listone/", name: "Detail" },
-  { path: "/mynft/release/", name: "Release" },
-  { path: "/forge", name: "Forge" },
-  { path: "/compose", name: "Build" },
-  { path: "/parts/detail/", name: "Detail" },
-  { path: "/parts/listone/", name: "Detail" },
-  { path: "/parts/release/", name: "Release" },
-  { path: "/auction", name: "Market" },
-  { path: "/nftgroup", name: "Group" },
-  { path: "/auction/detail/", name: "Auction" },
-  { path: "/farm", name: "Farm" },
-  { path: "/weapon/detail/", name: "Detail" },
-  { path: "/weapon/listone/", name: "Detail" },
-  { path: "/weapon/release/", name: "Release" },
-  { path: "/battleground", name: "Battleground" },
-  { path: "/expertmode", name: "Battleground" },
-  { path: "/", name: "Market" },
-];
+
 const Logo = styled.div`
   width: 149px;
   height: 32px;
@@ -244,6 +223,7 @@ interface TabContent {
   showRightPoint?: boolean
   comingSoon?: boolean
   titleContent?: JSX.Element
+  isJump?:boolean
 }
 
 interface Tab extends TabContent {
@@ -255,69 +235,38 @@ const NavRouter: Tab[] = [
     name: 'Home',
     pathUrl: 'home'
   },
-  // {
-  //   name: '盲盒',
-  //   pathUrl: 'mystoryBoxes'
-  // },
-  // {
-  //   name: 'ito',
-  //   pathUrl: 'itoCollection'
-  // },
   {
-    name: 'NFT',
+    name: 'Product',
     childPaths: [
       {
-        name: 'Build',
-        introText: 'Build ships with hulls and parts',
-        showRightPoint: true,
-        pathUrl: '/compose'
+        name: 'Contract detection',
+        pathUrl: '/contractDetec'
       },
       {
-        name: 'Collect',
-        introText: 'Use NFTs to Earn',
-        showRightPoint: false,
-        pathUrl: '/battleground'
+        name: 'BSC Detection',
+        link: 'https://www.triathon.space/#/battleground',
+        isJump:false
       },
-      // {
-      //   name: 'Exploit',
-      //   introText: 'Coming soon',
-      //   comingSoon: true,
-      // },
+      {
+        name: 'Expert mode',
+        link: 'https://www.triathon.space/#/expertmode',
+        isJump:false,
+      },
+      {
+        name: 'Mainstage',
+        link: 'https://battleground.triathon.space/mainstage#/',
+        isJump:false
+      },
+      
     ]
   },
-  {
-    name: 'Market',
-    pathUrl: 'auction'
-  },
+ 
+ 
   {
     name: 'ITO',
     comingSoon: true,
   },
-  // {
-  //   name: 'Token',
-  //   pathUrl: 'convert'
-  // },
-  {
-    name: 'Token',
-    childPaths: [
-      {
-        name: 'Convert',
-        introText: 'Geon public sale',
-        showRightPoint: true,
-        pathUrl: '/convert'
-      },
-      {
-        name: 'Stake',
-        introText: 'Stake token and get high reward',
-        showRightPoint: true,
-        pathUrl: '/stake'
-      },
-    ]
-  },
-  {
-    name: 'Service',
-    comingSoon: true,
-  },
+
   {
     name: 'About',
     childPaths: [
@@ -327,7 +276,8 @@ const NavRouter: Tab[] = [
       },
       {
         name: 'Economic Paper',
-        link: 'https://triathon.gitbook.io/economic-paper/'
+        link: 'https://triathon.gitbook.io/economic-paper/',
+        isJump:true
       },
       {
         name: 'Spaceship Map',
@@ -339,10 +289,16 @@ const NavRouter: Tab[] = [
       },
       {
         name: 'Play Book',
-        link: 'https://triathon.gitbook.io/triath/'
+        link: 'https://triathon.gitbook.io/triath/',
+        isJump:true
       },
     ]
   },
+  {
+    name:'UserMode',
+    link:'https://www.triathon.space/#/home',
+    
+  }
 ]
 
 export default function NavHeader(): JSX.Element {
@@ -379,65 +335,12 @@ export default function NavHeader(): JSX.Element {
       document.removeEventListener("scroll", calcBgOpacity);
     };
   }, [calcBgOpacity]);
-  const location = useLocation();
-  const path = location.pathname;
-  const pageName = useMemo(() => {
-    for (const { path: path1, name } of pageNames) {
-      if (path.indexOf(path1) === 0) {
-        return name;
-      }
-    }
-    return "";
-  }, [location]);
-  const handleClickAway = (e: any) => {
-    if (e.target !== document.querySelector("img.menu-tag")) {
-      setMenuShow(false);
-    }
-  };
-  useEffect(() => {
-    document.getElementsByTagName("body")[0].style.fontFamily =
-      "ReadexPro-SemiBold, ReadexPro";
-  }, []);
 
-  const changeLanguage = (value: string) => {
-    if (i18n.language === value) {
-    } else {
-      i18n.changeLanguage(i18n.language === "en" ? "jp" : "en");
-    }
 
-    if (value === "jp") {
-      document.getElementsByTagName("body")[0].style.fontFamily =
-        "jiangchengheiti200W";
-    } else {
-      document.getElementsByTagName("body")[0].style.fontFamily =
-        "ReadexPro-SemiBold, ReadexPro";
-    }
-    UpdateLanguage(LanguageTitle);
-  };
 
-  useEffect(() => {
-    UpdateLanguage(LanguageTitle);
-  }, [location.pathname]);
 
-  function UpdateLanguage(LanguageTitle: any) {
-    let _pathname = location.pathname;
-    if (_pathname === "/") {
-      document.title = "Bastet | Ethanim Metaverse Guardians";
-      return;
-    }
-    LanguageTitle.map((e: any) => {
-      if (_pathname.includes(e.path) && !e.path.includes("/")) {
-        // 查找到路由、但不匹配/
-        if (i18n.language === "en") {
-          document.title = e.title1;
-        } else {
-          document.title = e.title2;
-        }
-      }
-      return document.title;
-    });
-    return document.title;
-  }
+
+
 
   return (
     <StyledNav className="head-nav">
@@ -451,9 +354,9 @@ export default function NavHeader(): JSX.Element {
                 {name}
                 <ChevronDown size={15} />
                 <Dropdown className={name === 'NFT' ? 'nft' : name === 'About' ? 'about' : ''}>
-                  {childPaths.map(({ name, pathUrl, link, introText, comingSoon }) => {
+                  {childPaths.map(({ name, pathUrl, link, introText, comingSoon ,isJump }) => {
                     return link ? (
-                      <ExternalLink href={link} key={name} className={comingSoon ? 'comingSoon' : ''}>
+                      <ExternalLink href={link} key={name} className={comingSoon ? 'comingSoon' : ''} target={isJump?'_blank':'_top'}>
                         {
                           introText && <IntroText>{introText}</IntroText>
                         }

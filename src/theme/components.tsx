@@ -204,21 +204,21 @@ export const UniTokenAnimated = styled.img`
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
 `
 const StyledHeaderLink = styled.a`
-  align-items: left;
+  
+ font-size: 16px;
+  font-family: Poppins-Medium, Poppins;
+  font-weight: 500;
+  color: #FFFFFF;
+  align-items: center;
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text3};
-  font-size: 14px;
   width: fit-content;
-  margin: 0 20px;
-  font-weight: 400;
-  padding: 10px 0 27px;
   white-space: nowrap;
   transition: 0.5s;
-
+  margin-right: 56px;
   :hover {
-    color: ${({ theme }) => darken(0.1, theme.primary1)};
+    color: #fff;
   }
 `
 
@@ -251,6 +251,7 @@ export function ExternalHeaderLink({
 /**
  * Outbound link that handles firing google analytics events
  */
+
 export function ExternalLink({
   target = '_blank',
   href,

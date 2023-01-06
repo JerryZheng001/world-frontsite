@@ -1,4 +1,4 @@
-Baset (ETHANIM - NFT - WEBSITE)
+Service (ETHANIM - NFT - WEBSITE)
 所用依赖： ui插件：antdesign；typescirptjs ；axios；web-vitals;styled-components react-router-dom echarts-for-react等等
 
 ```console
