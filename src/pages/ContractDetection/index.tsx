@@ -7,6 +7,7 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { StyleCode } from './component/StyleCode'
 import { ContainerCon, FileContent, StyleButton, StyledInput, StyleSolInputUp, WidthDiv } from './styled'
 import { Select } from 'antd';
+import { useHistory } from 'react-router-dom'
 const { Option } = Select;
 
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
@@ -58,7 +59,7 @@ export default function ContractDetection(): JSX.Element {
 
     const { account } = useActiveWeb3React()
     const toggleWalletModal = useWalletModalToggle()
-
+    const history = useHistory()
 
     const [currIndex, setcurrIndex] = useState(0)
     const [AddressContract, setAddressContract] = useState('')
@@ -85,15 +86,14 @@ export default function ContractDetection(): JSX.Element {
     }
     const detectContrast = useCallback(
         () => {
-            
             if (!contrastRegex.test(AddressContract)) {
                 setcontrastErrText('contrast address wrong')
             }else{
                 setcontrastErrText('')
-                
+                history.push('/contract_detection/1')
             }
         },
-        [ AddressContract],
+        [ AddressContract,history],
     )
 
     const detectFile = () => {

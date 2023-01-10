@@ -249,4 +249,46 @@ export const StyleCodeDom = styled.div`
 
 
 
- 
+ export const ContractDetectionDetailDom = styled.div`
+    width: 100%;
+    padding-top: 134px;
+    .container{
+        max-width: 1294px;
+        width: 1294px;
+        text-align: center;
+        margin: 0 auto;
+        text-align: center;
+        .title{
+            font-size: 48px;
+            font-family: Poppins-SemiBold, Poppins;
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 56px;
+        }
+        .detect{
+            width: 636px;
+            height: 50px;
+            background: #3772FF;
+            border-radius: 8px;
+            cursor: pointer;
+            line-height: 50px;
+            text-align: center;
+            font-size: 16px;
+            font-family: Poppins-Medium, Poppins;
+            font-weight: 500;
+            color: #FFFFFF;
+            margin: 64px auto 24px;
+        }
+        .text{
+            width: 636px;
+            height: 40px;
+            font-size: 12px;
+            font-family: Poppins-Regular, Poppins;
+            font-weight: 400;
+            color: #636B80;
+            line-height: 20px;
+            margin: 0 auto;
+            
+        }
+    }
+ `
