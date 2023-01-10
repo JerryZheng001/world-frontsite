@@ -240,7 +240,7 @@ const NavRouter: Tab[] = [
     childPaths: [
       {
         name: 'Contract detection',
-        pathUrl: '/contractDetec'
+        pathUrl: '/contract_detection'
       },
       {
         name: 'BSC Detection',
@@ -260,7 +260,6 @@ const NavRouter: Tab[] = [
       
     ]
   },
- 
  
   {
     name: 'ITO',

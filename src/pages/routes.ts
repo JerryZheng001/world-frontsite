@@ -1,6 +1,8 @@
 import { lazy } from 'react'
 import ConnectRouter from '../components/ConnectRouter'
 const HomePage = lazy(() => import('./homePage'))
+const ContractDetection = lazy(() => import('./ContractDetection'))
+
 
 
 // const NotFound = lazy(() => import('./single/NotFound'))
@@ -19,7 +21,12 @@ export default [
     show: true,
     component: ConnectRouter(HomePage)
   },
-  
+  {
+    name: 'ContractDetection',
+    path: '/contract_detection',
+    show: true,
+    component: ConnectRouter(ContractDetection)
+  }
   // {
   //   name: 'NotFound',
   //   path: '*',

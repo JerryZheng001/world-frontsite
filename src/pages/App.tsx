@@ -51,7 +51,7 @@ function App() {
       <div
         id="root"
         style={{
-          background: "#04041E",
+          background: " #111112",
           display: flag === true ? "block" : "none",
           height:'100vh'
         }}
