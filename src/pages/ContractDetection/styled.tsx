@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import point from '../../assets/images/contrastDetec/point@2x.png'
 
 
-
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
   height: 100%;
@@ -48,18 +47,67 @@ export const WidthDiv = styled.div`
         display: flex;
         justify-content: center;
         height: 60px;
+        position: relative;
         .select{
             width: 149px;
             height: 60px;
             border-radius: 8px;
             border: 1px solid #23252C;
             margin-right: 12px;
+            .ant-select{
+                width: 149px;
+                height: 60px;
+                .ant-select-selection{
+                    background: none;
+                    height: 60px;
+                    color: #fff;
+                    font-size: 16px;
+                    font-family: Poppins-Medium, Poppins;
+                    font-weight: 500;
+                    line-height: 60px;
+                    border: none;
+                    box-shadow: none;
+                    padding-left: 16px;
+                    img{
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 8px;
+                    }
+                    .ant-select-selection__rendered,.ant-select-selection-selected-value{
+                        height: 60px;
+                        font-size: 16px;
+                        font-family: Poppins-Medium, Poppins;
+                        font-weight: 500;
+                        line-height: 60px;
+                        margin: 0;
+                        display: flex;
+
+                    }
+                    .ant-select-arrow{
+                        i svg{
+                            width: 15px;
+                            height: 15px;
+                            color: #fff;
+                            position: relative;
+                            top: -2px;
+                        }
+                    }
+                }
+            }
+            .ant-select-focused,.ant-select-enabled{
+                border: none;
+            }
         }
         .inputCon{
             width: 475px;
             height: 60px;
             border-radius: 8px;
             border: 1px solid #23252C;
+        }
+        .err{
+            position: absolute;
+            bottom: -40px;
+            color: red;
         }
     }
     .notice{

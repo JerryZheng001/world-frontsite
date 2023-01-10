@@ -1,14 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import ethPic from '../../assets/images/contrastDetec/ethPic.png'
+import bscPic from '../../assets/images/contrastDetec/bscPic.png'
+import './antd.scss'
 import { useActiveWeb3React } from '../../hooks'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { StyleCode } from './component/StyleCode'
 import { ContainerCon, FileContent, StyleButton, StyledInput, StyleSolInputUp, WidthDiv } from './styled'
-
-
+import { Select } from 'antd';
+const { Option } = Select;
 
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
 const inputRegex = RegExp(/^[a-zA-Z\d]+$/)
-// const inputRegex = RegExp(/^0x[a-fA-F0-9]{40}$/)
+const contrastRegex = RegExp(/^0x[a-fA-F0-9]{40}$/)
 function Input({
     value,
     onUserInput,
@@ -57,11 +60,14 @@ export default function ContractDetection(): JSX.Element {
     const toggleWalletModal = useWalletModalToggle()
 
 
-    const [currIndex, setcurrIndex] = useState(1)
+    const [currIndex, setcurrIndex] = useState(0)
     const [AddressContract, setAddressContract] = useState('')
 
     const [FileValue, setFileValue] = useState('')
     const [FileShow, setFileShow] = useState(false)
+    const [selectChain, setselectChain] = useState('bsc')
+
+    const [contrastErrText, setcontrastErrText] = useState('')
     //上传文件
     function readSingleFile(e: any) {
         var file = e.target.files[0];
@@ -77,8 +83,24 @@ export default function ContractDetection(): JSX.Element {
         };
         reader.readAsText(file, "utf-8");
     }
+    const detectContrast = useCallback(
+        () => {
+            
+            if (!contrastRegex.test(AddressContract)) {
+                setcontrastErrText('contrast address wrong')
+            }else{
+                setcontrastErrText('')
+                
+            }
+        },
+        [ AddressContract],
+    )
 
-
+    const detectFile = () => {
+        console.log('====================================');
+        console.log('文件上传');
+        console.log('====================================');
+    }
     const styleButton: BtnProp = useMemo(() => {
         const rst: BtnProp = {
             text: 'Start detection',
@@ -98,13 +120,19 @@ export default function ContractDetection(): JSX.Element {
 
         return {
             text: 'Start detection',
-            event: () => { },
+            event: () => { selectChain === 'bsc' ? detectContrast() : detectFile() },
             disabled: false
         }
     }, [
         account,
-        toggleWalletModal
+        toggleWalletModal,
+        selectChain,
+        detectContrast,
     ])
+    const handleChange = (value: any) => {
+        setselectChain(value)
+        
+    }
     useEffect(() => {
         var fileInput = document.getElementById("file-input");
         fileInput && fileInput.addEventListener("change", readSingleFile, false);
@@ -126,25 +154,32 @@ export default function ContractDetection(): JSX.Element {
                 </div>
                 {
                     currIndex === 0 && <div className="addreccCon">
-                        <div className="select"></div>
+                        <div className="select">
+                            <Select defaultValue="bsc" onChange={handleChange} dropdownClassName='dropCon' showArrow >
+                                <Option value="bsc">  <img src={bscPic} alt="" /> BSC</Option>
+                                <Option value="eth">  <img src={ethPic} alt="" /> ETH</Option>
+                            </Select>
+                        </div>
                         <div className="inputCon">
                             <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address'></Input>
                         </div>
+                       <div className="err">{contrastErrText}</div>
                     </div>
                 }
+                
                 {
                     currIndex === 1 && <div className="fileCon">
-                            {
-                                !FileShow ?  <div className="uploadBefore"><StyleSolInputUp >
-                                    <span></span>
-                                    Upload file (.sol)
-                                    <input type="file" id='file-input' accept=".sol" />
-                                </StyleSolInputUp></div> : <FileContent>
-                                    {
-                                        FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
-                                    }
-                                </FileContent>
-                            }
+                        {
+                            !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
+                                <span></span>
+                                Upload file (.sol)
+                                <input type="file" id='file-input' accept=".sol" />
+                            </StyleSolInputUp></div> : <FileContent>
+                                {
+                                    FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
+                                }
+                            </FileContent>
+                        }
 
                     </div>
                 }

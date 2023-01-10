@@ -1,0 +1,34 @@
+.dropCon{
+    background: #242528;
+    border-radius: 8px;
+    ul {
+        padding: 0;
+        border-radius: 8px;
+        li{
+            height: 44px;
+            background: #242528;
+            display: flex;
+            align-items: center;
+            padding-left: 18px;
+            font-size: 14px;
+            font-family: Poppins-Medium, Poppins;
+            font-weight: 500;
+            color: #FFFFFF;
+            &:hover{
+                background: #3772FF !important;
+            }
+            img{
+                width: 22px;
+                height: 22px;
+                margin-right: 8px;
+            }
+            font-size: 14px;
+            font-family: Poppins-Medium, Poppins;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+    }
+}
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+    background: #3772FF !important;
+}
