@@ -6,6 +6,7 @@ import 'codemirror/lib/codemirror.css'
 //主题
 import 'codemirror/theme/material.css';
 import 'codemirror/theme/solarized.css'
+import 'codemirror/theme/panda-syntax.css'
 // 折叠代码
 import 'codemirror/addon/fold/foldgutter.css';
 import 'codemirror/addon/fold/foldcode.js';
@@ -43,7 +44,7 @@ export function StyleCode({ value }) {
     useEffect(() => {
         const textArea = document.getElementById("code");
         myCodeMirror = CodeMirror.fromTextArea(textArea, {
-            theme: 'ambiance',//主题
+            theme: 'panda-syntax',//主题
             lineNumbers: true,//显示行号
             firstLineNumber: 1,//行号从几开始，默认1
             lineWrapping: true,//滚动或换行

@@ -1,7 +1,6 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { darken } from 'polished'
 import React, { useMemo } from 'react'
-// import { Activity } from 'react-feather'
 import styled from 'styled-components'
 import { NetworkContextName } from '../../constants'
 import useENSName from '../../hooks/useENSName'
@@ -10,51 +9,49 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { TransactionDetails } from '../../state/transactions/reducer'
 import { shortenAddress1 } from '../../utils'
-import { ButtonOutlined, ButtonPrimary } from '../Button'
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../../connectors'
 import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
 import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import PortisIcon from '../../assets/images/portisIcon.png'
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-// import { useLocation } from "react-router";
 
-// import Identicon from '../Identicon'
 import Loader from '../Loader'
 
 import WalletModal from '../WalletModal'
-// import { TYPE } from 'theme'
 import useTheme from '../../hooks/useTheme'
 import { ShowSmall, TYPE } from '../../theme'
 import { RowBetween } from '../Row'
-// import Copy from '../AccountDetails/Copy'
 
-const Web3StatusGeneric = styled(ButtonPrimary)`
-  /* ${({ theme }) => theme.flexRowNoWrap} */
-  /* width: 100%;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  } */
-`
-const Web3StatusError = styled(Web3StatusGeneric)`
-  background-color: ${({ theme }) => theme.red1};
-  border: 1px solid ${({ theme }) => theme.red1};
-  color: ${({ theme }) => theme.white};
-  font-weight: 500;
-  padding: 0 15px;
-  :hover,
-  :focus {
-    background-color: ${({ theme }) => darken(0.1, theme.red1)};
-  }
+
+const Web3StatusError =styled.div`
+   cursor: pointer;
+  width: 194px;
+height: 44px;
+  text-align: center;
+  line-height: 44px;
+    position: relative;
+    font-size: 16px;
+font-family: Poppins-SemiBold, Poppins;
+font-weight: 600;
+color: #FFFFFF;
+    &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: skewX(-10deg);
+    border: 1px solid #FFFFFF;
+border-radius: 8px;
+
+    z-index: -1;
+    }
 `
 
 const Web3StatusConnect = styled.div<{ faded?: boolean }>`
-  cursor: pointer;
+ cursor: pointer;
    width: 173px;
   height: 44px;
   text-align: center;
@@ -64,29 +61,55 @@ const Web3StatusConnect = styled.div<{ faded?: boolean }>`
 font-family: Poppins-SemiBold, Poppins;
 font-weight: 600;
 color: #FFFFFF;
+    &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: skewX(-10deg);
+    border: 1px solid #FFFFFF;
+border-radius: 8px;
+
+    z-index: -1;
+}
    
 
 `
 
-const Web3StatusConnected = styled(ButtonOutlined) <{ pending?: boolean }>`
-  color: ${({ pending, theme }) => (pending ? theme.white : theme.text3)};
-  background-color:${({ pending, theme }) => (pending ? '#DFE6FF' : '#DFE6FF')};
-  border-radius:24px;
-  padding: 0;
-  border: none;
-  font-weight: 500;
-  text-align: center;
+const Web3StatusConnected = styled.div <{ pending?: boolean }>`
+   color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
   :hover,
   :focus {
     color: ${({ pending, theme }) => (pending ? darken(0.1, theme.primary1) : theme.text1)};
     border: none;
     box-shadow: none;
-    background-color: #DFE6FF !important;
+    background-color: transparent;
   }
-  & p {
-    margin: 0;
-    width: 100%;
-  }
+  cursor: pointer;
+  width: 169px;
+height: 44px;
+  text-align: center;
+  line-height: 44px;
+    position: relative;
+    font-size: 16px;
+font-family: Poppins-SemiBold, Poppins;
+font-weight: 600;
+color: #FFFFFF;
+    &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: skewX(-10deg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 8px;
+
+    z-index: -1;
+}
   
 `
 
@@ -95,12 +118,13 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 0.5rem 0 0.25rem;
-  font-size: 13px;
+  margin: 0 ;
   width: fit-content;
-  font-weight: 400;
-  height: 38px;
-  line-height: 38px;
+  width:100%;
+  text-align: center;
+      font-family: Poppins-Medium,Poppins;
+    font-weight: 500;
+    font-size: 14px;
 `
 
 // const NetworkIcon = styled(Activity)`
@@ -250,14 +274,16 @@ function Web3StatusInner() {
     )
   } else if (error) {
     return (
-      <Web3StatusError id="connect-error" onClick={toggleWalletModal} style={{ 'borderRadius': '24px' }}>
-        {/* <NetworkIcon /> */}
-        <Text>{error instanceof UnsupportedChainIdError ? 'Network Error' : 'Error'}</Text>
-      </Web3StatusError>
+      // <Web3StatusError id="connect-error" onClick={toggleWalletModal} style={{ 'borderRadius': '24px' ,'width':'173px'}}>
+      //   <Text>{error instanceof UnsupportedChainIdError ? 'Network Error' : 'Error'}</Text>
+      // </Web3StatusError>
+      <Web3StatusError id="connect-error" onClick={toggleWalletModal}>
+      {error instanceof UnsupportedChainIdError ? 'Please switch BSC' : 'Error'}
+    </Web3StatusError>
     )
   } else {
     return (
-      <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account} style={{ 'borderRadius': '24px' }}>
+      <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account} style={{ 'borderRadius': '24px', }}>
         <TYPE.black fontSize={16}>Connect Wallet</TYPE.black>
       </Web3StatusConnect>
       // <TYPE.white id="connect-wallet" onClick={toggleWalletModal} color="#a8a8a8" fontSize={16}>{t('Connect Wallet')}</TYPE.white>

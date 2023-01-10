@@ -121,7 +121,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
-  padding-top: 32px;
+  padding: 32px 0;
   /* background: ${({ theme }) => theme.gradient1}; */
 
   h5 {

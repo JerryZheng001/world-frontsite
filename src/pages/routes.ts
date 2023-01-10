@@ -13,13 +13,13 @@ export default [
     name: 'Home',
     path: '/',
     show: true,
-    component: ConnectRouter(HomePage)
+    component:ConnectRouter(HomePage)
   },
   {
     name: 'Home',
     path: '/home',
     show: true,
-    component: ConnectRouter(HomePage)
+   component: ConnectRouter(HomePage)
   },
   {
     name: 'ContractDetection',

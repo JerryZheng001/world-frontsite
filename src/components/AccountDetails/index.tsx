@@ -138,7 +138,6 @@ const AccountLeft = styled.div`
 const WalletName = styled.div<{ fontSize?: boolean }>`
   height: 16px;
   font-size: ${({ fontSize }) => fontSize ? '18px' : '20px'};
-  font-family: MPLUS1-Bold, MPLUS1;
   font-weight: bold;
   color: #FFFFFF;
   line-height: 16px;
@@ -190,7 +189,6 @@ const WalletAction = styled(ButtonSecondary)`
 
 const ClearnButton = styled.div`
   font-size: 14px;
-  font-family: MPLUS1-Regular, MPLUS1;
   font-weight: 600;
   color: rgba(225,225,225,.5);
   &:hover{
