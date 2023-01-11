@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback,useMemo, useState } from 'react'
 import ethPic from '../../assets/images/contrastDetec/ethPic.png'
 import bscPic from '../../assets/images/contrastDetec/bscPic.png'
 import './antd.scss'

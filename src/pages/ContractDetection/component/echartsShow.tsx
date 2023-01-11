@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import * as echarts from 'echarts';
 
-export default function EchartsShow({ data }:{data?:any}) {
+export default function EchartsShow({ data, }:{data?:any}) {
 
     useEffect(() => {
         var chartDom = document.getElementById('echarts');
@@ -51,7 +51,7 @@ export default function EchartsShow({ data }:{data?:any}) {
             });
         }
         var option = {
-            backgroundColor:"#181A1C",
+            backgroundColor:"rgba(255,255,255,0)",
             color : color,
             tooltip: {
                 show: false

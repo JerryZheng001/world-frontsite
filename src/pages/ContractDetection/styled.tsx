@@ -5,6 +5,7 @@ import SharePic from '../../assets/images/contrastDetec/SharePic.png'
 import CopySvg from '../../assets/images/contrastDetec/CopySvg.svg'
 import twitterSvg from '../../assets/images/contrastDetec/twitterSvg.svg'
 import picSvg from '../../assets/images/contrastDetec/picSvg.svg'
+import ShareBg from '../../assets/images/contrastDetec/ShareBg.png'
 
 
 
@@ -321,6 +322,15 @@ export const StyleCodeDom = styled.div`
             background-size: 100% 100%;
         }
     }
+    .SharereportShow{
+        background: url(${ShareBg}) no-repeat;
+        background-size: 100% 100%;
+        width: 635px;
+        height: 1080px;
+        padding: 32px 40px 0;
+        text-align: left;
+        position: relative;
+    }
     .reportDetail{
         width: 635px;
         height: 2376px;
@@ -408,7 +418,18 @@ export const StyleCodeDom = styled.div`
     }
     .distributed{
         height: 214px;
-        background: #fcc;
+    }
+    .code{
+        width: 95px;
+        height: 95px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        position: absolute;
+        right: 40px;
+        bottom: 50px;
     }
  `
  export const IntroTit = styled.div`
