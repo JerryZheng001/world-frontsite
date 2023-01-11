@@ -6,8 +6,8 @@ import CopySvg from '../../assets/images/contrastDetec/CopySvg.svg'
 import twitterSvg from '../../assets/images/contrastDetec/twitterSvg.svg'
 import picSvg from '../../assets/images/contrastDetec/picSvg.svg'
 import ShareBg from '../../assets/images/contrastDetec/ShareBg.png'
-
-
+import {ReactComponent as close} from '../../assets/images/contrastDetec/close.svg'
+import search from '../../assets/images/contrastDetec/search.svg'
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
@@ -537,3 +537,162 @@ export const ShowShareDropCon = styled.div`
         margin-bottom: 32px;
     }
  `
+
+export const CloseColor = styled(close)<{ strokeColor?: string }>`
+width: 18px;
+height: 18px;
+  path {
+    stroke: ${({ theme, strokeColor }) => (strokeColor ? strokeColor : '#000')};
+  }
+`
+export const WrokContainer = styled.div`
+    width: 683px;
+    height: 537px;
+    background: #22262F;
+    border-radius: 16px;
+    backdrop-filter: blur(29px);
+    padding: 40px;
+    .header{
+        margin-bottom: 40px;
+        position: relative;
+        .left{
+            font-size: 24px;
+            font-family: Poppins-SemiBold, Poppins;
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 32px;
+        }
+        .close{
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #353945;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            :hover{
+                background: #fff;
+                border: none;
+                path {
+                    stroke: '#000';
+                }
+            }
+            
+        }
+
+    }
+    .con{
+        p{
+            font-size: 12px;
+            font-family: Poppins-Regular, Poppins;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 20px;
+        }
+        .title{
+            font-size: 16px;
+            font-family: Poppins-Medium, Poppins;
+            font-weight: 500;
+            color: #FFFFFF;
+            line-height: 24px;
+            margin-bottom: 16px;
+        }
+    }
+`
+
+export const HistoryDom = styled.div`
+    padding-top: 134px;
+    width: 1294px;
+    margin: 0 auto;
+    .title{
+        text-align: center;
+        font-size: 48px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        color: #FFFFFF;
+        line-height: 56px;
+        margin-bottom: 14px;
+
+    }
+    .showTitle{
+        width: 370px;
+        margin: 0 auto 48px;
+        font-size: 48px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        color: #FFFFFF;
+        line-height: 56px;
+        background: linear-gradient(270deg, #72ACFF 0%, #5846F9 35%, #45D8FB 64%, #FF63EB 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        user-select: none;
+    }
+    .listCom{
+        padding-top: 48px;
+        .headIntro{
+            width: 100%;
+            display: flex;
+            height: 59px;
+            justify-content: flex-end;
+            div{
+                font-size: 14px;
+                font-family: Poppins-Medium, Poppins;
+                font-weight: 500;
+                color: #575A61;
+            }
+        }
+    }
+`
+
+export const SearchDom = styled.div`
+    width: 573px;
+    height: 60px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 8px 0 15px;
+    .icon{
+        width: 18px;
+        height: 18px;
+        background: url(${search}) no-repeat;
+    }
+    .button{
+        width: 97px;
+        height: 44px;
+        background: #3772FF;
+        box-shadow: 0px 4px 8px 0px rgba(55,114,255,0.4);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: Poppins-Medium, Poppins;
+        font-weight: 500;
+        color: #FFFFFF;
+        text-align: center;
+        line-height: 44px;
+        cursor: pointer;
+    }
+`
+
+export const InputCon = styled.input`
+    border: none;
+    outline: none;
+    background: none;
+    height: 44px;
+    flex: 1;
+    padding-left: 5px;
+    font-size: 16px;
+    font-family: Poppins-Regular, Poppins;
+    font-weight: 400;
+    color: #111112;
+`
+
+export const ItemDiv = styled.div<{width:string,type:number}>`
+ width: ${({ width }) => width };
+ text-align: ${({ type }) => type===0?'center':type===1?'left':'right' };
+
+`

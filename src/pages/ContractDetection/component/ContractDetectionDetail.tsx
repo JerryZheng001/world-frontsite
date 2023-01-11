@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import html2canvas from "html2canvas";
 
-import { ContractDetectionDetailDom, IntroTit, ReportDetail, ReportDom, ShowShareDropCon } from '../styled'
+import { CloseColor, ContractDetectionDetailDom, IntroTit, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
 import EchartsShow from './echartsShow'
 import { useCallbackState } from './useCallbackState';
 import useCopyClipboard from '../../../hooks/useCopyClipboard';
 import CopyShowTips from '../../../components/Tips';
 import QRCodeDom from './Code';
+import PcModal from '../../../components/Modal/PcModal';
 
 
 
@@ -36,6 +37,10 @@ export default function ContractDetectionDetail(): JSX.Element {
     const [ShowShareDrop, setShowShareDrop] = useState(false)
     const [isShare, setIsShare] = useCallbackState(false);
     const [isCopied, setCopied] = useCopyClipboard()
+
+    const [isOpen, setisOpen] = useState(false)
+
+
     const shareTwitter = () => {
         setShowShareDrop(false)
         const toOpen = function (url: string) {
@@ -152,7 +157,7 @@ export default function ContractDetectionDetail(): JSX.Element {
                             </div>
                         </div>
                         {
-                            !isShare && <div className="right"  >How it works?</div>
+                            !isShare && <div className="right"  onClick={()=>setisOpen(true)}>How it works?</div>
                         }
                         
                     </div>
@@ -183,6 +188,24 @@ export default function ContractDetectionDetail(): JSX.Element {
             </ReportDom>
             {isCopied && <CopyShowTips />}
         </div>
+        <PcModal isOpen={isOpen} minWidth={683} onDismiss={()=>setisOpen(false)} minHeight={537}>
+            <WrokContainer>
+                <div className="header">
+                    <div className="left">How it work</div>
+                    <div className="close" onClick={()=>setisOpen(false)}>  <CloseColor></CloseColor>
+                    </div>
+                </div>
+                <div className="con">
+                    <p> The Triathon platform backed by Core security detection engine.</p>
+                    <p>Core security testing platform incorporate the fuzzing-test testing method and the concept of chaos engineering (experimental) to redefine the way of blockchain security testing.</p>
+                    <div className="title">Main utilities of “CORE”</div>
+                    <p>1. (Testing) Tool building: <br/>A collection of various testing tools. Testing capabilities will be packaged in the form of API and be provided to third parties including security white hats in the future.</p>
+                    <p>2. API building: <br/>CORE continuously converts vulnerabilities into testing methods and outputs APIs.</p>
+                    <p>3. Developer management:<br/>Eco-developers mint new NFT (i. e. test service) based on API; or they can report vulnerabilities based on their use of the API application.</p>
+                    <p>4. Vulnerability conversion: <br/>The vulnerability platform is a key component of CORE’s continuous capacity building.</p>
+                </div>
+            </WrokContainer>
+        </PcModal>
     </ContractDetectionDetailDom>
 }
 

@@ -3,6 +3,7 @@ import ConnectRouter from '../components/ConnectRouter'
 const HomePage = lazy(() => import('./homePage'))
 const ContractDetection = lazy(() => import('./ContractDetection'))
 const ContractDetectionDetail = lazy(() => import('./ContractDetection/component/ContractDetectionDetail'))
+const ContractDetectionHistory = lazy(() => import('./ContractDetection/component/ContractDetectionHistory'))
 
 
 
@@ -29,11 +30,18 @@ export default [
     component: ConnectRouter(ContractDetection)
   },
   {
+    name: 'ContractDetectionHistory',
+    path: '/contract_detection/history',
+    show: true,
+    component: ConnectRouter(ContractDetectionHistory)
+  },
+  {
     name: 'ContractDetectionDetail',
     path: '/contract_detection/:id',
     show: true,
     component: ConnectRouter(ContractDetectionDetail)
-  }
+  },
+  
   // {
   //   name: 'NotFound',
   //   path: '*',

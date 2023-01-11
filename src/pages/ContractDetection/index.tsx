@@ -180,7 +180,9 @@ export default function ContractDetection(): JSX.Element {
 
                 <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
                 <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contact customer service for manual audit</div>
-                <div className="detect">500+ Detected <span></span></div>
+                <div className="detect" onClick={()=>{
+                    history.push('/contract_detection/history')
+                }}>500+ Detected <span></span></div>
             </WidthDiv>
         </div>
 
