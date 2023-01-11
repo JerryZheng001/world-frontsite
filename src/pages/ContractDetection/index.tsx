@@ -87,7 +87,7 @@ export default function ContractDetection(): JSX.Element {
     const detectContrast = useCallback(
         () => {
             if (!contrastRegex.test(AddressContract)) {
-                setcontrastErrText('contrast address wrong')
+                setcontrastErrText('Notice：Address is validated incorrectly')
             }else{
                 setcontrastErrText('')
                 history.push('/contract_detection/1')
@@ -133,14 +133,7 @@ export default function ContractDetection(): JSX.Element {
         setselectChain(value)
         
     }
-    useEffect(() => {
-        var fileInput = document.getElementById("file-input");
-        fileInput && fileInput.addEventListener("change", readSingleFile, false);
-        return () => {
-            fileInput && fileInput.removeEventListener("change", readSingleFile, false);
-        }
-    }, [FileValue])
-
+   
 
 
     return <ContainerCon className="ContractDetection">
@@ -173,7 +166,7 @@ export default function ContractDetection(): JSX.Element {
                             !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
                                 <span></span>
                                 Upload file (.sol)
-                                <input type="file" id='file-input' accept=".sol" />
+                                <input type="file" id='file-input' accept=".sol"  onChange={readSingleFile} />
                             </StyleSolInputUp></div> : <FileContent>
                                 {
                                     FileValue !== '' && <StyleCode value={FileValue}></StyleCode>

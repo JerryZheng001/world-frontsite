@@ -7,29 +7,29 @@ export default function EchartsShow({ data }:{data?:any}) {
         var chartDom = document.getElementById('echarts');
         var myChart = chartDom && echarts.init(chartDom);
         let list = [
-            {percentage: 20, name: "医养健康", value: 20},
-            {percentage: 30, name: "文化创意", value: 30},
-            {percentage: 50, name: "新一代信息技术产业", value: 50},
+            {percentage: 20, name: "Risky", value: 20},
+            {percentage: 30, name: "Attention", value: 30},
+            {percentage: 50, name: "Passed", value: 50},
             
         ] 
         var nameArray = list.map(item=>{
             // eslint-disable-next-line
-            return item.name + '\t\t\t' + item.value + '个' + '\t\t\t' + item.percentage + '%'
+            return '\t\t\t' + item.name + '\t\t\t' + item.value +  '\t\t\t' + item.percentage + '%'
         })
-        var color=['#2ca1ff','#0adbfa','#febe13']
+        var color=['#FFAE32',' #FF4C4C','#1DD6D0']
         var data = [];
         for (var i = 0; i < list.length; i++) {
             data.push({
                 value: list[i].value,
                 // eslint-disable-next-line
-                name: list[i].name + '\t\t\t' + list[i].value + '个' + '\t\t\t' + list[i].percentage + '%',
+                name: '\t\t\t' + list[i].name + '\t\t\t' + list[i].value +  '\t\t\t' + list[i].percentage + '%',
                 itemStyle: {
                     normal: {
                         borderWidth: 2,
-                        shadowBlur: 5,
-                        borderRadius:5,
+                        // shadowBlur: 5,
+                        borderRadius:8,
                         borderColor:color[i],
-                        shadowColor: color[i]
+                        // shadowColor: color[i]
                     }
                 }
             }, {
@@ -51,23 +51,27 @@ export default function EchartsShow({ data }:{data?:any}) {
             });
         }
         var option = {
-            backgroundColor:"#061740",
+            backgroundColor:"#181A1C",
             color : color,
             tooltip: {
                 show: false
             },
             title: {
-                text: '签约项目分类',
-                left: '18%',
-                top: 'center',
+                text: '300 ',
+                left: '14%',
+                top: '35%',
+                subtext:'Total item',
+                subtextStyle:{
+                    fontSize: "14px",
+                },
                 textStyle: {
                     color: '#ffffff',
-                    fontWeight: 'bold',
-                    fontSize: "13px",
+                    fontSize: "34px",
+                    fontFamily: "Poppins-SemiBold, Poppins",
+                    fontWeight:"600"
                 }
             },
             legend: [{
-                
                 orient: 'vertical',
                 data:nameArray,
                 // left: 'right',
@@ -77,13 +81,15 @@ export default function EchartsShow({ data }:{data?:any}) {
                 right:10,
                 top: 'center',
                 textStyle: {
-                    color: 'rgba(36, 173, 254, 1)',
-                    fontSize: "12px",
+                    color: '#fff',
+                    fontSize: "16px",
+                    fontFamily: "Poppins-Regular, Poppins",
+                    LineHeight:'50px'
                 },
                 //图例标记的图形高度
-                itemHeight: 10,
+                itemHeight: 16,
                 //图例标记的图形宽度
-                itemWidth: 10,
+                itemWidth: 16,
             },
             ],
             toolbox: {
@@ -97,7 +103,7 @@ export default function EchartsShow({ data }:{data?:any}) {
                 // width:"55%",
                 // height:"55%",
                 hoverAnimation: true,
-                center: ['30%', '50%'],
+                center: ['20%', '50%'],
                 top:"center",
                 itemStyle: {
                     normal:{
@@ -118,5 +124,5 @@ export default function EchartsShow({ data }:{data?:any}) {
 
 
 
-    return  <div id="echarts" style={{width:'500px',height:'300px'}}></div>
+    return  <div id="echarts" style={{width:'555px',height:'250px'}}></div>
 }

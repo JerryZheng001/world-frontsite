@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 import point from '../../assets/images/contrastDetec/point@2x.png'
+import reportLogo from '../../assets/images/contrastDetec/reportLogo.png'
+import SharePic from '../../assets/images/contrastDetec/SharePic.png'
+import CopySvg from '../../assets/images/contrastDetec/CopySvg.svg'
+import twitterSvg from '../../assets/images/contrastDetec/twitterSvg.svg'
+import picSvg from '../../assets/images/contrastDetec/picSvg.svg'
+
 
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
@@ -287,8 +293,226 @@ export const StyleCodeDom = styled.div`
             font-weight: 400;
             color: #636B80;
             line-height: 20px;
-            margin: 0 auto;
-            
+            margin: 0 auto 64px;
+
         }
+    }
+ `
+
+ export const ReportDom = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+    .reportShow{
+        width: 635px;
+        height: 872px;
+        background: #181A1C;
+        border-radius: 16px;
+        margin-right: 24px;
+        position: sticky;
+        top: 140px;
+        padding: 32px 40px 0;
+        text-align: left;
+        .reportLogo{
+            width: 100px;
+            height: 30px;
+            background: url(${reportLogo}) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+    .reportDetail{
+        width: 635px;
+        height: 2376px;
+        background: #181A1C;
+        border-radius: 16px;
+        padding: 16px 40px 40px 40px;
+    }
+    .present{
+        .item{
+            height: 14px;
+            font-size: 14px;
+            font-family: Poppins-Regular, Poppins;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 14px;
+            margin-bottom: 18px;
+        }
+        margin-bottom: 40px;
+    }
+    .contractInfo{
+        .item{
+            height: 14px;
+            font-size: 14px;
+            font-family: Poppins-Regular, Poppins;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 14px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+        }
+        margin-bottom: 40px;
+    }
+    .result{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        .left{
+            max-width: 300px;
+            display: flex;
+            height: 64px;
+            .icon{
+                min-width: 64px;
+                max-height: 64px;
+                width: 64px;
+                height: 64px;
+                background: #FFFFFF;
+                border-radius: 9px;
+                opacity: 0.06;
+                margin-right: 16px;
+            }
+            .text{
+                .top{
+                    font-size: 16px;
+                    font-family: Poppins-Regular, Poppins;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                    line-height: 16px;
+                    margin-bottom: 12px;
+                }
+                .bottom{
+                    .colorText{
+                        font-size: 28px;
+                        font-family: Poppins-SemiBold, Poppins;
+                        font-weight: 600;
+                        color: #1DD6D0;
+                        line-height: 28px;
+                    }
+                    font-size: 18px;
+                    font-family: Poppins-SemiBold, Poppins;
+                    font-weight: 600;
+                    color: #FFFFFF;
+                    line-height: 18px;
+                }
+            }
+        }
+        .right{
+            font-size: 14px;
+            font-family: Poppins-Regular, Poppins;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 14px;
+            cursor: pointer;
+        }
+    }
+    .distributed{
+        height: 214px;
+        background: #fcc;
+    }
+ `
+ export const IntroTit = styled.div`
+    font-size: 24px;
+    font-family: Poppins-SemiBold, Poppins;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 24px;
+    margin: 24px 0 32px 0;
+    text-align: left;
+    position: relative;
+    .Share{
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 14px;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+        background: url(${SharePic}) no-repeat;
+        background-size: 100% 100%;
+    }
+ `
+export const ShowShareDropCon = styled.div`
+    position: absolute;
+    bottom: -128px;
+    right: 0;
+    width: 122px;
+    height: 120px;
+    background: #242528;
+    border-radius: 8px;
+    >div{
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding-left: 12px;
+        font-size: 12px;
+        font-family: Poppins-Medium, Poppins;
+        font-weight: 500;
+        color: #FFFFFF;
+        cursor: pointer;
+        &:hover{
+            background: #3772FF;
+        }
+    }
+    .item1{
+        border-radius: 8px 8px 0px 0px;
+        span{
+            width: 14px;
+            height: 14px;
+            background: url(${twitterSvg}) no-repeat;
+            background-size: 100% 100%;
+            margin-right: 8px;
+        }
+        
+    }
+    .item2{
+        span{
+            width: 14px;
+            height: 14px;
+            background: url(${picSvg}) no-repeat;
+            background-size: 100% 100%;
+            margin-right: 8px;
+        }
+        
+    }
+    .item3{
+        border-radius: 0px 0px 8px 8px;
+        span{
+            width: 14px;
+            height: 14px;
+            background: url(${CopySvg}) no-repeat;
+            background-size: 100% 100%;
+            margin-right: 8px;
+        }
+        
+    }
+`
+ export const ReportDetail = styled.div`
+ text-align: left;
+    .titleIntro{
+        height: 26px;
+        font-size: 18px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        line-height: 26px;
+        margin-bottom: 12px;
+        position: relative;
+    }
+    .green{
+        color: #1DD6D0;
+    }
+    .yellow{
+        color: #FFB340;
+    }
+    .red{
+        color: #FE4747;
+    }
+    .intro{
+        font-size: 14px;
+        font-family: Poppins-Regular, Poppins;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 22px;
+        margin-bottom: 32px;
     }
  `

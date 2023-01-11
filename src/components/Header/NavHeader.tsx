@@ -318,9 +318,11 @@ export default function NavHeader(): JSX.Element {
     if (top >= 50) {
       let nav = document.getElementsByClassName("head-nav")[0] as any;
       nav.style.background =
-        "linear-gradient(180deg, rgba(216, 216, 216, 0.02) 0%, rgba(238, 238, 238, 0.03) 100%)";
-      nav.style.backdropFilter = "blur(20px)";
-      nav.style.webkitBackdropFilter = "blur(20px)";
+        "#111112";
+      // nav.style.background =
+      //   "linear-gradient(180deg, rgba(216, 216, 216, 0.02) 0%, rgba(238, 238, 238, 0.03) 100%)";
+      // nav.style.backdropFilter = "blur(20px)";
+      // nav.style.webkitBackdropFilter = "blur(20px)";
       setBgOpacity(1);
     } else {
       let nav = document.getElementsByClassName("head-nav")[0] as any;
