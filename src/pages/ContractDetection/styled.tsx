@@ -117,6 +117,7 @@ export const WidthDiv = styled.div`
             position: absolute;
             bottom: -40px;
             color: red;
+            left: 65px;
         }
     }
     .notice{
@@ -167,9 +168,8 @@ export const WidthDiv = styled.div`
         }
     }
 `
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<{ShowRed?:boolean}>`
         width:100%;
-        border: none;
         background: none;
         outline: none;
         font-size: 16px;
@@ -179,11 +179,19 @@ export const StyledInput = styled.input`
         padding-left: 20px;
         height: 60px;
         line-height: 60px;
+        border: ${({ ShowRed }) => !ShowRed ? '1px solid rgba(254, 55, 55, 1)' : 'none'};
+        border-radius: 8px;
         &::placeholder{
             font-size: 16px;
             font-family: Poppins-Regular, Poppins;
             font-weight: 400;
             color: #575A61;
+        }
+        caret-color:#3772FF;
+        &:focus{
+            border: 1px solid ;
+            border-color: ${({ ShowRed }) => !ShowRed ? 'rgba(254, 55, 55, 1)' : 'rgba(55, 114, 255, 1)'};;
+            border-radius: 8px;
         }
 `
 export const StyleSolInputUp = styled.div`
@@ -746,4 +754,49 @@ img{
   text-align: center;
   line-height:  32px;
 }
+`
+
+
+export const ErrWraper = styled.div`
+    width: 384px;
+    min-height: 230px;
+    background: #22262F;
+    border-radius: 16px;
+    backdrop-filter: blur(29px);
+    padding: 40px ;
+    text-align: center;
+    .notice{
+        font-size: 24px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        color: #FFFFFF;
+        line-height: 32px;
+        margin-bottom: 24px;
+
+    }
+    .info{
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 22px;
+    }
+    .button{
+        cursor: pointer;
+        width: 146px;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #353945;
+        margin: 32px auto 0;
+        text-align: center;
+        line-height: 40px;
+        font-size: 14px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        color: #FFFFFF;
+        &:hover{
+            background: #fff;
+            color: #000;
+        }
+    }
 `

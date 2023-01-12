@@ -1,6 +1,8 @@
 import React, { useCallback,useEffect,useMemo, useState } from 'react'
 import ethPic from '../../assets/images/contrastDetec/ethPic.png'
 import bscPic from '../../assets/images/contrastDetec/bscPic.png'
+import ErrModel from './component/ErrModel'
+
 import './antd.scss'
 import { useActiveWeb3React } from '../../hooks'
 import { useWalletModalToggle } from '../../state/application/hooks'
@@ -9,7 +11,9 @@ import { ContainerCon, FileContent, StyleButton, StyledInput, StyleSolInputUp, W
 import { Select } from 'antd';
 import { useHistory } from 'react-router-dom'
 import { getDetectAddressSubmit } from '../../utils/fetch/detect'
+import { Dots } from '../../components/styleds'
 const { Option } = Select;
+
 
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
 const inputRegex = RegExp(/^[a-zA-Z\d]+$/)
@@ -18,11 +22,13 @@ function Input({
     value,
     onUserInput,
     placeholder,
+    ShowRed,
     ...rest
 }: {
     value: string | number
     onUserInput: (input: string) => void
     error?: boolean
+    ShowRed?: boolean
     placeholder?: string
 } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
 
@@ -42,6 +48,7 @@ function Input({
             autoComplete="off"
             autoCorrect="off"
             type="text"
+            ShowRed={ShowRed}
             placeholder={placeholder || ''}
         />
 
@@ -70,7 +77,10 @@ export default function ContractDetection(): JSX.Element {
     const [selectChain, setselectChain] = useState('bsc')
 
     const [contrastErrText, setcontrastErrText] = useState('')
+    const [ErrOpen, setErrOpen] = useState(false)
+    const [errorMsg, seterrorMsg] = useState('')
 
+    const [detectIng, setdetectIng] = useState(false)
     //上传文件
     function readSingleFile(e: any) {
         var file = e.target.files[0];
@@ -90,11 +100,15 @@ export default function ContractDetection(): JSX.Element {
     const detectContrast = useCallback(
         () => {
             // history.push('/contract_detection/1')
-            if (!contrastRegex.test(AddressContract)) {
+            if (!contrastRegex.test(AddressContract) ) {
                 setcontrastErrText('Notice：Address is validated incorrectly')
             }else{
                 setcontrastErrText('')
-                testAddress()
+                setdetectIng(true)
+                setTimeout(() => {
+                    setdetectIng(false)
+                }, 4000);
+                // testAddress()
                 // history.push('/contract_detection/1')
             }
         },
@@ -115,6 +129,15 @@ export default function ContractDetection(): JSX.Element {
         console.log('文件上传');
         console.log('====================================');
     }
+
+    //关闭错误弹框
+    const closeErrTip = ()=>{
+        setErrOpen(false)
+        seterrorMsg('')
+        setcontrastErrText('')
+        setFileValue('')
+    }
+
     const styleButton: BtnProp = useMemo(() => {
         const rst: BtnProp = {
             text: 'Start detection',
@@ -130,7 +153,15 @@ export default function ContractDetection(): JSX.Element {
             return rst
         }
 
-
+        if (detectIng){
+            rst.text = (
+                <>
+                    Detecting
+                    <Dots />
+                </>
+            )
+            return rst
+        }
 
         return {
             text: 'Start detection',
@@ -142,6 +173,8 @@ export default function ContractDetection(): JSX.Element {
         toggleWalletModal,
         selectChain,
         detectContrast,
+        currIndex,
+        detectIng
     ])
     const handleChange = (value: any) => {
         setselectChain(value)
@@ -173,7 +206,7 @@ export default function ContractDetection(): JSX.Element {
                             </Select>
                         </div>
                         <div className="inputCon">
-                            <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address'></Input>
+                            <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText==='' || AddressContract===''} ></Input>
                         </div>
                        <div className="err">{contrastErrText}</div>
                     </div>
@@ -204,6 +237,10 @@ export default function ContractDetection(): JSX.Element {
                 }}>500+ Detected <span></span></div>
             </WidthDiv>
         </div>
-
+        <ErrModel 
+        isOpen={ErrOpen}
+        onDismiss={closeErrTip}
+        errorMsg={errorMsg}
+        ></ErrModel>
     </ContainerCon>
 }

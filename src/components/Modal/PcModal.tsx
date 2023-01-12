@@ -17,6 +17,7 @@ export const StyledDialogOverlay = styled(AnimatedDialogOverlay) <{
   alignitems?: string
 }>`
   &[data-reach-dialog-overlay] {
+    backdrop-filter: blur(10px);
     z-index: ${({ theme }) => theme.zIndex.modal};
     overflow: ${({ overflow }) => overflow ?? 'hidden'};
     /* padding-top: ${({ theme }) => theme.headerHeight} */
@@ -24,7 +25,7 @@ export const StyledDialogOverlay = styled(AnimatedDialogOverlay) <{
     display: flex;
     align-items: ${({ alignitems }) => alignitems ?? 'center'};
     justify-content: center;
-    background-color: ${({ theme, color }) => color ?? theme.modalBG};
+    background-color: rgba(17,17,18,0.7);
   }
 `
 export const Wrapper = styled.div<{ isEgg?: boolean }>`
