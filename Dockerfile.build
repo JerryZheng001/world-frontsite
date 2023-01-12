@@ -1,0 +1,14 @@
+FROM octahub.8lab.cn:5000/base/nginx:base18
+ENV PROJECT core-frontsite
+ENV CONFDIR docker
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+RUN chown -R trust. /usr/share/nginx/html/ /etc/nginx/ /data/logs/nginx/  /var/log/nginx/ /usr/sbin/nginx /var/lib/nginx \
+    && rm -f /usr/share/nginx/html/index.html && chown -R trust:trust  /var/log/
+COPY --chown=trust:trust $CONFDIR/nginx.conf /etc/nginx/
+COPY --chown=trust:trust $CONFDIR/frontsite.conf /etc/nginx/conf.d/
+COPY --chown=trust:trust ./build  /usr/local/$PROJECT/build
+COPY --chown=trust:trust $CONFDIR/404.html $CONFDIR/500.html /usr/share/nginx/html/
+EXPOSE 8000
+USER trust
+CMD /usr/sbin/nginx -g 'daemon off;'
+
