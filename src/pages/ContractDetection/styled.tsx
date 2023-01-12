@@ -8,6 +8,8 @@ import picSvg from '../../assets/images/contrastDetec/picSvg.svg'
 import ShareBg from '../../assets/images/contrastDetec/ShareBg.png'
 import {ReactComponent as close} from '../../assets/images/contrastDetec/close.svg'
 import search from '../../assets/images/contrastDetec/search.svg'
+import copyImg from '../../assets/images/contrastDetec/copyImg.svg'
+import uploadFile from '../../assets/images/contrastDetec/uploadFile.svg'
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
@@ -199,11 +201,11 @@ export const StyleSolInputUp = styled.div`
         cursor: pointer;
         span{
             display: inline-block;
-            width: 20px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
             background: linear-gradient(180deg, #6B9BFF 0%, #2561F0 100%);
             margin-right: 10px;
-
+            background: url(${uploadFile});
         }
         position: relative;
         >input{
@@ -216,6 +218,8 @@ export const StyleSolInputUp = styled.div`
             left: 0;
             top: 0;
             opacity: 0;
+            cursor: pointer;
+
         }
         
 `
@@ -361,6 +365,21 @@ export const StyleCodeDom = styled.div`
             margin-bottom: 18px;
             display: flex;
             justify-content: space-between;
+            .chainImg{
+                width: 20px;
+                height: 20px;
+                margin-right: 5px;
+            }
+            .copyImg{
+                display: inline-block;
+                width: 22px;
+                height: 22px;
+                cursor: pointer;
+                background: url(${copyImg});
+                position: relative;
+                top: 5px;
+                margin-left: 5px;
+            }
         }
         margin-bottom: 40px;
     }
@@ -695,4 +714,36 @@ export const ItemDiv = styled.div<{width:string,type:number}>`
  width: ${({ width }) => width };
  text-align: ${({ type }) => type===0?'center':type===1?'left':'right' };
 
+`
+
+
+export const Items = styled.div`
+width: 22px;
+height: 22px;
+display: inline-block;
+position: relative;
+top: 5px;
+margin-left: 5px;
+img{
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+}
+.showCopyed{
+  position: absolute;
+  bottom: -38px;
+  right: -8px;
+  width: 68px;
+  height: 32px;
+  background: #353945;
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: Poppins-Medium, Poppins;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-align: center;
+  line-height:  32px;
+}
 `

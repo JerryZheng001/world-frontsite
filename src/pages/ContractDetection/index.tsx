@@ -1,4 +1,4 @@
-import React, { useCallback,useMemo, useState } from 'react'
+import React, { useCallback,useEffect,useMemo, useState } from 'react'
 import ethPic from '../../assets/images/contrastDetec/ethPic.png'
 import bscPic from '../../assets/images/contrastDetec/bscPic.png'
 import './antd.scss'
@@ -8,6 +8,7 @@ import { StyleCode } from './component/StyleCode'
 import { ContainerCon, FileContent, StyleButton, StyledInput, StyleSolInputUp, WidthDiv } from './styled'
 import { Select } from 'antd';
 import { useHistory } from 'react-router-dom'
+import { getDetectAddressSubmit } from '../../utils/fetch/detect'
 const { Option } = Select;
 
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
@@ -69,6 +70,7 @@ export default function ContractDetection(): JSX.Element {
     const [selectChain, setselectChain] = useState('bsc')
 
     const [contrastErrText, setcontrastErrText] = useState('')
+
     //上传文件
     function readSingleFile(e: any) {
         var file = e.target.files[0];
@@ -84,17 +86,29 @@ export default function ContractDetection(): JSX.Element {
         };
         reader.readAsText(file, "utf-8");
     }
+    //合约地址检测
     const detectContrast = useCallback(
         () => {
+            // history.push('/contract_detection/1')
             if (!contrastRegex.test(AddressContract)) {
                 setcontrastErrText('Notice：Address is validated incorrectly')
             }else{
                 setcontrastErrText('')
-                history.push('/contract_detection/1')
+                testAddress()
+                // history.push('/contract_detection/1')
             }
         },
         [ AddressContract,history],
     )
+    const testAddress = async()=>{
+        const params = {
+            address:AddressContract,
+            network:selectChain
+        }
+        const res = await getDetectAddressSubmit(params)
+        console.log(res,'上传合约检测地址');
+        
+    }
 
     const detectFile = () => {
         console.log('====================================');
@@ -120,7 +134,7 @@ export default function ContractDetection(): JSX.Element {
 
         return {
             text: 'Start detection',
-            event: () => { selectChain === 'bsc' ? detectContrast() : detectFile() },
+            event: () => { currIndex===0 ? detectContrast() : detectFile() },
             disabled: false
         }
     }, [
@@ -131,10 +145,15 @@ export default function ContractDetection(): JSX.Element {
     ])
     const handleChange = (value: any) => {
         setselectChain(value)
-        
+        localStorage.setItem('chain',value)
     }
    
-
+    useEffect(() => {
+        localStorage.setItem('chain','bsc')
+    
+     
+    }, [])
+    
 
     return <ContainerCon className="ContractDetection">
 

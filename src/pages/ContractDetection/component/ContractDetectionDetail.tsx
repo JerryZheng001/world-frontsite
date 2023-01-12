@@ -3,15 +3,17 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import html2canvas from "html2canvas";
 
-import { CloseColor, ContractDetectionDetailDom, IntroTit, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
+import { CloseColor, ContractDetectionDetailDom, IntroTit, Items, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
 import EchartsShow from './echartsShow'
 import { useCallbackState } from './useCallbackState';
 import useCopyClipboard from '../../../hooks/useCopyClipboard';
 import CopyShowTips from '../../../components/Tips';
 import QRCodeDom from './Code';
 import PcModal from '../../../components/Modal/PcModal';
-
-
+import ethPic from '../../../assets/images/contrastDetec/ethPic.png'
+import bscPic from '../../../assets/images/contrastDetec/bscPic.png'
+import hasCopyed from '../../../assets/images/contrastDetec/hasCopyed.svg'
+import copy from '../../../assets/images/contrastDetec/copy.svg'
 
 const ResultDetail = [
     {
@@ -30,6 +32,23 @@ const ResultDetail = [
         type: '3'
     },
 ]
+
+
+function CopyShowTipsSmall({ account, }: { account: string }) {
+    const [isCopied, setCopied] = useCopyClipboard()
+    const openNotification = () => {
+      !isCopied && setCopied(account)
+    }
+    return (
+      <Items>
+        <img src={!isCopied ? copy : hasCopyed} alt="" onClick={openNotification} />
+        {
+          isCopied && <div className="showCopyed">Copied!</div>
+        }
+      </Items>
+    )
+  }
+
 
 export default function ContractDetectionDetail(): JSX.Element {
     const history = useHistory()
@@ -137,11 +156,18 @@ export default function ContractDetectionDetail(): JSX.Element {
                     <div className="contractInfo">
                         <div className="item">
                             <span>Chain</span>
-                            <span></span>
+                            <span><img src={localStorage.getItem('chain')==='bsc'?bscPic:ethPic} alt="" className='chainImg'/> 
+                            {
+                                localStorage.getItem('chain')==='bsc'?'BSC':'ETH'
+                            }
+                             </span>
                         </div>
                         <div className="item">
-                            <span>Contact Address</span>
-                            <span></span>
+                            <span>Contract Address</span>
+                            <span>
+                            0x045c...073DcF
+                            <CopyShowTipsSmall account='121212121212' ></CopyShowTipsSmall>
+                            </span>
                         </div>
                     </div>
                     <IntroTit>Security Detection Result</IntroTit>

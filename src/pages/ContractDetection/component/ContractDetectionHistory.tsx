@@ -2,7 +2,11 @@
 import React, { useState } from 'react'
 import { HistoryDom, InputCon, ItemDiv, SearchDom } from '../styled'
 
-
+const testDate=[
+    {
+      name:''  
+    }
+]
 
 export default function ContractDetectionHistory(): JSX.Element {
 
@@ -19,10 +23,15 @@ export default function ContractDetectionHistory(): JSX.Element {
             <div className="headIntro">
                 <ItemDiv width='70px' type={0} >#</ItemDiv>
                 <ItemDiv width='340px' type={1}>Name</ItemDiv>
-                <ItemDiv width='240px' type={2}>Contact address</ItemDiv>
+                <ItemDiv width='240px' type={2}>Contract address</ItemDiv>
                 <ItemDiv width='225px' type={2}>Chain</ItemDiv>
                 <ItemDiv width='225px' type={2}>Detect Score</ItemDiv>
                 <ItemDiv width='194px' type={2}>Operation</ItemDiv>
+            </div>
+            <div className="container">
+                {
+
+                }
             </div>
         </div>
     </HistoryDom>
