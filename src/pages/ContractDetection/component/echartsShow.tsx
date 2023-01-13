@@ -1,28 +1,33 @@
 import React, { useEffect } from 'react'
 import * as echarts from 'echarts';
-
-export default function EchartsShow({ data, }:{data?:any}) {
-
+interface Echartechdata {
+    type: string;
+    count: number;
+    ratio: string;
+}
+export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
+   
     useEffect(() => {
         var chartDom = document.getElementById('echarts');
         var myChart = chartDom && echarts.init(chartDom);
-        let list = [
-            {percentage: 20, name: "Risky", value: 20},
-            {percentage: 30, name: "Attention", value: 30},
-            {percentage: 50, name: "Passed", value: 50},
+        // let echdata = [
+        //     {percentage: 20, name: "Risky", value: 20},
+        //     {percentage: 30, name: "Attention", value: 30},
+        //     {percentage: 50, name: "Passed", value: 50},
             
-        ] 
-        var nameArray = list.map(item=>{
+        // ] 
+        var nameArray = echdata.map(item=>{
             // eslint-disable-next-line
-            return '\t\t\t' + item.name + '\t\t\t' + item.value +  '\t\t\t' + item.percentage + '%'
+            return '\t\t\t' + item.type + '\t\t\t' + item.count +  '\t\t\t' + Number(Number(item.ratio)*100).toFixed(2) + '%'
         })
-        var color=['#FFAE32',' #FF4C4C','#1DD6D0']
+        var color=['#FF4C4C','#FFAE32','#1DD6D0']
         var data = [];
-        for (var i = 0; i < list.length; i++) {
+        var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count :0
+        for (var i = 0; i < echdata.length; i++) {
             data.push({
-                value: list[i].value,
-                // eslint-disable-next-line
-                name: '\t\t\t' + list[i].name + '\t\t\t' + list[i].value +  '\t\t\t' + list[i].percentage + '%',
+                value: echdata[i].count,
+                // eslint-disable-next-line 
+                name: '\t\t\t' + echdata[i].type + '\t\t\t' + echdata[i].count +  '\t\t\t' + Number(Number(echdata[i].ratio)*100).toFixed(2) + '%',
                 itemStyle: {
                     normal: {
                         borderWidth: 2,
@@ -57,7 +62,7 @@ export default function EchartsShow({ data, }:{data?:any}) {
                 show: false
             },
             title: {
-                text: '300 ',
+                text: Total ,
                 left: '14%',
                 top: '35%',
                 subtext:'Total item',
@@ -119,7 +124,7 @@ export default function EchartsShow({ data, }:{data?:any}) {
       return () => {
         
       }
-    }, [])
+    }, [echdata])
     
 
 

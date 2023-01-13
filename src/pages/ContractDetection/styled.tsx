@@ -10,6 +10,9 @@ import {ReactComponent as close} from '../../assets/images/contrastDetec/close.s
 import search from '../../assets/images/contrastDetec/search.svg'
 import copyImg from '../../assets/images/contrastDetec/copyImg.svg'
 import uploadFile from '../../assets/images/contrastDetec/uploadFile.svg'
+import coreImg from '../../assets/images/contrastDetec/coreImg.png'
+
+
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
@@ -345,7 +348,7 @@ export const StyleCodeDom = styled.div`
     }
     .reportDetail{
         width: 635px;
-        height: 2376px;
+        height: auto;
         background: #181A1C;
         border-radius: 16px;
         padding: 16px 40px 40px 40px;
@@ -404,10 +407,13 @@ export const StyleCodeDom = styled.div`
                 max-height: 64px;
                 width: 64px;
                 height: 64px;
-                background: #FFFFFF;
+                /* background: #FFFFFF; */
                 border-radius: 9px;
-                opacity: 0.06;
+                /* opacity: 0.06; */
                 margin-right: 16px;
+                background: url(${coreImg});
+                background-size: 100% 100%;
+                
             }
             .text{
                 .top{
@@ -459,6 +465,15 @@ export const StyleCodeDom = styled.div`
         bottom: 50px;
     }
  `
+
+export const ColorText = styled.span<{type:number}>`
+     font-size: 28px;
+    font-family: Poppins-SemiBold, Poppins;
+    font-weight: 600;
+    color: ${({ type }) => (type===0?'#6C7897':type===1?'#E13131':type===2?'#FFC32B':type===3?'#20DDB5':'#754CFF')};
+    line-height: 28px;
+`
+
  export const IntroTit = styled.div`
     font-size: 24px;
     font-family: Poppins-SemiBold, Poppins;
@@ -545,6 +560,11 @@ export const ShowShareDropCon = styled.div`
         line-height: 26px;
         margin-bottom: 12px;
         position: relative;
+        img{
+            width: 30px;
+            height: 30px;
+            margin-right: 12px;
+        }
     }
     .green{
         color: #1DD6D0;
@@ -776,6 +796,7 @@ position: relative;
 top: 5px;
 margin-left: 5px;
 img{
+    cursor: pointer;
   position: absolute;
   left: 0;
   top:0;

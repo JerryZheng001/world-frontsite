@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useHistory, } from 'react-router-dom'
 import html2canvas from "html2canvas";
 
 import { CloseColor, ContractDetectionDetailDom, IntroTit, Items, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
@@ -15,42 +15,54 @@ import bscPic from '../../../assets/images/contrastDetec/bscPic.png'
 import hasCopyed from '../../../assets/images/contrastDetec/hasCopyed.svg'
 import copy from '../../../assets/images/contrastDetec/copy.svg'
 
-const ResultDetail = [
-    {
-        title: 'Contract source code verified',
-        intro: 'This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets.',
-        type: '1'
-    },
-    {
-        title: 'Contract source code verified',
-        intro: 'This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets.',
-        type: '2'
-    },
-    {
-        title: 'Contract source code verified',
-        intro: 'This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets.',
-        type: '3'
-    },
-]
+import low from '../../../assets/images/contrastDetec/low@2x.png'
+import high from '../../../assets/images/contrastDetec/mid@2x.png'
+import mid from '../../../assets/images/contrastDetec/high@2x.png'
+
+
+import { getTestResult } from '../../../utils/fetch/detect';
+
+
 
 
 function CopyShowTipsSmall({ account, }: { account: string }) {
     const [isCopied, setCopied] = useCopyClipboard()
     const openNotification = () => {
-      !isCopied && setCopied(account)
+        !isCopied && setCopied(account)
     }
     return (
-      <Items>
-        <img src={!isCopied ? copy : hasCopyed} alt="" onClick={openNotification} />
-        {
-          isCopied && <div className="showCopyed">Copied!</div>
-        }
-      </Items>
+        <Items>
+            <img src={!isCopied ? copy : hasCopyed} alt="" onClick={openNotification} />
+            {
+                isCopied && <div className="showCopyed">Copied!</div>
+            }
+        </Items>
     )
-  }
+}
 
+interface InfoData {
+    chain: string,
+    contract_address: string,
+    score: string,
+    time: any,
+    user: string
+}
 
-export default function ContractDetectionDetail(): JSX.Element {
+interface ResultDetailList {
+    id: number;
+    title: string;
+    level: string;
+    description: string;
+}
+interface EchartList {
+    type: string;
+    count: number;
+    ratio: string;
+}
+
+const ShowText = ['Significant Risk', 'High Risk', 'Medium Risk', 'Some Risk', 'Excellent']
+
+export default function ContractDetectionDetail(params: any): JSX.Element {
     const history = useHistory()
 
     const [ShowShareDrop, setShowShareDrop] = useState(false)
@@ -59,6 +71,12 @@ export default function ContractDetectionDetail(): JSX.Element {
 
     const [isOpen, setisOpen] = useState(false)
 
+
+    const [IntroInfo, setIntroInfo] = useState({
+        chain: '', contract_address: '', score: '', time: '', user: ''
+    } as InfoData)
+    const [ResultDetail, setResultDetail] = useState([] as ResultDetailList[])
+    const [echartDate, setechartDate] = useState([] as EchartList[])
 
     const shareTwitter = () => {
         setShowShareDrop(false)
@@ -82,22 +100,53 @@ export default function ContractDetectionDetail(): JSX.Element {
             let imgWidth = el.offsetWidth
             let scale = window.devicePixelRatio
             // el.scrollIntoView()
-                html2canvas(el, {
-                    scale: scale,
-                    width: imgWidth,
-                    height: imgHeight
-                }).then((canvas: any) => {
-                    let saveUrl = canvas.toDataURL('image/png')
-                    let a = document.createElement('a')
-                    document.body.appendChild(a)
-                    a.href = saveUrl
-                    a.download = 'report'
-                    a.click()
-                    setIsShare(false)
-                })
+            html2canvas(el, {
+                scale: scale,
+                width: imgWidth,
+                height: imgHeight
+            }).then((canvas: any) => {
+                let saveUrl = canvas.toDataURL('image/png')
+                let a = document.createElement('a')
+                document.body.appendChild(a)
+                a.href = saveUrl
+                a.download = 'report'
+                a.click()
+                setIsShare(false)
+            })
 
         })
     }
+
+
+    //报告详情
+    const getReportDetail = (id: any) => {
+        getTestResult({ id }).then(res => {
+            if (res.data) {
+                const { list, score_ratio: { result }, chain, contract_address, score, time, user } = res.data
+                const Info = {
+                    chain, contract_address, score, time, user
+                }
+                setIntroInfo(Info)
+                setResultDetail(list)
+                setechartDate(result)
+
+            }
+        })
+
+    }
+
+    useEffect(() => {
+
+        const { params: { id } } = params.match
+        getReportDetail(id)
+
+        return () => {
+
+        }
+    }, [params.match])
+
+
+
 
     return <ContractDetectionDetailDom className='ContractDetectionDetail'>
         <div className="container">
@@ -107,66 +156,70 @@ export default function ContractDetectionDetail(): JSX.Element {
             }}>Detect other contract</div>
             <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contact customer service for manual audit</div>
             <ReportDom>
-                <div className={isShare?'SharereportShow':'reportShow'} id='pic' >
+                <div className={isShare ? 'SharereportShow' : 'reportShow'} id='pic' >
                     {
                         !isShare && <div className="reportLogo"></div>
                     }
-                    
+
                     <IntroTit>Presented by Triathon
-                       {
-                        !isShare &&  <>
-                        <span className='Share' onClick={() => {
-                            setShowShareDrop(!ShowShareDrop)
-                        }}></span>
                         {
-                            ShowShareDrop && <ShowShareDropCon>
-                            <div className="item1" onClick={() => { shareTwitter() }}>
-                                <span></span>
-                                Twitter
-                            </div>
-                            <div className="item2" onClick={sharePic}>
-                                <span></span>
-                                Save picture
-                            </div>
-                            <div className="item3" onClick={() => {
-                                setCopied('https://www.triathon.space/#/ranking')
-                                setShowShareDrop(false)
-                            }}>
-                                <span></span>
-                                Copy link
-                            </div>
-                        </ShowShareDropCon>
+                            !isShare && <>
+                                <span className='Share' onClick={() => {
+                                    setShowShareDrop(!ShowShareDrop)
+                                }}></span>
+                                {
+                                    ShowShareDrop && <ShowShareDropCon>
+                                        <div className="item1" onClick={() => { shareTwitter() }}>
+                                            <span></span>
+                                            Twitter
+                                        </div>
+                                        <div className="item2" onClick={sharePic}>
+                                            <span></span>
+                                            Save picture
+                                        </div>
+                                        <div className="item3" onClick={() => {
+                                            setCopied('https://www.triathon.space/#/ranking')
+                                            setShowShareDrop(false)
+                                        }}>
+                                            <span></span>
+                                            Copy link
+                                        </div>
+                                    </ShowShareDropCon>
+                                }
+                            </>
                         }
-                        </>
-                       }
-                        
-                        
+
+
                     </IntroTit>
                     <div className="present">
                         <div className="item">
                             <span>Detect User: </span>
-                            <span></span>
+                            <span> {IntroInfo.user} </span>
                         </div>
                         <div className="item">
                             <span>Detect time: </span>
-                            <span></span>
+                            <span> {IntroInfo.time} </span>
                         </div>
                     </div>
                     <IntroTit>Contract Info</IntroTit>
                     <div className="contractInfo">
                         <div className="item">
                             <span>Chain</span>
-                            <span><img src={localStorage.getItem('chain')==='bsc'?bscPic:ethPic} alt="" className='chainImg'/> 
-                            {
-                                localStorage.getItem('chain')==='bsc'?'BSC':'ETH'
-                            }
-                             </span>
+                            <span><img src={IntroInfo.chain === 'bsc' ? bscPic : ethPic} alt="" className='chainImg' />
+                                {
+                                    IntroInfo.chain === 'bsc' ? 'BSC' : 'ETH'
+                                }
+                            </span>
                         </div>
                         <div className="item">
                             <span>Contract Address</span>
                             <span>
-                            0x045c...073DcF
-                            <CopyShowTipsSmall account='121212121212' ></CopyShowTipsSmall>
+                                {
+                                    IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address.slice(0, 6) + '...' + IntroInfo.contract_address.slice(-6) : ''
+                                }
+
+
+                                <CopyShowTipsSmall account={IntroInfo.contract_address || 'none'} ></CopyShowTipsSmall>
                             </span>
                         </div>
                     </div>
@@ -175,26 +228,36 @@ export default function ContractDetectionDetail(): JSX.Element {
                         <div className="left">
                             <div className="icon"></div>
                             <div className="text">
-                                <div className="top">Excellent</div>
+                                <div className="top">
+                                    {
+                                        Number(IntroInfo.score) < 25 ? ShowText[0]
+                                            : Number(IntroInfo.score) < 50 ? ShowText[1]
+                                                : Number(IntroInfo.score) < 75 ? ShowText[2]
+                                                    : Number(IntroInfo.score) < 90 ? ShowText[3]
+                                                        : ShowText[4]
+                                    }
+                                </div>
                                 <div className="bottom">
-                                    <span className='colorText'>92</span>
+                                    <span className='colorText'>
+                                        {IntroInfo.score}
+                                    </span>
                                     <span >  / 100</span>
                                 </div>
                             </div>
                         </div>
                         {
-                            !isShare && <div className="right"  onClick={()=>setisOpen(true)}>How it works?</div>
+                            !isShare && <div className="right" onClick={() => setisOpen(true)}>How it works?</div>
                         }
-                        
+
                     </div>
                     <IntroTit>Distributed</IntroTit>
                     <div className="distributed">
-                        <EchartsShow />
+                        <EchartsShow  echdata={echartDate} />
                     </div>
                     {
                         isShare && <div className="code">
-                        <QRCodeDom url='http://164.52.93.82:8002/#/'/>
-                    </div>
+                            <QRCodeDom url='http://164.52.93.82:8002/#/' />
+                        </div>
                     }
                 </div>
 
@@ -204,8 +267,8 @@ export default function ContractDetectionDetail(): JSX.Element {
                         {
                             ResultDetail.map((item, index) => {
                                 return <div className="item" key={index}>
-                                    <div className={item.type === '1' ? 'titleIntro green' : item.type === '2' ? 'titleIntro yellow' : 'titleIntro red'}>{item.title}</div>
-                                    <div className="intro">{item.intro}</div>
+                                    <div className={item.level === 'High' ? 'titleIntro red' : item.level === 'Medium' ? 'titleIntro yellow' : 'titleIntro green'}> <img src={item.level === 'High' ? high : item.level === 'Medium' ? mid : low} alt="" /> {item.title}</div>
+                                    <div className="intro">{item.description}</div>
                                 </div>
                             })
                         }
@@ -214,21 +277,21 @@ export default function ContractDetectionDetail(): JSX.Element {
             </ReportDom>
             {isCopied && <CopyShowTips />}
         </div>
-        <PcModal isOpen={isOpen} minWidth={683} onDismiss={()=>setisOpen(false)} minHeight={537}>
+        <PcModal isOpen={isOpen} minWidth={683} onDismiss={() => setisOpen(false)} minHeight={537}>
             <WrokContainer>
                 <div className="header">
                     <div className="left">How it work</div>
-                    <div className="close" onClick={()=>setisOpen(false)}>  <CloseColor></CloseColor>
+                    <div className="close" onClick={() => setisOpen(false)}>  <CloseColor></CloseColor>
                     </div>
                 </div>
                 <div className="con">
                     <p> The Triathon platform backed by Core security detection engine.</p>
                     <p>Core security testing platform incorporate the fuzzing-test testing method and the concept of chaos engineering (experimental) to redefine the way of blockchain security testing.</p>
                     <div className="title">Main utilities of “CORE”</div>
-                    <p>1. (Testing) Tool building: <br/>A collection of various testing tools. Testing capabilities will be packaged in the form of API and be provided to third parties including security white hats in the future.</p>
-                    <p>2. API building: <br/>CORE continuously converts vulnerabilities into testing methods and outputs APIs.</p>
-                    <p>3. Developer management:<br/>Eco-developers mint new NFT (i. e. test service) based on API; or they can report vulnerabilities based on their use of the API application.</p>
-                    <p>4. Vulnerability conversion: <br/>The vulnerability platform is a key component of CORE’s continuous capacity building.</p>
+                    <p>1. (Testing) Tool building: <br />A collection of various testing tools. Testing capabilities will be packaged in the form of API and be provided to third parties including security white hats in the future.</p>
+                    <p>2. API building: <br />CORE continuously converts vulnerabilities into testing methods and outputs APIs.</p>
+                    <p>3. Developer management:<br />Eco-developers mint new NFT (i. e. test service) based on API; or they can report vulnerabilities based on their use of the API application.</p>
+                    <p>4. Vulnerability conversion: <br />The vulnerability platform is a key component of CORE’s continuous capacity building.</p>
                 </div>
             </WrokContainer>
         </PcModal>

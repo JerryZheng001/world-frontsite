@@ -45,5 +45,5 @@ export function getListsTotal(){
 
 //获取检测结果
 export function getTestResult(params:any){ 
-  return httpUrl.get("/result/",params)
+  return httpUrl.get("/api/v1/details",params)
 }

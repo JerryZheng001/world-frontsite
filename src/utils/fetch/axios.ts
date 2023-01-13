@@ -3,7 +3,7 @@ import { getEnv } from '../../utils/base/string'
 
 const URLs = [window.location.protocol, '//', window.location.host, '/']
 const isLocalhost = /localhost/gi.test(window.location.hostname)
-export const baseURL = isLocalhost ? getEnv('REACT_APP_DEV_REQUEST_URL') : URLs.join('')
+export const baseURL = true ? getEnv('REACT_APP_DEV_REQUEST_URL') : URLs.join('')
 export const timeout = 10000
 export const contentType = 'application/x-www-form-urlencoded'
 axios.defaults.baseURL = baseURL

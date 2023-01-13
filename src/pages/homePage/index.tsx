@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import QRCodeDom from '../ContractDetection/component/Code';
-import EchartsShow from '../ContractDetection/component/echartsShow';
 import { StyleCode } from '../ContractDetection/component/StyleCode';
 
 export default function HomePage(): JSX.Element{
@@ -48,7 +47,6 @@ export default function HomePage(): JSX.Element{
                 FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
             }
             <QRCodeDom url='http://164.52.93.82:8002/#/'/>
-           <EchartsShow/>
 
   </div>
 }
