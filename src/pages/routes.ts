@@ -1,6 +1,6 @@
 import { lazy } from 'react'
 import ConnectRouter from '../components/ConnectRouter'
-const HomePage = lazy(() => import('./homePage'))
+// const HomePage = lazy(() => import('./homePage'))
 const ContractDetection = lazy(() => import('./ContractDetection'))
 const ContractDetectionDetail = lazy(() => import('./ContractDetection/component/ContractDetectionDetail'))
 const ContractDetectionHistory = lazy(() => import('./ContractDetection/component/ContractDetectionHistory'))
@@ -12,17 +12,13 @@ const ContractDetectionHistory = lazy(() => import('./ContractDetection/componen
 // eslint-disable-next-line
 export default [
   {
-    name: 'Home',
-    redirect:'/contract_detection',
+    name: 'contract_detection',
+    path:'/',
     show: true,
     component:ConnectRouter(ContractDetection)
   },
-  {
-    name: 'Home',
-    path: '/home',
-    show: true,
-   component: ConnectRouter(HomePage)
-  },
+
+ 
   {
     name: 'ContractDetection',
     path: '/contract_detection',

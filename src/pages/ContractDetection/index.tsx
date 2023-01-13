@@ -10,7 +10,7 @@ import { StyleCode } from './component/StyleCode'
 import { ContainerCon, FileContent, StyleButton, StyledInput, StyleSolInputUp, WidthDiv } from './styled'
 import { Select } from 'antd';
 import { useHistory } from 'react-router-dom'
-import { getDetectAddressSubmit,  getUserNonce, getUserToCore } from '../../utils/fetch/detect'
+import { getDetectAddressSubmit, getListsTotal, getUserNonce, getUserToCore } from '../../utils/fetch/detect'
 import { Dots } from '../../components/styleds'
 import { getEnv } from '../../utils/base/string'
 const { Option } = Select;
@@ -62,7 +62,7 @@ interface BtnProp {
     text: JSX.Element | string
     event?: () => void
 }
-const baseURL =  getEnv('REACT_APP_DEV_REQUEST_URL')
+const baseURL = getEnv('REACT_APP_DEV_REQUEST_URL')
 export default function ContractDetection(): JSX.Element {
 
     const { account } = useActiveWeb3React()
@@ -82,34 +82,38 @@ export default function ContractDetection(): JSX.Element {
     const [errorMsg, seterrorMsg] = useState('')
 
     const [detectIng, setdetectIng] = useState(false)
+
+
+    const [TotalTest, setTotalTest] = useState(0)
+
     //上传文件
     function readSingleFile(e: any) {
         var file = e.target.files[0];
-       
 
 
-        
+
+
 
         if (!file) { return; }
-        
-        const formdata = new FormData();
-		// 这里只是基本设置，对应接口需求设置响应的类型属性值
-      	formdata.set('file', file);
-      	formdata.set('main_file', file.name);
 
-		// 接口调用
-		let xml = new XMLHttpRequest();
-		xml.open('POST', baseURL+ 'upload/', true) 
-        xml.setRequestHeader('Authorization', window.sessionStorage.getItem('token')||'');
+        const formdata = new FormData();
+        // 这里只是基本设置，对应接口需求设置响应的类型属性值
+        formdata.set('file', file);
+        formdata.set('main_file', file.name);
+
+        // 接口调用
+        let xml = new XMLHttpRequest();
+        xml.open('POST', baseURL + 'upload/', true)
+        xml.setRequestHeader('Authorization', window.sessionStorage.getItem('token') || '');
 
         xml.send(formdata)
 
-        xml.onload = (res)=>{
-            const {code,data,msg} = JSON.parse(xml.responseText)
+        xml.onload = (res) => {
+            const { code, data, msg } = JSON.parse(xml.responseText)
             console.log('====================================');
-            console.log(code,data,msg);
+            console.log(code, data, msg);
             console.log('====================================');
-            if(code===30001){
+            if (code === 30001) {
                 setErrOpen(true)
                 seterrorMsg(msg)
             }
@@ -127,37 +131,42 @@ export default function ContractDetection(): JSX.Element {
     //合约地址检测
     const detectContrast = useCallback(
         () => {
-            // history.push('/contract_detection/1')
             if (!contrastRegex.test(AddressContract)) {
                 setcontrastErrText('Notice：Address is validated incorrectly')
             } else {
                 setcontrastErrText('')
-
                 testAddress()
-                setdetectIng(true)
-
-                // history.push('/contract_detection/1')
             }
         },
         // eslint-disable-next-line
         [AddressContract, history,],
     )
-    const testAddress = async () => {
+    const testAddress = () => {
         const params = {
             address: AddressContract,
             network: selectChain
         }
-        const res = await getDetectAddressSubmit(params)
-        console.log(res, '上传合约检测地址');
-        if(res.data.code===200){
-            setdetectIng(false)
-        }
-        //         setTimeout(() => {
-        //             setdetectIng(false)
-        //         }, 4000);
+
+        getDetectAddressSubmit(params).then((res: any) => {
+            const { code, data, msg } = res
+            if (code === 30001) {
+                setErrOpen(true)
+                seterrorMsg(msg)
+            }
+            if (code === 200) {
+                console.log(data,'data');
+                setdetectIng(true)
+                setTimeout(() => {
+                    history.push('/contract_detection/1')
+                }, 100);
+            }
+        })
+
+
+
 
     }
-    
+
     //上传文件检测
     // const detectFile = useCallback(
     //   () => {
@@ -165,18 +174,20 @@ export default function ContractDetection(): JSX.Element {
     //   },
     //   [testFile],
     // )
-    const detectFile = ()=>{
+    const detectFile = () => {
         console.log('====================================');
         console.log('检测文件夹结果');
         console.log('====================================');
     }
-    
+
 
     //关闭错误弹框
     const closeErrTip = () => {
         setErrOpen(false)
         seterrorMsg('')
         setcontrastErrText('')
+        setFileValue('')
+        setFileShow(false)
     }
 
     const styleButton: BtnProp = useMemo(() => {
@@ -233,10 +244,21 @@ export default function ContractDetection(): JSX.Element {
             })
         })
     }
+    
+    //检测总数
+    const handleListTotal = ()=>{
+        getListsTotal().then(res=>{
+            if(res.data){
+                setTotalTest(res.data)
+            }
+        })
+    }
+
     useEffect(() => {
         localStorage.setItem('chain', 'bsc')
         handelFiret()
-// eslint-disable-next-line
+        handleListTotal()
+        // eslint-disable-next-line
     }, [])
 
 
@@ -284,9 +306,13 @@ export default function ContractDetection(): JSX.Element {
 
                 <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
                 <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contact customer service for manual audit</div>
-                <div className="detect" onClick={() => {
+                <div className="detect" >
+                    <span onClick={() => {
                     history.push('/contract_detection/history')
-                }}>500+ Detected <span></span></div>
+                }} >
+                    {TotalTest}+ Detected <span className='pointRight'></span>
+                    </span>
+                </div>
             </WidthDiv>
         </div>
         <ErrModel

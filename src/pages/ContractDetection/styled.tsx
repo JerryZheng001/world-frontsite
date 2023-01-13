@@ -143,7 +143,7 @@ export const WidthDiv = styled.div`
         font-weight: 500;
         color: #FFFFFF;
         cursor: pointer;
-        span{
+        .pointRight{
             width: 12px;
             height: 12px;
             display: inline-block;
@@ -696,6 +696,25 @@ export const HistoryDom = styled.div`
                 }
             }
         }
+        .empty{
+            font-size: 16px;
+            font-family: Poppins-Medium, Poppins;
+            font-weight: 500;
+            color: #FFFFFF;
+            text-align: center;
+            margin-top: 200px;
+
+        }
+    }
+    .footerIntro{
+        font-size: 14px;
+        font-family: Poppins-Medium, Poppins;
+        font-weight: 500;
+        color: #575A61;
+        line-height: 22px;
+        height: 22px;
+        text-align: center;
+        margin: 79px 0 100px 0;
     }
 `
 

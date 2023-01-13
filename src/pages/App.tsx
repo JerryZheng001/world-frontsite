@@ -53,7 +53,7 @@ function App() {
         style={{
           background: " #111112",
           display: flag === true ? "block" : "none",
-          height:'100vh'
+          minHeight:'100vh'
         }}
       >
         <HashRouter>
