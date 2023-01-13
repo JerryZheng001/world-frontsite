@@ -673,6 +673,30 @@ export const HistoryDom = styled.div`
             }
         }
     }
+    .container{
+        width: 100%;
+        .listItems{
+            height: 80px;
+            display: flex;
+            align-items: center;
+            div{
+                font-size: 16px;
+                font-family: Poppins-Medium, Poppins;
+                font-weight: 500;
+                color: #FFFFFF;
+                .rightPoint{
+                    width: 32px;
+                    height: 28px;
+                    cursor: pointer;
+                }
+                .chainImg{
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 6px;
+                }
+            }
+        }
+    }
 `
 
 export const SearchDom = styled.div`

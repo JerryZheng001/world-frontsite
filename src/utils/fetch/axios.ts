@@ -9,12 +9,11 @@ export const contentType = 'application/x-www-form-urlencoded'
 axios.defaults.baseURL = baseURL
 axios.defaults.timeout = timeout
 axios.defaults.headers.post['Content-Type'] = contentType
-let TestToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MDgyMzgxLCJpYXQiOjE2NzM0OTAzODEsImp0aSI6ImFiYjVkNWVlODJiODQ5YWNiNmM0OGZlYzUwNjg1N2QxIiwidXNlcl9pZCI6Mn0.9L88hJyBchyu31oVVPr6Ys6BqmsiUUM7TtCbr3RWR1g'
 axios.interceptors.request.use(
   function(config) {
 
     if(config && config.headers){
-      config.headers.Authorization = window.sessionStorage.getItem('token') || 'Bearer '+ TestToken
+      config.headers.Authorization = window.sessionStorage.getItem('token') || ''
     }
 
 

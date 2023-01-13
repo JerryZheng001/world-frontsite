@@ -13,9 +13,9 @@ const ContractDetectionHistory = lazy(() => import('./ContractDetection/componen
 export default [
   {
     name: 'Home',
-    path: '/',
+    redirect:'/contract_detection',
     show: true,
-    component:ConnectRouter(HomePage)
+    component:ConnectRouter(ContractDetection)
   },
   {
     name: 'Home',
