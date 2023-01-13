@@ -1,0 +1,2 @@
+(this["webpackJsonpcore-frontsite"]=this["webpackJsonpcore-frontsite"]||[]).push([[12],{640:function(n,o){},653:function(n,o){},659:function(n,o){},661:function(n,o){}}]);
+//# sourceMappingURL=12.8f351080.chunk.js.map
