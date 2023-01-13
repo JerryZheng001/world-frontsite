@@ -18,7 +18,9 @@ export default function ErrModel({
             <ErrWraper>
                 <div className='notice'>Notice</div>
                 <div className="info">{errorMsg}</div>
-                <div className="button">OK</div>
+                <div className="button" onClick={()=>{
+                  onDismiss()
+                }}>OK</div>
             </ErrWraper>
         </PcModal>
     )

@@ -105,9 +105,14 @@ export default function ContractDetection(): JSX.Element {
         xml.send(formdata)
 
         xml.onload = (res)=>{
+            const {code,data,msg} = JSON.parse(xml.responseText)
             console.log('====================================');
-            console.log(res,'wenjian');
+            console.log(code,data,msg);
             console.log('====================================');
+            if(code===30001){
+                setErrOpen(true)
+                seterrorMsg(msg)
+            }
         }
 
         var reader = new FileReader();
@@ -172,7 +177,6 @@ export default function ContractDetection(): JSX.Element {
         setErrOpen(false)
         seterrorMsg('')
         setcontrastErrText('')
-        setFileValue('')
     }
 
     const styleButton: BtnProp = useMemo(() => {
