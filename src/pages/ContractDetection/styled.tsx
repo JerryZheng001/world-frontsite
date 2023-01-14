@@ -11,6 +11,7 @@ import search from '../../assets/images/contrastDetec/search.svg'
 import copyImg from '../../assets/images/contrastDetec/copyImg.svg'
 import uploadFile from '../../assets/images/contrastDetec/uploadFile.svg'
 import coreImg from '../../assets/images/contrastDetec/coreImg.png'
+import loadingPic from '../../assets/images/contrastDetec/loading.png'
 
 
 
@@ -168,8 +169,52 @@ export const WidthDiv = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 24px;
         }
     }
+`
+
+export const ShowDecting = styled.div`
+    width: 636px;
+    height: 144px;
+    background: #161719;
+    border-radius: 16px;
+    border: 1px solid #23252C;
+    margin-bottom: 24px;
+    margin: 0 auto 24px;
+    .loading{
+        background: url(${loadingPic});
+        background-size: 100% 100%;
+        width: 32px;
+        height: 32px;
+        margin: 32px auto 16px;
+        animation: spin 2s linear infinite;
+        @-webkit-keyframes spin {
+            0% {
+            -webkit-transform: rotate(0deg);
+            }
+            100% {
+            -webkit-transform: rotate(360deg);
+            }
+        }  
+        @keyframes spin {
+            0% {
+            transform: rotate(0deg);
+            }
+            100% {
+            transform: rotate(360deg);
+            }
+        }
+    }
+    .text{
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        font-family: Poppins-Regular, Poppins;
+        font-weight: 400;
+        color: #FFFFFF;
+    }
+
 `
 export const StyledInput = styled.input<{ShowRed?:boolean}>`
         width:100%;
@@ -337,6 +382,9 @@ export const StyleCodeDom = styled.div`
             background-size: 100% 100%;
         }
     }
+    .fileConNew{
+        height: 1102px;
+    }
     .SharereportShow{
         background: url(${ShareBg}) no-repeat;
         background-size: 100% 100%;
@@ -394,6 +442,16 @@ export const StyleCodeDom = styled.div`
         }
         margin-bottom: 40px;
     }
+    .fileInfo{
+        width: 100%;
+        height: 240px;
+        border-radius: 8px;
+        border: 1px solid #23252C;
+        >div{
+            width: 555px;
+            height: 240px;
+        }
+    }
     .result{
         display: flex;
         justify-content: space-between;
@@ -422,9 +480,9 @@ export const StyleCodeDom = styled.div`
                     font-weight: 400;
                     color: #FFFFFF;
                     line-height: 16px;
-                    margin-bottom: 12px;
                 }
                 .bottom{
+                    margin-bottom: 14px;
                     .colorText{
                         font-size: 28px;
                         font-family: Poppins-SemiBold, Poppins;
@@ -494,6 +552,30 @@ export const ColorText = styled.span<{type:number}>`
         background: url(${SharePic}) no-repeat;
         background-size: 100% 100%;
     }
+ `
+ export const IntroTitle = styled.div`
+    height: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 16px;
+font-family: Poppins-SemiBold, Poppins;
+font-weight: 600;
+color: #FFFFFF;
+    .leftintro{
+        font-size: 16px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        color: #FFFFFF;
+    }
+    .rightIntro{
+        font-size: 16px;
+        font-family: Poppins-Regular, Poppins;
+        font-weight: 400;
+        color: #FFFFFF;
+    }
+
  `
 export const ShowShareDropCon = styled.div`
     position: absolute;
@@ -779,6 +861,8 @@ export const InputCon = styled.input`
     font-family: Poppins-Regular, Poppins;
     font-weight: 400;
     color: #111112;
+    padding-right: 15px;
+    overflow: hidden;
 `
 
 export const ItemDiv = styled.div<{width:string,type:number}>`

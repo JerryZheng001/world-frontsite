@@ -4,6 +4,7 @@ import { AlertTriangle } from 'react-feather'
 import styled, { css } from 'styled-components'
 import { Text } from 'rebass'
 import { AutoColumn } from './Column'
+import loadingPic from '../assets/images/contrastDetec/loading.png'
 
 export const Wrapper = styled.div`
   position: relative;
@@ -96,7 +97,35 @@ export const Dots = styled.span`
     }
   }
 `
+export const SmallLoading = styled.span`
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url(${loadingPic});
+  margin-right: 3px;
+  background-size:100% 100%;
+  animation: spin 2s linear infinite;
+  position: relative;
+  top: 4px;
+  left: -3px;
+  @-webkit-keyframes spin {
+      0% {
+      -webkit-transform: rotate(0deg);
+      }
+      100% {
+      -webkit-transform: rotate(360deg);
+      }
+  }  
+  @keyframes spin {
+      0% {
+      transform: rotate(0deg);
+      }
+      100% {
+      transform: rotate(360deg);
+      }
+  }
 
+`
 const SwapCallbackErrorInner = styled.div`
   background-color: ${({ theme }) => transparentize(0.9, theme.red1)};
   border-radius: 1rem;

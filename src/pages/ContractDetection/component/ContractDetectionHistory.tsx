@@ -6,6 +6,7 @@ import ethPic from '../../../assets/images/contrastDetec/ethPic.png'
 import bscPic from '../../../assets/images/contrastDetec/bscPic.png'
 import { getHistoryLists, getListsTotal } from '../../../utils/fetch/detect'
 import { shortenAddress } from '../../../utils'
+import { useHistory } from 'react-router-dom'
 
 interface ResultList {
   id: number;
@@ -20,12 +21,16 @@ export default function ContractDetectionHistory(): JSX.Element {
     const [TotalTest, setTotalTest] = useState(0)
     const [resultList, setresultList] = useState([] as ResultList[])
 
+ 
+    const history = useHistory()
+    const [InputValue, setInputValue] = useState('')
 
      //历史记录
      const getTestList = ()=>{
         const Params = {
             page:1,
             pagesize:100,
+            name:InputValue
         }
         getHistoryLists(Params).then(res=>{
             if(res.data){
@@ -42,23 +47,28 @@ export default function ContractDetectionHistory(): JSX.Element {
             }
         })
     }
+
+    const changeValue = (e:any)=>{
+        setInputValue(e.target.value)
+        
+    }
     useEffect(() => {
         getTestList()
         handleListTotal()
       return () => {
         
       }
+       // eslint-disable-next-line
     }, [])
-    
-
+   
 
     return <HistoryDom>
         <div className="title">Triathon Contract Detection Report</div>
         <div className="showTitle">{TotalTest} Detected</div>
         <SearchDom>
             <div className="icon"></div>
-            <InputCon placeholder='search'></InputCon>
-            <div className="button">search</div>
+            <InputCon placeholder='search' value={InputValue} onChange={(e:any)=>changeValue(e)} ></InputCon>
+            <div className="button" onClick={()=>getTestList()}>search</div>
 
         </SearchDom>
         <div className="listCom">
@@ -80,7 +90,9 @@ export default function ContractDetectionHistory(): JSX.Element {
                             <ItemDiv width='225px' type={2}> <img src={item.network==='bsc'?bscPic:ethPic} alt="" className='chainImg'/> {item.network}</ItemDiv>
                             <ItemDiv width='225px' type={2}>{item.score || 0}</ItemDiv>
                             <ItemDiv width='194px' type={2}>
-                                <img src={Right} alt="" className='rightPoint' />
+                                <img src={Right} alt="" className='rightPoint' onClick={()=>{
+                                    history.push(`/contract_detection/${item.id}`)
+                                }} />
                             </ItemDiv>
                         </div>
                        

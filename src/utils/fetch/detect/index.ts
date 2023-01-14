@@ -47,3 +47,8 @@ export function getListsTotal(){
 export function getTestResult(params:any){ 
   return httpUrl.get("/api/v1/details",params)
 }
+
+//下载文件
+export function getFile(params:any){ 
+  return httpUrl.get("/download/",params)
+}

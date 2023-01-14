@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, } from 'react-router-dom'
 import html2canvas from "html2canvas";
 
-import { CloseColor, ContractDetectionDetailDom, IntroTit, Items, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
+import { CloseColor, ContractDetectionDetailDom, IntroTit, IntroTitle, Items, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
 import EchartsShow from './echartsShow'
 import { useCallbackState } from './useCallbackState';
 import useCopyClipboard from '../../../hooks/useCopyClipboard';
@@ -20,7 +20,8 @@ import high from '../../../assets/images/contrastDetec/mid@2x.png'
 import mid from '../../../assets/images/contrastDetec/high@2x.png'
 
 
-import { getTestResult } from '../../../utils/fetch/detect';
+import { getFile, getTestResult } from '../../../utils/fetch/detect';
+import { StyleCode } from './StyleCode';
 
 
 
@@ -68,15 +69,15 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     const [ShowShareDrop, setShowShareDrop] = useState(false)
     const [isShare, setIsShare] = useCallbackState(false);
     const [isCopied, setCopied] = useCopyClipboard()
-
     const [isOpen, setisOpen] = useState(false)
-
-
     const [IntroInfo, setIntroInfo] = useState({
         chain: '', contract_address: '', score: '', time: '', user: ''
     } as InfoData)
     const [ResultDetail, setResultDetail] = useState([] as ResultDetailList[])
     const [echartDate, setechartDate] = useState([] as EchartList[])
+
+    const [UploadType, setUploadType] = useState('address')
+    const [FileValue, setFileValue] = useState('')
 
     const shareTwitter = () => {
         setShowShareDrop(false)
@@ -124,15 +125,28 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
             if (res.data) {
                 const { list, score_ratio: { result }, chain, contract_address, score, time, user } = res.data
                 const Info = {
-                    chain, contract_address, score, time, user
+                    chain: chain || '', contract_address: contract_address || '', score: score || '', time: time || '', user: user || ''
                 }
                 setIntroInfo(Info)
                 setResultDetail(list)
                 setechartDate(result)
-
+                if (!contract_address) {
+                    setUploadType('file')
+                    showFile()
+                }
             }
         })
 
+    }
+
+
+
+    const showFile = () => {
+        const { params: { id } } = params.match
+        getFile({ id }).then((res: any) => {
+            console.log(res, 'ressss');
+            setFileValue(res)
+        })
     }
 
     useEffect(() => {
@@ -143,6 +157,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
         return () => {
 
         }
+         // eslint-disable-next-line
     }, [params.match])
 
 
@@ -156,7 +171,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
             }}>Detect other contract</div>
             <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contact customer service for manual audit</div>
             <ReportDom>
-                <div className={isShare ? 'SharereportShow' : 'reportShow'} id='pic' >
+                <div className={isShare ? 'SharereportShow' : UploadType==='address'?'reportShow':'reportShow fileConNew'} id='pic' >
                     {
                         !isShare && <div className="reportLogo"></div>
                     }
@@ -202,32 +217,60 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </div>
                     </div>
                     <IntroTit>Contract Info</IntroTit>
-                    <div className="contractInfo">
-                        <div className="item">
-                            <span>Chain</span>
-                            <span><img src={IntroInfo.chain === 'bsc' ? bscPic : ethPic} alt="" className='chainImg' />
-                                {
-                                    IntroInfo.chain === 'bsc' ? 'BSC' : 'ETH'
-                                }
-                            </span>
-                        </div>
-                        <div className="item">
-                            <span>Contract Address</span>
-                            <span>
-                                {
-                                    IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address.slice(0, 6) + '...' + IntroInfo.contract_address.slice(-6) : ''
-                                }
+                    {
+                        UploadType === 'address' && <div className="contractInfo">
+                            <div className="item">
+                                <span>Chain</span>
+                                <span><img src={IntroInfo.chain === 'bsc' ? bscPic : ethPic} alt="" className='chainImg' />
+                                    {
+                                        IntroInfo.chain === 'bsc' ? 'BSC' : 'ETH'
+                                    }
+                                </span>
+                            </div>
+                            <div className="item">
+                                <span>Contract Address</span>
+                                <span>
+                                    {
+                                        IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address.slice(0, 6) + '...' + IntroInfo.contract_address.slice(-6) : ''
+                                    }
 
 
-                                <CopyShowTipsSmall account={IntroInfo.contract_address || 'none'} ></CopyShowTipsSmall>
-                            </span>
+                                    <CopyShowTipsSmall account={IntroInfo.contract_address || 'none'} ></CopyShowTipsSmall>
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    {
+                        UploadType === 'file' && <div className='fileInfo'>
+                            {
+                                FileValue !=='' && <StyleCode value={FileValue}></StyleCode>
+                            }
+                            
+                        </div>
+                    }
+
+
+
+
                     <IntroTit>Security Detection Result</IntroTit>
+                    <IntroTitle className='IntroTitle'>
+                    <div className="leftintro">Score</div>
+                        {
+                            !isShare && <div className="rightIntro" onClick={() => setisOpen(true)}>How it works?</div>
+                        }
+                    </IntroTitle>
+                   
                     <div className="result">
                         <div className="left">
                             <div className="icon"></div>
                             <div className="text">
+                              
+                                <div className="bottom">
+                                    <span className='colorText'>
+                                        {IntroInfo.score}
+                                    </span>
+                                    <span >  / 100</span>
+                                </div>
                                 <div className="top">
                                     {
                                         Number(IntroInfo.score) < 25 ? ShowText[0]
@@ -237,22 +280,16 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                                         : ShowText[4]
                                     }
                                 </div>
-                                <div className="bottom">
-                                    <span className='colorText'>
-                                        {IntroInfo.score}
-                                    </span>
-                                    <span >  / 100</span>
-                                </div>
                             </div>
                         </div>
-                        {
+                        {/* {
                             !isShare && <div className="right" onClick={() => setisOpen(true)}>How it works?</div>
-                        }
+                        } */}
 
                     </div>
-                    <IntroTit>Distributed</IntroTit>
+                    <IntroTitle>Distributed</IntroTitle>
                     <div className="distributed">
-                        <EchartsShow  echdata={echartDate} />
+                        <EchartsShow echdata={echartDate} />
                     </div>
                     {
                         isShare && <div className="code">
