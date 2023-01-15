@@ -36,6 +36,24 @@ export const WidthDiv = styled.div`
         color: #FFFFFF;
         line-height: 64px;
         margin-bottom: 72px;
+        /* color: #c7d63c; */
+        /* background-image: linear-gradient(90deg, #6e40aa, #963db3, #bf3caf, #e3419e, #fe4b83, #ff5e64, #ff7747, #fb9633, #e2b72f, #c7d63c, #c7d63c);
+        background-position: 100% 0;
+        background-size: 500% 100%;
+        transition: background-position 1s linear;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: 1.75s linear 0s infinite alternate both running textGradient; */
+        @keyframes textGradient {
+        from {
+            background-position: 100% 0;
+        }
+        to {
+            background-position: 0% 0;
+        }
+}
+
+
     }
     .tabs{
         text-align: center;
