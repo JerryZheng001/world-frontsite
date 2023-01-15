@@ -129,8 +129,15 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     //报告详情
     const getReportDetail = (id: any) => {
         getTestResult({ id }).then((res:any) => {
+            console.log(res,'ressss',JSON.stringify(res.data));
+
             if(res.code===200){
-                if (res.data) {
+                
+                
+                if(JSON.stringify(res.data) === '{}'){
+                    setErrOpen(true)
+                    seterrorMsg(res.msg)
+                }else{
                     const { list, score_ratio: { result }, chain, contract_address, score, time, user } = res.data
                     const Info = {
                         chain: chain || '', contract_address: contract_address || '', score: score || '', time: time || '', user: user || ''
