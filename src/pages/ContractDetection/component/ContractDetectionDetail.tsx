@@ -22,6 +22,7 @@ import mid from '../../../assets/images/contrastDetec/high@2x.png'
 
 import { getFile, getTestResult } from '../../../utils/fetch/detect';
 import { StyleCode } from './StyleCode';
+import ErrModel from './ErrModel';
 
 
 
@@ -79,6 +80,12 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     const [UploadType, setUploadType] = useState('address')
     const [FileValue, setFileValue] = useState('')
 
+
+
+    const [ErrOpen, setErrOpen] = useState(false)
+    const [errorMsg, seterrorMsg] = useState('')
+
+
     const shareTwitter = () => {
         setShowShareDrop(false)
         const toOpen = function (url: string) {
@@ -121,30 +128,41 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
 
     //报告详情
     const getReportDetail = (id: any) => {
-        getTestResult({ id }).then(res => {
-            if (res.data) {
-                const { list, score_ratio: { result }, chain, contract_address, score, time, user } = res.data
-                const Info = {
-                    chain: chain || '', contract_address: contract_address || '', score: score || '', time: time || '', user: user || ''
+        getTestResult({ id }).then((res:any) => {
+            if(res.code===200){
+                if (res.data) {
+                    const { list, score_ratio: { result }, chain, contract_address, score, time, user } = res.data
+                    const Info = {
+                        chain: chain || '', contract_address: contract_address || '', score: score || '', time: time || '', user: user || ''
+                    }
+                    setIntroInfo(Info)
+                    setResultDetail(list)
+                    setechartDate(result)
+                    if (!contract_address) {
+                        setUploadType('file')
+                        showFile()
+                    }
                 }
-                setIntroInfo(Info)
-                setResultDetail(list)
-                setechartDate(result)
-                if (!contract_address) {
-                    setUploadType('file')
-                    showFile()
-                }
+            }else{
+                setErrOpen(true)
+                seterrorMsg(res.msg)
             }
+            
         })
 
     }
 
+    //关闭错误弹框
+    const closeErrTip = () => {
+        setErrOpen(false)
+        seterrorMsg('')
+        history.push('/contract_detection')
+    }
 
 
     const showFile = () => {
         const { params: { id } } = params.match
         getFile({ id }).then((res: any) => {
-            console.log(res, 'ressss');
             setFileValue(res)
         })
     }
@@ -332,6 +350,11 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 </div>
             </WrokContainer>
         </PcModal>
+        <ErrModel
+            isOpen={ErrOpen}
+            onDismiss={closeErrTip}
+            errorMsg={errorMsg}
+        ></ErrModel>
     </ContractDetectionDetailDom>
 }
 

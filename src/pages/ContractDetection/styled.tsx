@@ -6,7 +6,7 @@ import CopySvg from '../../assets/images/contrastDetec/CopySvg.svg'
 import twitterSvg from '../../assets/images/contrastDetec/twitterSvg.svg'
 import picSvg from '../../assets/images/contrastDetec/picSvg.svg'
 import ShareBg from '../../assets/images/contrastDetec/ShareBg.png'
-import {ReactComponent as close} from '../../assets/images/contrastDetec/close.svg'
+import { ReactComponent as close } from '../../assets/images/contrastDetec/close.svg'
 import search from '../../assets/images/contrastDetec/search.svg'
 import copyImg from '../../assets/images/contrastDetec/copyImg.svg'
 import uploadFile from '../../assets/images/contrastDetec/uploadFile.svg'
@@ -33,25 +33,23 @@ export const WidthDiv = styled.div`
         font-size: 56px;
         font-family: Poppins-SemiBold, Poppins;
         font-weight: 600;
-        color: #FFFFFF;
+       
         line-height: 64px;
         margin-bottom: 72px;
-        /* color: #c7d63c; */
-        /* background-image: linear-gradient(90deg, #6e40aa, #963db3, #bf3caf, #e3419e, #fe4b83, #ff5e64, #ff7747, #fb9633, #e2b72f, #c7d63c, #c7d63c);
-        background-position: 100% 0;
-        background-size: 500% 100%;
-        transition: background-position 1s linear;
+        color: #f35626;
+        background-image: linear-gradient(92deg,#f35626,#feab3a);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: 1.75s linear 0s infinite alternate both running textGradient; */
-        @keyframes textGradient {
-        from {
-            background-position: 100% 0;
+        animation: Hue 5s linear infinite;
+        user-select: none;
+        @keyframes Hue {
+            0% {
+            filter:hue-rotate(0deg)
+            }
+            to {
+            filter:hue-rotate(-1turn)
+            }
         }
-        to {
-            background-position: 0% 0;
-        }
-}
 
 
     }
@@ -234,7 +232,7 @@ export const ShowDecting = styled.div`
     }
 
 `
-export const StyledInput = styled.input<{ShowRed?:boolean}>`
+export const StyledInput = styled.input<{ ShowRed?: boolean }>`
         width:100%;
         background: none;
         outline: none;
@@ -309,9 +307,9 @@ export const StyleButton = styled.div<{ width?: string; height?: string; disable
     border-radius: 8px;
     color: ${({ disabled }) => disabled ? 'rgba(255, 255, 255, .4)' : 'rgba(255, 255, 255, 1)'};
     background: ${({ disabled }) =>
-    disabled
-    ? 'rgba(55, 114, 255, .4)'
-    : 'rgba(55, 114, 255, 1)'};
+        disabled
+            ? 'rgba(55, 114, 255, .4)'
+            : 'rgba(55, 114, 255, 1)'};
     cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'};
     font-size: 16px;
     font-family: Poppins-Medium, Poppins;
@@ -334,7 +332,7 @@ export const StyleCodeDom = styled.div`
 
 
 
- export const ContractDetectionDetailDom = styled.div`
+export const ContractDetectionDetailDom = styled.div`
     width: 100%;
     padding-top: 134px;
     .container{
@@ -347,8 +345,21 @@ export const StyleCodeDom = styled.div`
             font-size: 48px;
             font-family: Poppins-SemiBold, Poppins;
             font-weight: 600;
-            color: #FFFFFF;
             line-height: 56px;
+            color: #f35626;
+            background-image: linear-gradient(92deg,#f35626,#feab3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: Hue 5s linear infinite;
+            user-select: none;
+            @keyframes Hue {
+                0% {
+                filter:hue-rotate(0deg)
+                }
+                to {
+                filter:hue-rotate(-1turn)
+                }
+            }
         }
         .detect{
             width: 636px;
@@ -378,7 +389,7 @@ export const StyleCodeDom = styled.div`
     }
  `
 
- export const ReportDom = styled.div`
+export const ReportDom = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -542,15 +553,15 @@ export const StyleCodeDom = styled.div`
     }
  `
 
-export const ColorText = styled.span<{type:number}>`
+export const ColorText = styled.span<{ type: number }>`
      font-size: 28px;
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
-    color: ${({ type }) => (type===0?'#6C7897':type===1?'#E13131':type===2?'#FFC32B':type===3?'#20DDB5':'#754CFF')};
+    color: ${({ type }) => (type === 0 ? '#6C7897' : type === 1 ? '#E13131' : type === 2 ? '#FFC32B' : type === 3 ? '#20DDB5' : '#754CFF')};
     line-height: 28px;
 `
 
- export const IntroTit = styled.div`
+export const IntroTit = styled.div`
     font-size: 24px;
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
@@ -571,7 +582,7 @@ export const ColorText = styled.span<{type:number}>`
         background-size: 100% 100%;
     }
  `
- export const IntroTitle = styled.div`
+export const IntroTitle = styled.div`
     height: 16px;
     width: 100%;
     display: flex;
@@ -650,7 +661,7 @@ export const ShowShareDropCon = styled.div`
         
     }
 `
- export const ReportDetail = styled.div`
+export const ReportDetail = styled.div`
  text-align: left;
     .titleIntro{
         height: 26px;
@@ -685,7 +696,7 @@ export const ShowShareDropCon = styled.div`
     }
  `
 
-export const CloseColor = styled(close)<{ strokeColor?: string }>`
+export const CloseColor = styled(close) <{ strokeColor?: string }>`
 width: 18px;
 height: 18px;
   path {
@@ -760,9 +771,23 @@ export const HistoryDom = styled.div`
         font-size: 48px;
         font-family: Poppins-SemiBold, Poppins;
         font-weight: 600;
-        color: #FFFFFF;
+       
         line-height: 56px;
         margin-bottom: 14px;
+        color: #f35626;
+            background-image: linear-gradient(92deg,#f35626,#feab3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: Hue 5s linear infinite;
+            user-select: none;
+            @keyframes Hue {
+                0% {
+                filter:hue-rotate(0deg)
+                }
+                to {
+                filter:hue-rotate(-1turn)
+                }
+            }
 
     }
     .showTitle{
@@ -773,10 +798,10 @@ export const HistoryDom = styled.div`
         font-weight: 600;
         color: #FFFFFF;
         line-height: 56px;
-        background: linear-gradient(270deg, #72ACFF 0%, #5846F9 35%, #45D8FB 64%, #FF63EB 100%);
+        /* background: linear-gradient(270deg, #72ACFF 0%, #5846F9 35%, #45D8FB 64%, #FF63EB 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        user-select: none;
+        user-select: none; */
     }
     .listCom{
         padding-top: 48px;
@@ -883,9 +908,9 @@ export const InputCon = styled.input`
     overflow: hidden;
 `
 
-export const ItemDiv = styled.div<{width:string,type:number}>`
- width: ${({ width }) => width };
- text-align: ${({ type }) => type===0?'center':type===1?'left':'right' };
+export const ItemDiv = styled.div<{ width: string, type: number }>`
+ width: ${({ width }) => width};
+ text-align: ${({ type }) => type === 0 ? 'center' : type === 1 ? 'left' : 'right'};
 
 `
 
