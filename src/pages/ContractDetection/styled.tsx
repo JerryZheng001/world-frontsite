@@ -12,7 +12,7 @@ import copyImg from '../../assets/images/contrastDetec/copyImg.svg'
 import uploadFile from '../../assets/images/contrastDetec/uploadFile.svg'
 import coreImg from '../../assets/images/contrastDetec/coreImg.png'
 import loadingPic from '../../assets/images/contrastDetec/loading.png'
-
+import notice from '../../assets/images/contrastDetec/notice.svg'
 
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
@@ -150,7 +150,18 @@ export const WidthDiv = styled.div`
         line-height: 20px;
         margin: 0 auto;
         text-align: center;
-
+        padding-left: 22px;
+            position: relative;
+            text-align: left;
+            &::before{
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                content: '';
+                background: url(${notice});
+                left: 0;
+                top: 5px;
+            }
     }
     .detect{
         height: 50px;
@@ -384,7 +395,18 @@ export const ContractDetectionDetailDom = styled.div`
             color: #636B80;
             line-height: 20px;
             margin: 0 auto 64px;
-
+            padding-left: 22px;
+            position: relative;
+            text-align: left;
+            &::before{
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                content: '';
+                background: url(${notice});
+                left: 0;
+                top: 5px;
+            }
         }
     }
  `

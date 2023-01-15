@@ -24,6 +24,7 @@ import { getFile, getTestResult } from '../../../utils/fetch/detect';
 import { StyleCode } from './StyleCode';
 import ErrModel from './ErrModel';
 
+import dayjs from 'dayjs'
 
 
 
@@ -94,8 +95,8 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
             window.open(url, '_blank', option)
         }
         const title = 'BSC  Detection (BSC  Detection, a technical insight into BSC)'
-        // const href = encodeURIComponent(document.location.href);
-        const href = 'https://www.triathon.space/contract_detection';
+        const href = encodeURIComponent(document.location.href) ||  encodeURIComponent(window.location.href);
+        // const href = 'https://www.triathon.space/contract_detection';
 
         toOpen('https://twitter.com/share/?text=' + title + '&url=' + href)
     }
@@ -129,8 +130,6 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     //报告详情
     const getReportDetail = (id: any) => {
         getTestResult({ id }).then((res:any) => {
-            console.log(res,'ressss',JSON.stringify(res.data));
-
             if(res.code===200){
                 
                 
@@ -178,7 +177,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
 
         const { params: { id } } = params.match
         getReportDetail(id)
-
+        
         return () => {
 
         }
@@ -218,7 +217,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                             Save picture
                                         </div>
                                         <div className="item3" onClick={() => {
-                                            setCopied('https://www.triathon.space/#/ranking')
+                                            setCopied(window.location.href || document.location.href)
                                             setShowShareDrop(false)
                                         }}>
                                             <span></span>
@@ -238,7 +237,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </div>
                         <div className="item">
                             <span>Detect time: </span>
-                            <span> {IntroInfo.time} </span>
+                            <span> {IntroInfo.time ? dayjs(new Date(1673751070*1000).toUTCString()).utc().format('UTC DD/MM/YYYY  HH:mm:ss') :'' } </span>
                         </div>
                     </div>
                     <IntroTit>Contract Info</IntroTit>
@@ -318,7 +317,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                     </div>
                     {
                         isShare && <div className="code">
-                            <QRCodeDom url='http://164.52.93.82:8002/#/' />
+                            <QRCodeDom url={window.location.href || document.location.href} />
                         </div>
                     }
                 </div>
