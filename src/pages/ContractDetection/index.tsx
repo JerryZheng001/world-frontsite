@@ -24,10 +24,12 @@ function Input({
     onUserInput,
     placeholder,
     ShowRed,
+    setcontrastErrText,
     ...rest
 }: {
     value: string | number
     onUserInput: (input: string) => void
+    setcontrastErrText: (e: any) => void
     error?: boolean
     ShowRed?: boolean
     placeholder?: string
@@ -38,7 +40,13 @@ function Input({
             onUserInput(nextUserInput)
         }
     }
-
+    const testInput = (e:any)=>{
+        if(contrastRegex.test(e.target.value)){
+            setcontrastErrText('')
+        }else{
+            setcontrastErrText('Notice：Address is validated incorrectly')
+        }
+    }
 
 
     return (
@@ -51,6 +59,7 @@ function Input({
             type="text"
             ShowRed={ShowRed}
             placeholder={placeholder || ''}
+            onBlur={event => testInput(event)}
         />
 
     )
@@ -140,12 +149,15 @@ export default function ContractDetection(): JSX.Element {
     //合约地址检测
     const detectContrast = useCallback(
         () => {
+            
             if (!contrastRegex.test(AddressContract)) {
+            console.log('start false');
+
                 setcontrastErrText('Notice：Address is validated incorrectly')
             } else {
                 setcontrastErrText('')
                 GetTestStatus()
-
+                console.log('start true');
             }
         },
         // eslint-disable-next-line
@@ -244,7 +256,8 @@ export default function ContractDetection(): JSX.Element {
         localStorage.setItem('chain', value)
     }
     //获取nonce
-    const handelFiret = () => {
+    const handelFiret = useCallback(
+      () => {
         if (!account) return
 
         getUserNonce({ address: account }).then(res => {
@@ -255,7 +268,11 @@ export default function ContractDetection(): JSX.Element {
                 window.sessionStorage.setItem('token', 'Bearer ' + token)
             })
         })
-    }
+      },
+      [account],
+    )
+    
+   
     
     //检测总数
     const handleListTotal = ()=>{
@@ -293,27 +310,47 @@ export default function ContractDetection(): JSX.Element {
         })
     }
     //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
-    const GetTestStatus = ()=>{
+    const GetTestStatus = useCallback(
+      () => {
+        console.log(account,'jiancha');
+        
         if(!account) return
+        console.log('状态');
+        
         getTestStatus({addr:account}).then((res:any)=>{
-            const { data:{status},msg } = res
-            if(status === 2){
-                setErrOpen(true)
-                seterrorMsg(msg)
-            }
-            if(status === 1){
-                setTesting(true)
-                const Id = localStorage.getItem('CurrentTestId')
-                ViewTestResult(Id)
-                
-            }
-            if(status===0){
-                if(contrastRegex.test(AddressContract)){
-                    testAddress()
+            console.log(res.code,'status');
+            
+            
+            if(res.code===200){
+                const { data:{status},msg } = res
+                if(status === 2){
+                    setErrOpen(true)
+                    seterrorMsg(msg)
+                }
+                if(status === 1){
+                    setTesting(true)
+                    const Id = localStorage.getItem('CurrentTestId')
+                    ViewTestResult(Id)
+                    
+                }
+                if(status===0){
+                    if(contrastRegex.test(AddressContract)){
+                        testAddress()
+                    }
                 }
             }
+            if(res.code === 500){
+                setErrOpen(true)
+                seterrorMsg(res.msg)
+            }
+            
         })
-    }
+      },
+       // eslint-disable-next-line
+      [account,AddressContract,ViewTestResult],
+    )
+    
+   
 
     useEffect(() => {
         localStorage.setItem('chain', 'bsc')
@@ -321,7 +358,7 @@ export default function ContractDetection(): JSX.Element {
         handleListTotal()
         GetTestStatus()
         // eslint-disable-next-line
-    }, [])
+    }, [account])
 
 
     return <ContainerCon className="ContractDetection">
@@ -346,7 +383,7 @@ export default function ContractDetection(): JSX.Element {
                                     </Select>
                                 </div>
                                 <div className="inputCon">
-                                    <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''} ></Input>
+                                    <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''}  setcontrastErrText={setcontrastErrText} ></Input>
                                 </div>
                                 <div className="err">{contrastErrText}</div>
                             </div>:<div className="fileCon">
