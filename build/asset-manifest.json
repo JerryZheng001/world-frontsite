@@ -9,8 +9,8 @@
     "static/js/2.94874527.chunk.js.map": "/static/js/2.94874527.chunk.js.map",
     "static/js/3.3286a329.chunk.js": "/static/js/3.3286a329.chunk.js",
     "static/js/3.3286a329.chunk.js.map": "/static/js/3.3286a329.chunk.js.map",
-    "main.js": "/static/js/main.9a9f7f49.chunk.js",
-    "main.js.map": "/static/js/main.9a9f7f49.chunk.js.map",
+    "main.js": "/static/js/main.3596a5c4.chunk.js",
+    "main.js.map": "/static/js/main.3596a5c4.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.ed4c00fa.js",
     "runtime-main.js.map": "/static/js/runtime-main.ed4c00fa.js.map",
     "static/js/6.75252bfe.chunk.js": "/static/js/6.75252bfe.chunk.js",
@@ -42,7 +42,7 @@
     "static/js/18.72becbbd.chunk.js": "/static/js/18.72becbbd.chunk.js",
     "static/js/18.72becbbd.chunk.js.map": "/static/js/18.72becbbd.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.32e7bda038961d95f8e8d503b4125717.js": "/precache-manifest.32e7bda038961d95f8e8d503b4125717.js",
+    "precache-manifest.761f3684b345a5fd8f4e159a4a4dfecf.js": "/precache-manifest.761f3684b345a5fd8f4e159a4a4dfecf.js",
     "service-worker.js": "/service-worker.js",
     "static/css/13.498fbac5.chunk.css.map": "/static/css/13.498fbac5.chunk.css.map",
     "static/css/2.5b94f4d1.chunk.css.map": "/static/css/2.5b94f4d1.chunk.css.map",
@@ -54,7 +54,7 @@
     "static/js/7.a4929b24.chunk.js.LICENSE.txt": "/static/js/7.a4929b24.chunk.js.LICENSE.txt",
     "static/js/8.b1439003.chunk.js.LICENSE.txt": "/static/js/8.b1439003.chunk.js.LICENSE.txt",
     "static/js/9.eeb9a09d.chunk.js.LICENSE.txt": "/static/js/9.eeb9a09d.chunk.js.LICENSE.txt",
-    "static/js/main.9a9f7f49.chunk.js.LICENSE.txt": "/static/js/main.9a9f7f49.chunk.js.LICENSE.txt",
+    "static/js/main.3596a5c4.chunk.js.LICENSE.txt": "/static/js/main.3596a5c4.chunk.js.LICENSE.txt",
     "static/media/CopySvg.svg": "/static/media/CopySvg.4841b0ff.svg",
     "static/media/ShareBg.png": "/static/media/ShareBg.b4ee1a65.png",
     "static/media/arrow_down.ff414bed.svg": "/static/media/arrow_down.ff414bed.svg",
@@ -92,6 +92,6 @@
     "static/js/runtime-main.ed4c00fa.js",
     "static/css/7.660b3ed9.chunk.css",
     "static/js/7.a4929b24.chunk.js",
-    "static/js/main.9a9f7f49.chunk.js"
+    "static/js/main.3596a5c4.chunk.js"
   ]
 }
