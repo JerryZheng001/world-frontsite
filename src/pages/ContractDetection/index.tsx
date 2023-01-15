@@ -16,7 +16,6 @@ import { getEnv } from '../../utils/base/string'
 import { clearTimeout } from 'timers'
 const { Option } = Select;
 
-
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
 const inputRegex = RegExp(/^[a-zA-Z\d]+$/)
 const contrastRegex = RegExp(/^0x[a-fA-F0-9]{40}$/)

@@ -3,6 +3,8 @@ import React, { Suspense, useEffect, useState } from "react";
 // import styled from 'styled-components'
 import { Route, Switch, HashRouter } from "react-router-dom";
 import { createTheme } from "@material-ui/core/styles";
+import AppIphone from './AppIphone'
+
 import "antd/dist/antd.css";
 import { ThemeProvider as MaterialThemeProvider } from "@material-ui/core/styles";
 // import MainPage from "./homePage";
@@ -17,7 +19,6 @@ import styled from "styled-components";
 export const Marginer = styled.div`
   ${({ theme }) => theme.desktop}
 `;
-
 // function TopLevelModals() {
 //   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
 //   const toggle = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
@@ -47,41 +48,42 @@ function App() {
 
   return (
     <MaterialThemeProvider theme={materialTheme}>
-     
-      <div
-        id="root"
-        style={{
-          background: " #111112",
-          display: flag === true ? "block" : "none",
-          minHeight:'100vh'
-        }}
-      >
-        <HashRouter>
-          <NavHeader />
-          <Suspense fallback={<TextLoader />}>
-            <Web3ReactManager>
-              <Switch>
-                {/* <Route path="/" component={MainPage} /> */}
-                {/* <Route component={DarkModeQueryParamReader} /> */}
-                {routes.map(({ path, component, show }, index) => {
-                  return (
-                    show && (
-                      <Route
-                        exact
-                        strict
-                        path={path}
-                        component={component}
-                        key={index}
-                      />
-                    )
-                  );
-                })}
-              </Switch>
-              {/* <Footer></Footer> */}
-            </Web3ReactManager>
-          </Suspense>
-        </HashRouter>
-      </div>
+     {
+      flag?<div
+      id="root"
+      style={{
+        background: " #111112",
+        minHeight:'100vh'
+      }}
+    >
+      <HashRouter>
+        <NavHeader />
+        <Suspense fallback={<TextLoader />}>
+          <Web3ReactManager>
+            <Switch>
+              {/* <Route path="/" component={MainPage} /> */}
+              {/* <Route component={DarkModeQueryParamReader} /> */}
+              {routes.map(({ path, component, show }, index) => {
+                return (
+                  show && (
+                    <Route
+                      exact
+                      strict
+                      path={path}
+                      component={component}
+                      key={index}
+                    />
+                  )
+                );
+              })}
+            </Switch>
+            {/* <Footer></Footer> */}
+          </Web3ReactManager>
+        </Suspense>
+      </HashRouter>
+    </div>:<AppIphone></AppIphone>
+     }
+      
     </MaterialThemeProvider>
   );
 }
