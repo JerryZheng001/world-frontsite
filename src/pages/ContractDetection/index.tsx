@@ -156,12 +156,11 @@ export default function ContractDetection(): JSX.Element {
                 setcontrastErrText('Notice：Address is validated incorrectly')
             } else {
                 setcontrastErrText('')
-                GetTestStatus()
-                console.log('start true');
+                GetTestStatusStart()
             }
         },
         // eslint-disable-next-line
-        [AddressContract, history,],
+        [AddressContract, history,account],
     )
     const testAddress = () => {
         const params = {
@@ -250,6 +249,7 @@ export default function ContractDetection(): JSX.Element {
         detectContrast,
         currIndex,
         detectIng,
+        useActiveWeb3React
     ])
     const handleChange = (value: any) => {
         setselectChain(value)
@@ -309,17 +309,13 @@ export default function ContractDetection(): JSX.Element {
             
         })
     }
+    
     //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
-    const GetTestStatus = useCallback(
-      () => {
-        console.log(account,'jiancha');
+    const GetTestStatusStart =  () => {
         
         if(!account) return
-        console.log('状态');
         
         getTestStatus({addr:account}).then((res:any)=>{
-            console.log(res.code,'status');
-            
             
             if(res.code===200){
                 const { data:{status},msg } = res
@@ -339,16 +335,19 @@ export default function ContractDetection(): JSX.Element {
                     }
                 }
             }
-            if(res.code === 500){
+            
+            else{
+                
                 setErrOpen(true)
                 seterrorMsg(res.msg)
             }
+            // if(res.code === 500){
+            //     setErrOpen(true)
+            //     seterrorMsg(res.msg)
+            // }
             
         })
-      },
-       // eslint-disable-next-line
-      [account,AddressContract,ViewTestResult],
-    )
+      }
     
    
 
@@ -356,10 +355,18 @@ export default function ContractDetection(): JSX.Element {
         localStorage.setItem('chain', 'bsc')
         handelFiret()
         handleListTotal()
-        GetTestStatus()
+        GetTestStatusStart()
         // eslint-disable-next-line
+        return ()=>{
+
+            if(timer1){
+                clearTimeout(timer1)
+            }
+        }
     }, [account])
 
+   
+    
 
     return <ContainerCon className="ContractDetection">
 
