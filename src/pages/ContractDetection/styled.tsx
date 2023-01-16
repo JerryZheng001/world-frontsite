@@ -526,6 +526,12 @@ export const ReportDom = styled.div`
             }
             .text{
                 position: static;
+                &::before{
+                    content:'',
+                    width: 0;
+                    height: 0;
+                    
+                }
                 .top{
                     font-size: 16px;
                     font-family: Poppins-Regular, Poppins;

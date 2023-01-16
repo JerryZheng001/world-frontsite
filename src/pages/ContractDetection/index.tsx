@@ -134,6 +134,7 @@ export default function ContractDetection(): JSX.Element {
                 if(data.id){
                     setCurrentTestId(data.id)
                     localStorage.setItem('CurrentTestId',data.id)
+                    localStorage.setItem('TakeResultAllTime','true')
                 }
             }
         }
@@ -196,10 +197,9 @@ export default function ContractDetection(): JSX.Element {
    
     const detectFile = () => {
         const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
-        if(Id){
-            ViewTestResult(Id)
+        console.log(Id,'Id');
+        ViewTestResult(Id)
 
-        }
     }
 
 
@@ -294,10 +294,10 @@ export default function ContractDetection(): JSX.Element {
                 const {code,data,msg} = res
                 if(code===200){
                     if(JSON.stringify(data) === '{}' ){
-                        console.log(TakeResultAllTime,'TakeResultAllTime==>', localStorage.getItem('TakeResultAllTime'),testid,localStorage.getItem('CurrentTestId'));
+                        console.log(TakeResultAllTime,'TakeResultAllTime==>', localStorage.getItem('TakeResultAllTime'),testid,localStorage.getItem('CurrentTestId'),localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid)===Number(localStorage.getItem('CurrentTestId')));
                         
-                        if(localStorage.getItem('TakeResultAllTime') === 'true' && testid===Number(localStorage.getItem('CurrentTestId'))){
-                        setdetectIng(true)
+                        if(localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid)===Number(localStorage.getItem('CurrentTestId'))){
+                            setdetectIng(true)
                             setTimeout(() => {
                                 ViewTestResult(testid)
                             }, 3000);
