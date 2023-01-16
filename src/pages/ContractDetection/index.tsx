@@ -96,6 +96,7 @@ export default function ContractDetection(): JSX.Element {
     const [TotalTest, setTotalTest] = useState(0)
 
     const [Testing, setTesting] = useState(false)
+    const [TakeResultAllTime, setTakeResultAllTime] = useState(false)
     let timer1:any;
     //上传文件
     function readSingleFile(e: any) {
@@ -266,9 +267,12 @@ export default function ContractDetection(): JSX.Element {
             getUserToCore(Params).then(re => {
                 const { token } = re.data
                 window.sessionStorage.setItem('token', 'Bearer ' + token)
+                GetTestStatusStart()
+
             })
         })
       },
+      // eslint-disable-next-line
       [account],
     )
     
@@ -283,79 +287,116 @@ export default function ContractDetection(): JSX.Element {
         })
     }
      //查看检测结果
-     const ViewTestResult = (testid:any)=>{
-        getTestResult({id:CurrentTestId || testid}).then((res:any)=>{
-            const {code,data,msg} = res
-            if(code===200){
-                if(JSON.stringify(data) === '{}' ){
-                    setdetectIng(true)
-                    setTimeout(() => {
-                        ViewTestResult(CurrentTestId || testid)
-                    }, 3000);
-                }else{
-                    setTesting(false)
-                    setdetectIng(false)
-
-                    if(timer1){
-                        clearTimeout(timer1)
-                    }
-                    const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
-                    history.push(`/contract_detection/${Id}`)
-                }
-            }else{
-                setErrOpen(true)
-                seterrorMsg(msg)
-            }
-            
-        })
-    }
+     const ViewTestResult = useCallback(
+        (testid:any)=>{
+        
+            getTestResult({id:testid}).then((res:any)=>{
+                const {code,data,msg} = res
+                if(code===200){
+                    if(JSON.stringify(data) === '{}' ){
+                        console.log(TakeResultAllTime,'TakeResultAllTime==>', localStorage.getItem('TakeResultAllTime'),testid,localStorage.getItem('CurrentTestId'));
+                        
+                        if(localStorage.getItem('TakeResultAllTime') === 'true' && testid===Number(localStorage.getItem('CurrentTestId'))){
+                        setdetectIng(true)
+                            setTimeout(() => {
+                                ViewTestResult(testid)
+                            }, 3000);
+                        }
+                        
+                    }else{
+                        setTesting(false)
+                        setdetectIng(false)
     
-    //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
-    const GetTestStatusStart =  () => {
-        
-        if(!account) return
-        
-        getTestStatus({addr:account}).then((res:any)=>{
-            
-            if(res.code===200){
-                const { data:{status},msg } = res
-                if(status === 2){
+                        const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
+                        history.push(`/contract_detection/${Id}`)
+                    }
+                }else{
                     setErrOpen(true)
                     seterrorMsg(msg)
                 }
-                if(status === 1){
-                    setTesting(true)
-                    const Id = localStorage.getItem('CurrentTestId')
-                    ViewTestResult(Id)
-                    
-                }
-                if(status===0){
-                    if(contrastRegex.test(AddressContract)){
-                        testAddress()
+                
+            })
+        },
+       [TakeResultAllTime,CurrentTestId,history],
+     )
+     
+    
+    //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
+    const GetTestStatusStart =  useCallback(
+        () => {
+           
+            if(!account) return
+            
+            getTestStatus({addr:account}).then((res:any)=>{
+                
+                if(res.code===200){
+                    const { data,msg } = res
+                    if(data.status === 2){
+                        setErrOpen(true)
+                        seterrorMsg(msg)
+                    }
+                    if(data.status === 1){
+                       
+                        localStorage.setItem('CurrentTestId',data.id)
+                        localStorage.setItem('TakeResultAllTime','true')
+                        setTakeResultAllTime(true)
+                        setTimeout(() => {
+                            setTesting(true)
+                            ViewTestResult(data.id)
+                        }, 0);
+                        
+                    }
+                    if(data.status===0){
+                        setTesting(false)
+                        setdetectIng(false)
+
+                        if(contrastRegex.test(AddressContract)){
+                            testAddress()
+                        }
+    
                     }
                 }
-            }
-            
-            else{
                 
-                setErrOpen(true)
-                seterrorMsg(res.msg)
-            }
-            // if(res.code === 500){
-            //     setErrOpen(true)
-            //     seterrorMsg(res.msg)
-            // }
-            
-        })
-      }
+                else{
+                    
+                    setErrOpen(true)
+                    seterrorMsg(res.msg)
+                }
+                // if(res.code === 500){
+                //     setErrOpen(true)
+                //     seterrorMsg(res.msg)
+                // }
+                
+            })
+          },
+// eslint-disable-next-line
+      [AddressContract,ViewTestResult,account,],
+    )
     
-   
+    
+    //初始化
+    const PageStart = useCallback(
+        ()=>{
+            setErrOpen(false)
+            seterrorMsg('')
+            setcontrastErrText('')
+            setFileValue('')
+            setFileShow(false)
+            setcurrIndex(0)
+            setAddressContract('')
+            setTakeResultAllTime(false)
+            localStorage.setItem('TakeResultAllTime','false')
+        },
+        // eslint-disable-next-line
+      [account],
+    )
+    
 
     useEffect(() => {
         localStorage.setItem('chain', 'bsc')
         handelFiret()
         handleListTotal()
-        GetTestStatusStart()
+        PageStart()
         // eslint-disable-next-line
         return ()=>{
 
@@ -363,6 +404,7 @@ export default function ContractDetection(): JSX.Element {
                 clearTimeout(timer1)
             }
         }
+        // eslint-disable-next-line
     }, [account])
 
    
