@@ -628,6 +628,7 @@ color: #FFFFFF;
         color: #FFFFFF;
     }
     .rightIntro{
+        cursor: pointer;
         font-size: 16px;
         font-family: Poppins-Regular, Poppins;
         font-weight: 400;

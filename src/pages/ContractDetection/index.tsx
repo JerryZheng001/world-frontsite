@@ -97,6 +97,7 @@ export default function ContractDetection(): JSX.Element {
 
     const [Testing, setTesting] = useState(false)
     const [TakeResultAllTime, setTakeResultAllTime] = useState(false)
+    const [showUploadFileButton, setshowUploadFileButton] = useState(false)
     let timer1:any;
     //上传文件
     function readSingleFile(e: any) {
@@ -135,6 +136,7 @@ export default function ContractDetection(): JSX.Element {
                     setCurrentTestId(data.id)
                     localStorage.setItem('CurrentTestId',data.id)
                     localStorage.setItem('TakeResultAllTime','true')
+                    setshowUploadFileButton(true)
                 }
             }
         }
@@ -153,8 +155,6 @@ export default function ContractDetection(): JSX.Element {
         () => {
             
             if (!contrastRegex.test(AddressContract)) {
-            console.log('start false');
-
                 setcontrastErrText('Notice：Address is validated incorrectly')
             } else {
                 setcontrastErrText('')
@@ -198,7 +198,10 @@ export default function ContractDetection(): JSX.Element {
     const detectFile = () => {
         const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
         console.log(Id,'Id');
-        ViewTestResult(Id)
+        if(Id){
+            ViewTestResult(Id)
+
+        }
 
     }
 
@@ -261,15 +264,27 @@ export default function ContractDetection(): JSX.Element {
       () => {
         if (!account) return
 
-        getUserNonce({ address: account }).then(res => {
-            const { nonce } = res.data
-            const Params = { nonce: nonce, address: account }
-            getUserToCore(Params).then(re => {
-                const { token } = re.data
-                window.sessionStorage.setItem('token', 'Bearer ' + token)
-                GetTestStatusStart()
-
-            })
+        getUserNonce({ address: account }).then((res:any) => {
+            if(res.code===200){
+                const { nonce } = res.data
+                const Params = { nonce: nonce, address: account }
+                getUserToCore(Params).then((re:any) => {
+                    if(re.code===200){
+                        const { token } = re.data
+                        window.sessionStorage.setItem('token', 'Bearer ' + token)
+                        GetTestStatusStart()
+                    }else{
+                        setErrOpen(true)
+                        seterrorMsg(re.msg)
+                    }
+                    
+    
+                })
+            }else{
+                setErrOpen(true)
+                seterrorMsg(res.msg)
+            }
+            
         })
       },
       // eslint-disable-next-line
@@ -362,10 +377,7 @@ export default function ContractDetection(): JSX.Element {
                     setErrOpen(true)
                     seterrorMsg(res.msg)
                 }
-                // if(res.code === 500){
-                //     setErrOpen(true)
-                //     seterrorMsg(res.msg)
-                // }
+               
                 
             })
           },
@@ -454,12 +466,12 @@ export default function ContractDetection(): JSX.Element {
                 
                 {
                     (currIndex === 0 && !Testing) ?  <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> :(
-                        (FileValue !== '' && !Testing) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
+                        (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
                     )
                 }
 
                
-                <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contact customer service for manual audit</div>
+                <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
                 <div className="detect" >
                     <span onClick={() => {
                     history.push('/contract_detection/history')

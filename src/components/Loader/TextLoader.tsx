@@ -25,6 +25,7 @@ const StyledSVG = styled.svg<{ size: string; stroke?: string; padding?: string }
 const StyledLoading = styled(ColumnCenter)`
   text-align: center;
   align-items: center;
+  margin: 350px auto;
 `
 
 /**

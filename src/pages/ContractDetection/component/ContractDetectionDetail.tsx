@@ -177,7 +177,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
 
         const { params: { id } } = params.match
         getReportDetail(id)
-        
+        setFileValue('')
         return () => {
 
         }
@@ -185,9 +185,8 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     }, [params.match])
 
 
-
-
     return <ContractDetectionDetailDom className='ContractDetectionDetail'>
+       
         <div className="container">
             <div className="title">Triathon Contract Detection Report</div>
             <div className="detect" onClick={() => {
@@ -265,7 +264,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </div>
                     }
                     {
-                        UploadType === 'file' && <div className='fileInfo'>
+                        UploadType === 'file' &&  <div className='fileInfo'>
                             {
                                 FileValue !=='' && <StyleCode value={FileValue}></StyleCode>
                             }
