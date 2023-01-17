@@ -132,6 +132,12 @@ export default function ContractDetection(): JSX.Element {
                     setErrOpen(true)
                     seterrorMsg(msg)
                 }
+                if (data.status === 1) {
+                    setErrOpen(true)
+                    seterrorMsg(msg)
+                }
+                
+
                 if (data.id) {
                     setCurrentTestId(data.id)
                     localStorage.setItem('CurrentTestId', data.id)
@@ -331,6 +337,8 @@ export default function ContractDetection(): JSX.Element {
                 } else {
                     setErrOpen(true)
                     seterrorMsg(msg)
+                    localStorage.setItem('TakeResultAllTime', 'false')
+                    
                 }
 
             })
