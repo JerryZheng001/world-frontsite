@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { HistoryDom, InputCon, ItemDiv, SearchDom } from '../styled'
+import { HistoryContainer, HistoryDom, InputCon, ItemDiv, SearchDom } from '../styled'
 import Right from '../../../assets/images/contrastDetec/right@2x.png'
 import ethPic from '../../../assets/images/contrastDetec/ethPic.png'
 import bscPic from '../../../assets/images/contrastDetec/bscPic.png'
@@ -62,7 +62,8 @@ export default function ContractDetectionHistory(): JSX.Element {
     }, [])
    
 
-    return <HistoryDom>
+    return <HistoryContainer>
+    <HistoryDom>
         <div className="title">Triathon Contract Detection Report</div>
         <div className="showTitle">{TotalTest} Detected</div>
         <SearchDom>
@@ -107,4 +108,5 @@ export default function ContractDetectionHistory(): JSX.Element {
         
 
     </HistoryDom>
+    </HistoryContainer>
 }

@@ -325,9 +325,13 @@ export default function NavHeader(): JSX.Element {
       // nav.style.webkitBackdropFilter = "blur(20px)";
       setBgOpacity(1);
     } else {
+      // let nav = document.getElementsByClassName("head-nav")[0] as any;
+      // nav.style.background = "none";
+      // nav.style.backdropFilter = "none";
+    }
+    if (top === 0){
       let nav = document.getElementsByClassName("head-nav")[0] as any;
       nav.style.background = "none";
-      nav.style.backdropFilter = "none";
     }
   }, [bgOpacity]);
   useEffect(() => {

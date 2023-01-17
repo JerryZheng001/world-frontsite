@@ -469,7 +469,10 @@ export default function ContractDetection(): JSX.Element {
 
                 {
                     (currIndex === 0 && !Testing) ? <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
-                        (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
+                        !account?<StyleButton onClick={()=>{
+                            toggleWalletModal()
+                        }} > Connect Wallet </StyleButton>:(FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
+                        
                     )
                 }
 

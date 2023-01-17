@@ -13,7 +13,7 @@ import uploadFile from '../../assets/images/contrastDetec/uploadFile.svg'
 import coreImg from '../../assets/images/contrastDetec/coreImg.png'
 import loadingPic from '../../assets/images/contrastDetec/loading.png'
 import notice from '../../assets/images/contrastDetec/notice.svg'
-
+import StyleBg from '../../assets/images/contrastDetec/StyleBg.png'
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
@@ -349,6 +349,9 @@ export const StyleCodeDom = styled.div`
 export const ContractDetectionDetailDom = styled.div`
     width: 100%;
     padding-top: 134px;
+    background: url(${StyleBg});
+    background-size: 100% 620px;
+    background-repeat: no-repeat;
     .container{
         max-width: 1294px;
         width: 1294px;
@@ -792,11 +795,17 @@ export const WrokContainer = styled.div`
         }
     }
 `
-
+export const HistoryContainer = styled.div`
+    width: 100%;
+    background: url(${StyleBg});
+    background-size: 100% 620px;
+    background-repeat: no-repeat;
+`
 export const HistoryDom = styled.div`
     padding-top: 134px;
     width: 1294px;
     margin: 0 auto;
+
     .title{
         text-align: center;
         font-size: 48px;
