@@ -14,10 +14,120 @@ import coreImg from '../../assets/images/contrastDetec/coreImg.png'
 import loadingPic from '../../assets/images/contrastDetec/loading.png'
 import notice from '../../assets/images/contrastDetec/notice.svg'
 import StyleBg from '../../assets/images/contrastDetec/StyleBg.png'
+import homePageBg from '../../assets/images/contrastDetec/homePageBg.png'
+import play1 from '../../assets/images/contrastDetec/play1@2x.png'
+import play2 from '../../assets/images/contrastDetec/play2@2x.png'
+import play3 from '../../assets/images/contrastDetec/play3@2x.png'
+import play4 from '../../assets/images/contrastDetec/play4@2x.png'
+import play5 from '../../assets/images/contrastDetec/play5@2x.png'
+import play6 from '../../assets/images/contrastDetec/play6@2x.png'
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
   height: 100%;
+  background: url(${homePageBg});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  .homeContainer{
+    .playContainer{
+        z-index: 1;
+        width: 1294px;
+        height: 780px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    .play1{
+        width: 126px;
+        height: 121px;
+        position: absolute;
+        background: url(${play1});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        left: -68px;
+        top: 136px;
+        top: calc(286/1080 vh);
+        animation: float90 6s ease-in-out infinite;
+        animation-delay: 0s;
+
+    }
+    .play2{
+       width: 83px;
+       height: 62px;
+        position: absolute;
+        background: url(${play2});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        left: -160px;
+        top: 428px;
+        animation: float90 6s ease-in-out infinite;
+        animation-delay: 0.9s;
+
+    }
+    .play3{
+        width: 91px;
+        height: 92px;
+        position: absolute;
+        background: url(${play3});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        left: 37px;
+        top: 551px;
+        animation: float90 6s ease-in-out infinite;
+        animation-delay: 1.8s;
+
+
+    }
+    .play4{
+        width: 87px;
+        height: 68px;
+        position: absolute;
+        background: url(${play4});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        right: -33px;
+        top: 114px;
+        animation: float90 6s ease-in-out infinite;
+        animation-delay: 2.7s;
+
+
+    }
+    .play5{
+        width: 109px;
+        height: 93px;
+        position: absolute;
+        background: url(${play5});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        right: -170px;
+        top: 300px;
+        animation: float90 6s ease-in-out infinite;
+        animation-delay: 3.6s;
+
+
+    }
+    .play6{
+        width: 131px;
+        height: 129px;
+        position: absolute;
+        background: url(${play6});
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+       right: -67px;
+        top: 506px;
+        
+        animation: float90 6s ease-in-out infinite;
+        animation-delay: 4.5s;
+    }
+    .animation{
+        animation: float90 6s ease-in-out infinite;;
+    }
+    @keyframes float90{0%{-webkit-transform:translateY(-7%);transform:translateY(-7%)}50%{-webkit-transform:translateY(7%);transform:translateY(7%)}100%{-webkit-transform:translateY(-7%);transform:translateY(-7%)}}
+  }
   .container{
     padding-top: 87px;
     width: 100%;
@@ -25,6 +135,8 @@ export const ContainerCon = styled.div<{ isPadding?: boolean }>`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative;
+    z-index: 3;
   }
 `
 export const WidthDiv = styled.div`
@@ -163,7 +275,7 @@ export const WidthDiv = styled.div`
                 content: '';
                 background: url(${notice});
                 left: 0;
-                top: 5px;
+                top: 4px;
             }
     }
     .detect{
@@ -342,6 +454,7 @@ export const StyleCodeDom = styled.div`
         height: 240px !important;
         border-radius: 8px;
     }
+    
 `
 
 
@@ -544,21 +657,15 @@ export const ReportDom = styled.div`
                     font-weight: 400;
                     color: #FFFFFF;
                     line-height: 16px;
+                    margin-bottom: 12px;
                 }
                 .bottom{
-                    margin-bottom: 14px;
-                    .colorText{
-                        font-size: 28px;
-                        font-family: Poppins-SemiBold, Poppins;
-                        font-weight: 600;
-                        color: #1DD6D0;
-                        line-height: 28px;
-                    }
-                    font-size: 18px;
-                    font-family: Poppins-SemiBold, Poppins;
-                    font-weight: 600;
+                    
+                    font-size: 14px;
+                    font-family: Poppins-Medium, Poppins;
+                    font-weight: 500;
                     color: #FFFFFF;
-                    line-height: 18px;
+                    line-height: 14px;
                 }
             }
         }
@@ -589,10 +696,11 @@ export const ReportDom = styled.div`
  `
 
 export const ColorText = styled.span<{ type: number }>`
-     font-size: 28px;
+    font-size: 20px;
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
-    color: ${({ type }) => (type === 0 ? '#6C7897' : type === 1 ? '#E13131' : type === 2 ? '#FFC32B' : type === 3 ? '#20DDB5' : '#754CFF')};
+    margin-bottom: 14px;
+    color: ${({ type }) => (type === 0 ? '#E13131' : type === 1 ? '#FF7620' : type === 2 ? '#FFC92B' : type === 3 ? '#20DDB5' : '#3772ff')};
     line-height: 28px;
 `
 
@@ -714,13 +822,13 @@ export const ReportDetail = styled.div`
         }
     }
     .green{
-        color: #1DD6D0;
+        color: #FFC92B;
     }
     .yellow{
-        color: #FFB340;
+        color: #FF7620;
     }
     .red{
-        color: #FE4747;
+        color: #E13131;
     }
     .intro{
         font-size: 14px;

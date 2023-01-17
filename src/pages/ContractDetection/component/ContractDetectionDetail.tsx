@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, } from 'react-router-dom'
 import html2canvas from "html2canvas";
 
-import { CloseColor, ContractDetectionDetailDom, IntroTit, IntroTitle, Items, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
+import { CloseColor, ColorText, ContractDetectionDetailDom, IntroTit, IntroTitle, Items, ReportDetail, ReportDom, ShowShareDropCon, WrokContainer } from '../styled'
 import EchartsShow from './echartsShow'
 import { useCallbackState } from './useCallbackState';
 import useCopyClipboard from '../../../hooks/useCopyClipboard';
@@ -16,8 +16,8 @@ import hasCopyed from '../../../assets/images/contrastDetec/hasCopyed.svg'
 import copy from '../../../assets/images/contrastDetec/copy.svg'
 
 import low from '../../../assets/images/contrastDetec/low@2x.png'
-import high from '../../../assets/images/contrastDetec/mid@2x.png'
-import mid from '../../../assets/images/contrastDetec/high@2x.png'
+import high from '../../../assets/images/contrastDetec/high@2x.png'
+import mid from '../../../assets/images/contrastDetec/mid@2x.png'
 
 
 import { getFile, getTestResult } from '../../../utils/fetch/detect';
@@ -95,10 +95,10 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350'
             window.open(url, '_blank', option)
         }
-        const ResultText =  Math.floor(Number(IntroInfo.score) * 100) < 100 ? ShowText[0]
-        : Math.floor(Number(IntroInfo.score) * 100) < 80 ? ShowText[1]
-            : Math.floor(Number(IntroInfo.score) * 100) < 60 ? ShowText[2]
-                : Math.floor(Number(IntroInfo.score) * 100) < 40 ? ShowText[3]
+        const ResultText =  Math.floor(Number(IntroInfo.score) * 100) >=80 ? ShowText[0]
+        : Math.floor(Number(IntroInfo.score) * 100) >=60 ? ShowText[1]
+            : Math.floor(Number(IntroInfo.score) * 100) >=40 ? ShowText[2]
+                : Math.floor(Number(IntroInfo.score) * 100) >=20 ? ShowText[3]
                     : ShowText[4]
         const title = `I detected a Smart Contract in Triathon and get ${ResultText} Come together and detect your smart contract`
         const href = encodeURIComponent(document.location.href) || encodeURIComponent(window.location.href);
@@ -295,20 +295,19 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                             <div className="icon"></div>
                             <div className="text">
 
-                                <div className="bottom">
-                                    <span className='colorText'>
-                                        {IntroInfo.score}
-                                    </span>
-                                    <span >  / 100</span>
-                                </div>
+                                
                                 <div className="top">
                                     {
-                                        Math.floor(Number(IntroInfo.score) * 100) < 100 ? ShowText[0]
-                                            : Math.floor(Number(IntroInfo.score) * 100) < 80 ? ShowText[1]
-                                                : Math.floor(Number(IntroInfo.score) * 100) < 60 ? ShowText[2]
-                                                    : Math.floor(Number(IntroInfo.score) * 100) < 40 ? ShowText[3]
-                                                        : ShowText[4]
+                                        Math.floor(Number(IntroInfo.score) * 100) >=80 ? <ColorText type={0}>{ShowText[0]}</ColorText>
+                                            : Math.floor(Number(IntroInfo.score) * 100) >=60 ? <ColorText type={1}>{ShowText[1]}</ColorText>
+                                                : Math.floor(Number(IntroInfo.score) * 100) >=40 ? <ColorText type={2}>{ShowText[2]}</ColorText>
+                                                    : Math.floor(Number(IntroInfo.score) * 100) >=20 ? <ColorText type={3}>{ShowText[3]}</ColorText>
+                                                        : <ColorText type={4}>{ShowText[4]}</ColorText>
                                     }
+                                </div>
+                                <div className="bottom">
+                                    
+                                Risk Type
                                 </div>
                             </div>
                         </div>

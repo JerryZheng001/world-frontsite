@@ -10,31 +10,23 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
     useEffect(() => {
         var chartDom = document.getElementById('echarts');
         var myChart = chartDom && echarts.init(chartDom);
-        // let echdata = [
-        //     {percentage: 20, name: "Risky", value: 20},
-        //     {percentage: 30, name: "Attention", value: 30},
-        //     {percentage: 50, name: "Passed", value: 50},
-            
-        // ] 
         var nameArray = echdata.map(item=>{
             // eslint-disable-next-line
-            return '\t\t\t' + item.type + '\t\t\t' + item.count +  '\t\t\t' + Number(Number(item.ratio)*100).toFixed(2) + '%'
+            return '\t\t\t' + item.type + '\t\t\t\t' + item.count +  '\t' + '('+ Number(Number(item.ratio)*100).toFixed(2)   + '%'+')'
         })
-        var color=['#FF4C4C','#FFAE32','#1DD6D0']
+        var color=['#E13131','#FF7620','#FFC92B','#20DDB5']
         var data = [];
         var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count :0
         for (var i = 0; i < echdata.length; i++) {
             data.push({
                 value: echdata[i].count,
                 // eslint-disable-next-line 
-                name: '\t\t\t' + echdata[i].type + '\t\t\t' + echdata[i].count +  '\t\t\t' + Number(Number(echdata[i].ratio)*100).toFixed(2) + '%',
+                name: '\t\t\t' + echdata[i].type + '\t\t\t\t' + echdata[i].count +  '\t'  + '('+ Number(Number(echdata[i].ratio)*100).toFixed(2)+ '%' +')',
                 itemStyle: {
                     normal: {
                         borderWidth: 2,
-                        // shadowBlur: 5,
-                        borderRadius:8,
+                        borderRadius:5,
                         borderColor:color[i],
-                        // shadowColor: color[i]
                     }
                 }
             }, {
@@ -82,8 +74,8 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
                 // left: 'right',
                 // top: 'center',
                 // align: 'left',
-                // itemGap: 1,
-                right:10,
+                itemGap: 20,
+                right:'10%',
                 top: 'center',
                 textStyle: {
                     color: '#fff',

@@ -165,8 +165,8 @@ export default function ContractDetection(): JSX.Element {
         [AddressContract, history, account],
     )
     const testAddress = () => {
-        console.log(selectChain,'selectChain');
-        
+        console.log(selectChain, 'selectChain');
+
         const params = {
             address: AddressContract,
             network: localStorage.getItem('chain')
@@ -385,7 +385,7 @@ export default function ContractDetection(): JSX.Element {
             })
         },
         // eslint-disable-next-line
-        [AddressContract, ViewTestResult, account,selectChain],
+        [AddressContract, ViewTestResult, account, selectChain],
     )
 
 
@@ -426,67 +426,79 @@ export default function ContractDetection(): JSX.Element {
 
 
     return <ContainerCon className="ContractDetection">
+        <div className="homeContainer">
+            <div className="container">
+                <WidthDiv className='ContracDec'>
+                    <div className="title">Triathon Contract Detection</div>
+                    <div className="tabs">
+                        <span className={currIndex === 0 ? 'active tab1' : 'tab1'} onClick={() => setcurrIndex(0)}>Detect with address</span>
+                        <span className={currIndex === 1 ? 'active tab2' : 'tab2'} onClick={() => setcurrIndex(1)}>Detect with file</span>
+                    </div>
+                    {
+                        Testing ? <ShowDecting>
+                            <div className="loading"></div>
+                            <div className="text">Detecting…</div>
+                        </ShowDecting> : (
+                            currIndex === 0 ? <div className="addreccCon">
+                                <div className="select">
+                                    <Select defaultValue="bsc" onChange={handleChange} dropdownClassName='dropCon' showArrow >
+                                        <Option value="bsc">  <img src={bscPic} alt="" /> BSC</Option>
+                                        <Option value="eth">  <img src={ethPic} alt="" /> ETH</Option>
+                                    </Select>
+                                </div>
+                                <div className="inputCon">
+                                    <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input>
+                                </div>
+                                <div className="err">{contrastErrText}</div>
+                            </div> : <div className="fileCon">
+                                {
+                                    !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
+                                        <span></span>
+                                        Upload file (.sol)
+                                        <input type="file" id='file-input' accept=".sol" onChange={readSingleFile} />
+                                    </StyleSolInputUp></div> : <FileContent>
+                                        {
+                                            FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
+                                        }
+                                    </FileContent>
+                                }
 
-        <div className="container">
-            <WidthDiv className='ContracDec'>
-                <div className="title">Triathon Contract Detection</div>
-                <div className="tabs">
-                    <span className={currIndex === 0 ? 'active tab1' : 'tab1'} onClick={() => setcurrIndex(0)}>Detect with address</span>
-                    <span className={currIndex === 1 ? 'active tab2' : 'tab2'} onClick={() => setcurrIndex(1)}>Detect with file</span>
-                </div>
-                {
-                    Testing ? <ShowDecting>
-                        <div className="loading"></div>
-                        <div className="text">Detecting…</div>
-                    </ShowDecting> : (
-                        currIndex === 0 ? <div className="addreccCon">
-                            <div className="select">
-                                <Select defaultValue="bsc" onChange={handleChange} dropdownClassName='dropCon' showArrow >
-                                    <Option value="bsc">  <img src={bscPic} alt="" /> BSC</Option>
-                                    <Option value="eth">  <img src={ethPic} alt="" /> ETH</Option>
-                                </Select>
                             </div>
-                            <div className="inputCon">
-                                <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input>
-                            </div>
-                            <div className="err">{contrastErrText}</div>
-                        </div> : <div className="fileCon">
-                            {
-                                !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
-                                    <span></span>
-                                    Upload file (.sol)
-                                    <input type="file" id='file-input' accept=".sol" onChange={readSingleFile} />
-                                </StyleSolInputUp></div> : <FileContent>
-                                    {
-                                        FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
-                                    }
-                                </FileContent>
-                            }
+                        )
+                    }
 
-                        </div>
-                    )
-                }
+                    {
+                        (currIndex === 0 && !Testing) ? <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
+                            !account ? <StyleButton onClick={() => {
+                                toggleWalletModal()
+                            }} > Connect Wallet </StyleButton> : (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
 
-                {
-                    (currIndex === 0 && !Testing) ? <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
-                        !account?<StyleButton onClick={()=>{
-                            toggleWalletModal()
-                        }} > Connect Wallet </StyleButton>:(FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
-                        
-                    )
-                }
+                        )
+                    }
 
 
-                <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
-                <div className="detect" >
-                    <span onClick={() => {
-                        history.push('/contract_detection/history')
-                    }} >
-                        {TotalTest}+ Detected <span className='pointRight'></span>
-                    </span>
-                </div>
-            </WidthDiv>
+                    <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
+                    <div className="detect" >
+                        <span onClick={() => {
+                            history.push('/contract_detection/history')
+                        }} >
+                            {TotalTest}+ Detected <span className='pointRight'></span>
+                        </span>
+                    </div>
+                </WidthDiv>
+            </div>
+            <div className="playContainer">
+
+           
+            <div className="play1"></div>
+            <div className="play2"></div>
+            <div className="play3"></div>
+            <div className="play4"></div>
+            <div className="play5"></div>
+            <div className="play6"></div>
+            </div>
         </div>
+
         <ErrModel
             isOpen={ErrOpen}
             onDismiss={closeErrTip}
