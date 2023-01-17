@@ -838,7 +838,7 @@ export const HistoryDom = styled.div`
         .headIntro{
             width: 100%;
             display: flex;
-            height: 59px;
+            height: 32px;
             justify-content: flex-end;
             div{
                 font-size: 14px;
@@ -929,7 +929,7 @@ export const InputCon = styled.input`
     background: none;
     height: 44px;
     flex: 1;
-    padding-left: 5px;
+    padding-left:12px;
     font-size: 16px;
     font-family: Poppins-Regular, Poppins;
     font-weight: 400;

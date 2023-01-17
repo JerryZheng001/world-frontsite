@@ -25,7 +25,8 @@ import { StyleCode } from './StyleCode';
 import ErrModel from './ErrModel';
 
 import dayjs from 'dayjs'
-
+import utc from 'dayjs/plugin/utc'
+dayjs.extend(utc)
 
 
 function CopyShowTipsSmall({ account, }: { account: string }) {
@@ -94,8 +95,13 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350'
             window.open(url, '_blank', option)
         }
-        const title = 'BSC  Detection (BSC  Detection, a technical insight into BSC)'
-        const href = encodeURIComponent(document.location.href) ||  encodeURIComponent(window.location.href);
+        const ResultText =  Math.floor(Number(IntroInfo.score) * 100) < 100 ? ShowText[0]
+        : Math.floor(Number(IntroInfo.score) * 100) < 80 ? ShowText[1]
+            : Math.floor(Number(IntroInfo.score) * 100) < 60 ? ShowText[2]
+                : Math.floor(Number(IntroInfo.score) * 100) < 40 ? ShowText[3]
+                    : ShowText[4]
+        const title = `I detected a Smart Contract in Triathon and get ${ResultText} Come together and detect your smart contract`
+        const href = encodeURIComponent(document.location.href) || encodeURIComponent(window.location.href);
         // const href = 'https://www.triathon.space/contract_detection';
 
         toOpen('https://twitter.com/share/?text=' + title + '&url=' + href)
@@ -129,14 +135,14 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
 
     //报告详情
     const getReportDetail = (id: any) => {
-        getTestResult({ id }).then((res:any) => {
-            if(res.code===200){
-                
-                
-                if(JSON.stringify(res.data) === '{}'){
+        getTestResult({ id }).then((res: any) => {
+            if (res.code === 200) {
+
+
+                if (JSON.stringify(res.data) === '{}') {
                     setErrOpen(true)
                     seterrorMsg(res.msg)
-                }else{
+                } else {
                     const { list, score_ratio: { result }, chain, contract_address, score, time, user } = res.data
                     const Info = {
                         chain: chain || '', contract_address: contract_address || '', score: score || '', time: time || '', user: user || ''
@@ -149,11 +155,11 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         showFile()
                     }
                 }
-            }else{
+            } else {
                 setErrOpen(true)
                 seterrorMsg(res.msg)
             }
-            
+
         })
 
     }
@@ -181,20 +187,20 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
         return () => {
 
         }
-         // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [params.match])
 
 
     return <ContractDetectionDetailDom className='ContractDetectionDetail'>
-       
+
         <div className="container">
             <div className="title">Triathon Contract Detection Report</div>
             <div className="detect" onClick={() => {
                 history.push('/contract_detection')
             }}>Detect other contract</div>
-            <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contact customer service for manual audit</div>
+            <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
             <ReportDom>
-                <div className={isShare ? 'SharereportShow' : UploadType==='address'?'reportShow':'reportShow fileConNew'} id='pic' >
+                <div className={isShare ? 'SharereportShow' : UploadType === 'address' ? 'reportShow' : 'reportShow fileConNew'} id='pic' >
                     {
                         !isShare && <div className="reportLogo"></div>
                     }
@@ -236,7 +242,8 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </div>
                         <div className="item">
                             <span>Detect time: </span>
-                            <span> {IntroInfo.time ? dayjs(new Date(1673751070*1000).toUTCString()).utc().format('UTC DD/MM/YYYY  HH:mm:ss') :'' } </span>
+                            {/* <span> {IntroInfo.time ? dayjs(new Date(1673751070*1000).toUTCString()).utc().format('UTC DD/MM/YYYY  HH:mm:ss') :'' } </span> */}
+                            <span> {IntroInfo.time ? dayjs.unix(IntroInfo.time).utc().format('UTC DD/MM/YYYY  HH:mm:ss') : ''} </span>
                         </div>
                     </div>
                     <IntroTit>Contract Info</IntroTit>
@@ -264,11 +271,11 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </div>
                     }
                     {
-                        UploadType === 'file' &&  <div className='fileInfo'>
+                        UploadType === 'file' && <div className='fileInfo'>
                             {
-                                FileValue !=='' && <StyleCode value={FileValue}></StyleCode>
+                                FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
                             }
-                            
+
                         </div>
                     }
 
@@ -277,17 +284,17 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
 
                     <IntroTit>Security Detection Result</IntroTit>
                     <IntroTitle className='IntroTitle'>
-                    <div className="leftintro">Score</div>
+                        <div className="leftintro">Score</div>
                         {
                             !isShare && <div className="rightIntro" onClick={() => setisOpen(true)}>How it works?</div>
                         }
                     </IntroTitle>
-                   
+
                     <div className="result">
                         <div className="left">
                             <div className="icon"></div>
                             <div className="text">
-                              
+
                                 <div className="bottom">
                                     <span className='colorText'>
                                         {IntroInfo.score}
@@ -296,10 +303,10 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                 </div>
                                 <div className="top">
                                     {
-                                        Number(IntroInfo.score) < 25 ? ShowText[0]
-                                            : Number(IntroInfo.score) < 50 ? ShowText[1]
-                                                : Number(IntroInfo.score) < 75 ? ShowText[2]
-                                                    : Number(IntroInfo.score) < 90 ? ShowText[3]
+                                        Math.floor(Number(IntroInfo.score) * 100) < 100 ? ShowText[0]
+                                            : Math.floor(Number(IntroInfo.score) * 100) < 80 ? ShowText[1]
+                                                : Math.floor(Number(IntroInfo.score) * 100) < 60 ? ShowText[2]
+                                                    : Math.floor(Number(IntroInfo.score) * 100) < 40 ? ShowText[3]
                                                         : ShowText[4]
                                     }
                                 </div>
