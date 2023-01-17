@@ -16,7 +16,7 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
         })
         var color=['#E13131','#FF7620','#FFC92B','#20DDB5']
         var data = [];
-        var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count +echdata[3].count :0
+        var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count + (echdata[3]?echdata[3].count:0) :0
         for (var i = 0; i < echdata.length; i++) {
             data.push({
                 value: echdata[i].count,

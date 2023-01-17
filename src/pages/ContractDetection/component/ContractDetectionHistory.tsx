@@ -15,7 +15,7 @@ interface ResultList {
   network: string;
   score?: any;
 }
-
+const ShowText = ['Significant Risk', 'High Risk', 'Medium Risk', 'Some Risk', 'Excellent']
 export default function ContractDetectionHistory(): JSX.Element {
 
     const [TotalTest, setTotalTest] = useState(0)
@@ -78,7 +78,7 @@ export default function ContractDetectionHistory(): JSX.Element {
                 <ItemDiv width='340px' type={1}>Name</ItemDiv>
                 <ItemDiv width='240px' type={2}>Contract address</ItemDiv>
                 <ItemDiv width='225px' type={2}>Chain</ItemDiv>
-                <ItemDiv width='225px' type={2}>Detect Score</ItemDiv>
+                <ItemDiv width='225px' type={2}>Result</ItemDiv>
                 <ItemDiv width='194px' type={2}>Operation</ItemDiv>
             </div>
             <div className="container">
@@ -89,7 +89,13 @@ export default function ContractDetectionHistory(): JSX.Element {
                             <ItemDiv width='340px' type={1}>{item.file_name}</ItemDiv>
                             <ItemDiv width='240px' type={2}>{ shortenAddress(item.contract_address) }</ItemDiv>
                             <ItemDiv width='225px' type={2}> <img src={item.network==='bsc'?bscPic:ethPic} alt="" className='chainImg'/> {item.network}</ItemDiv>
-                            <ItemDiv width='225px' type={2}>{item.score || 0}</ItemDiv>
+                            <ItemDiv width='225px' type={2}>{
+                                Math.floor(Number(item.score) * 100) >=80 ? ShowText[0]
+                                : Math.floor(Number(item.score) * 100) >=60 ? ShowText[1]
+                                    : Math.floor(Number(item.score) * 100) >=40 ? ShowText[2]
+                                        : Math.floor(Number(item.score) * 100) >=20 ? ShowText[3]
+                                            : ShowText[4]
+                            }</ItemDiv>
                             <ItemDiv width='194px' type={2}>
                                 <img src={Right} alt="" className='rightPoint' onClick={()=>{
                                     history.push(`/contract_detection/${item.id}`)
