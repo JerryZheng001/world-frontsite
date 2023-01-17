@@ -8,7 +8,7 @@ import { isMobile } from "react-device-detect";
 import ReactGA from "react-ga";
 import styled from "styled-components";
 import MetamaskIcon from "../../assets/images/metamask.png";
-import { ReactComponent as Close } from "../../assets/images/x.svg";
+import { ReactComponent as Close } from "../../assets/images/contrastDetec/close.svg";
 import { fortmatic, injected, portis } from "../../connectors";
 import { OVERLAY_READY } from "../../connectors/Fortmatic";
 import { SUPPORTED_WALLETS } from "../../constants";
@@ -27,16 +27,25 @@ import PendingView from "./PendingView";
 const CloseIcon = styled.div`
   position: absolute;
   right: 2rem;
-  top: 2rem;
-  &:hover {
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #353945;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* &:hover {
     cursor: pointer;
     opacity: 0.6;
-  }
+  } */
 `;
 
 const CloseColor = styled(Close)`
   path {
-    stroke: ${({ theme }) => theme.text1};
+    /* stroke: ${({ theme }) => theme.text1}; */
+    stroke: '#000';
   }
 `;
 

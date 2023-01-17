@@ -40,10 +40,10 @@ function Input({
             onUserInput(nextUserInput)
         }
     }
-    const testInput = (e:any)=>{
-        if(contrastRegex.test(e.target.value)){
+    const testInput = (e: any) => {
+        if (contrastRegex.test(e.target.value)) {
             setcontrastErrText('')
-        }else{
+        } else {
             setcontrastErrText('Notice：Address is validated incorrectly')
         }
     }
@@ -98,7 +98,7 @@ export default function ContractDetection(): JSX.Element {
     const [Testing, setTesting] = useState(false)
     const [TakeResultAllTime, setTakeResultAllTime] = useState(false)
     const [showUploadFileButton, setshowUploadFileButton] = useState(false)
-    let timer1:any;
+    let timer1: any;
     //上传文件
     function readSingleFile(e: any) {
         var file = e.target.files[0];
@@ -118,24 +118,24 @@ export default function ContractDetection(): JSX.Element {
 
         xml.onload = (res) => {
             const { code, data, msg } = JSON.parse(xml.responseText)
-            
+
             if (code === 30001) {
                 setErrOpen(true)
                 seterrorMsg(msg)
             }
-            if (code === 500){
+            if (code === 500) {
                 setErrOpen(true)
                 seterrorMsg('The service is busy, please try again')
             }
-            if(code === 200){
-                if(data.status === 2){
+            if (code === 200) {
+                if (data.status === 2) {
                     setErrOpen(true)
                     seterrorMsg(msg)
                 }
-                if(data.id){
+                if (data.id) {
                     setCurrentTestId(data.id)
-                    localStorage.setItem('CurrentTestId',data.id)
-                    localStorage.setItem('TakeResultAllTime','true')
+                    localStorage.setItem('CurrentTestId', data.id)
+                    localStorage.setItem('TakeResultAllTime', 'true')
                     setshowUploadFileButton(true)
                 }
             }
@@ -153,7 +153,7 @@ export default function ContractDetection(): JSX.Element {
     //合约地址检测
     const detectContrast = useCallback(
         () => {
-            
+
             if (!contrastRegex.test(AddressContract)) {
                 setcontrastErrText('Notice：Address is validated incorrectly')
             } else {
@@ -162,12 +162,14 @@ export default function ContractDetection(): JSX.Element {
             }
         },
         // eslint-disable-next-line
-        [AddressContract, history,account],
+        [AddressContract, history, account],
     )
     const testAddress = () => {
+        console.log(selectChain,'selectChain');
+        
         const params = {
             address: AddressContract,
-            network: selectChain
+            network: localStorage.getItem('chain')
         }
 
         getDetectAddressSubmit(params).then((res: any) => {
@@ -176,14 +178,15 @@ export default function ContractDetection(): JSX.Element {
                 setErrOpen(true)
                 seterrorMsg(msg)
             }
-            if (code === 500){
+            if (code === 500) {
                 setErrOpen(true)
                 seterrorMsg('The service is busy, please try again')
             }
             if (code === 200) {
-                const {id} = data
+                const { id } = data
                 setCurrentTestId(id)
-                localStorage.setItem('CurrentTestId',id)
+                localStorage.setItem('CurrentTestId', id)
+                localStorage.setItem('TakeResultAllTime', 'true')
                 setdetectIng(true)
                 ViewTestResult(id)
             }
@@ -194,11 +197,11 @@ export default function ContractDetection(): JSX.Element {
 
     }
 
-   
+
     const detectFile = () => {
         const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
-        console.log(Id,'Id');
-        if(Id){
+        console.log(Id, 'Id');
+        if (Id) {
             ViewTestResult(Id)
 
         }
@@ -233,7 +236,7 @@ export default function ContractDetection(): JSX.Element {
         if (detectIng) {
             rst.text = (
                 <>
-                    <SmallLoading/>
+                    <SmallLoading />
                     Detecting
                     <Dots />
                 </>
@@ -246,7 +249,7 @@ export default function ContractDetection(): JSX.Element {
             event: () => { currIndex === 0 ? detectContrast() : detectFile() },
             disabled: false
         }
-         // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [
         account,
         toggleWalletModal,
@@ -261,134 +264,134 @@ export default function ContractDetection(): JSX.Element {
     }
     //获取nonce
     const handelFiret = useCallback(
-      () => {
-        if (!account) return
+        () => {
+            if (!account) return
 
-        getUserNonce({ address: account }).then((res:any) => {
-            if(res.code===200){
-                const { nonce } = res.data
-                const Params = { nonce: nonce, address: account }
-                getUserToCore(Params).then((re:any) => {
-                    if(re.code===200){
-                        const { token } = re.data
-                        window.sessionStorage.setItem('token', 'Bearer ' + token)
-                        GetTestStatusStart()
-                    }else{
-                        setErrOpen(true)
-                        seterrorMsg(re.msg)
-                    }
-                    
-    
-                })
-            }else{
-                setErrOpen(true)
-                seterrorMsg(res.msg)
-            }
-            
-        })
-      },
-      // eslint-disable-next-line
-      [account],
+            getUserNonce({ address: account }).then((res: any) => {
+                if (res.code === 200) {
+                    const { nonce } = res.data
+                    const Params = { nonce: nonce, address: account }
+                    getUserToCore(Params).then((re: any) => {
+                        if (re.code === 200) {
+                            const { token } = re.data
+                            window.sessionStorage.setItem('token', 'Bearer ' + token)
+                            GetTestStatusStart()
+                        } else {
+                            setErrOpen(true)
+                            seterrorMsg(re.msg)
+                        }
+
+
+                    })
+                } else {
+                    setErrOpen(true)
+                    seterrorMsg(res.msg)
+                }
+
+            })
+        },
+        // eslint-disable-next-line
+        [account],
     )
-    
-   
-    
+
+
+
     //检测总数
-    const handleListTotal = ()=>{
-        getListsTotal().then(res=>{
-            if(res.data){
+    const handleListTotal = () => {
+        getListsTotal().then(res => {
+            if (res.data) {
                 setTotalTest(res.data)
             }
         })
     }
-     //查看检测结果
-     const ViewTestResult = useCallback(
-        (testid:any)=>{
-        
-            getTestResult({id:testid}).then((res:any)=>{
-                const {code,data,msg} = res
-                if(code===200){
-                    if(JSON.stringify(data) === '{}' ){
-                        console.log(TakeResultAllTime,'TakeResultAllTime==>', localStorage.getItem('TakeResultAllTime'),testid,localStorage.getItem('CurrentTestId'),localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid)===Number(localStorage.getItem('CurrentTestId')));
-                        
-                        if(localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid)===Number(localStorage.getItem('CurrentTestId'))){
+    //查看检测结果
+    const ViewTestResult = useCallback(
+        (testid: any) => {
+
+            getTestResult({ id: testid }).then((res: any) => {
+                const { code, data, msg } = res
+                if (code === 200) {
+                    if (JSON.stringify(data) === '{}') {
+                        console.log(TakeResultAllTime, 'TakeResultAllTime==>', localStorage.getItem('TakeResultAllTime'), testid, localStorage.getItem('CurrentTestId'), localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid) === Number(localStorage.getItem('CurrentTestId')));
+
+                        if (localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid) === Number(localStorage.getItem('CurrentTestId'))) {
                             setdetectIng(true)
                             setTimeout(() => {
                                 ViewTestResult(testid)
                             }, 3000);
                         }
-                        
-                    }else{
+
+                    } else {
                         setTesting(false)
                         setdetectIng(false)
-    
+
                         const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
                         history.push(`/contract_detection/${Id}`)
                     }
-                }else{
+                } else {
                     setErrOpen(true)
                     seterrorMsg(msg)
                 }
-                
+
             })
         },
-       [TakeResultAllTime,CurrentTestId,history],
-     )
-     
-    
+        [TakeResultAllTime, CurrentTestId, history],
+    )
+
+
     //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
-    const GetTestStatusStart =  useCallback(
+    const GetTestStatusStart = useCallback(
         () => {
-           
-            if(!account) return
-            
-            getTestStatus({addr:account}).then((res:any)=>{
-                
-                if(res.code===200){
-                    const { data,msg } = res
-                    if(data.status === 2){
+
+            if (!account) return
+
+            getTestStatus({ addr: account }).then((res: any) => {
+
+                if (res.code === 200) {
+                    const { data, msg } = res
+                    if (data.status === 2) {
                         setErrOpen(true)
                         seterrorMsg(msg)
                     }
-                    if(data.status === 1){
-                       
-                        localStorage.setItem('CurrentTestId',data.id)
-                        localStorage.setItem('TakeResultAllTime','true')
+                    if (data.status === 1) {
+
+                        localStorage.setItem('CurrentTestId', data.id)
+                        localStorage.setItem('TakeResultAllTime', 'true')
                         setTakeResultAllTime(true)
                         setTimeout(() => {
                             setTesting(true)
                             ViewTestResult(data.id)
                         }, 0);
-                        
+
                     }
-                    if(data.status===0){
+                    if (data.status === 0) {
                         setTesting(false)
                         setdetectIng(false)
 
-                        if(contrastRegex.test(AddressContract)){
+                        if (contrastRegex.test(AddressContract)) {
                             testAddress()
                         }
-    
+
                     }
                 }
-                
-                else{
-                    
+
+                else {
+
                     setErrOpen(true)
                     seterrorMsg(res.msg)
                 }
-               
-                
+
+
             })
-          },
-// eslint-disable-next-line
-      [AddressContract,ViewTestResult,account,],
+        },
+        // eslint-disable-next-line
+        [AddressContract, ViewTestResult, account,selectChain],
     )
-    
-    
+
+
     //初始化
     const PageStart = useCallback(
-        ()=>{
+        () => {
             setErrOpen(false)
             seterrorMsg('')
             setcontrastErrText('')
@@ -397,12 +400,12 @@ export default function ContractDetection(): JSX.Element {
             setcurrIndex(0)
             setAddressContract('')
             setTakeResultAllTime(false)
-            localStorage.setItem('TakeResultAllTime','false')
+            localStorage.setItem('TakeResultAllTime', 'false')
         },
         // eslint-disable-next-line
-      [account],
+        [account],
     )
-    
+
 
     useEffect(() => {
         localStorage.setItem('chain', 'bsc')
@@ -410,17 +413,17 @@ export default function ContractDetection(): JSX.Element {
         handleListTotal()
         PageStart()
         // eslint-disable-next-line
-        return ()=>{
+        return () => {
 
-            if(timer1){
+            if (timer1) {
                 clearTimeout(timer1)
             }
         }
         // eslint-disable-next-line
     }, [account])
 
-   
-    
+
+
 
     return <ContainerCon className="ContractDetection">
 
@@ -432,51 +435,51 @@ export default function ContractDetection(): JSX.Element {
                     <span className={currIndex === 1 ? 'active tab2' : 'tab2'} onClick={() => setcurrIndex(1)}>Detect with file</span>
                 </div>
                 {
-                    Testing?<ShowDecting>
+                    Testing ? <ShowDecting>
                         <div className="loading"></div>
                         <div className="text">Detecting…</div>
-                    </ShowDecting>:(
-                            currIndex === 0 ? <div className="addreccCon">
-                                <div className="select">
-                                    <Select defaultValue="bsc" onChange={handleChange} dropdownClassName='dropCon' showArrow >
-                                        <Option value="bsc">  <img src={bscPic} alt="" /> BSC</Option>
-                                        <Option value="eth">  <img src={ethPic} alt="" /> ETH</Option>
-                                    </Select>
-                                </div>
-                                <div className="inputCon">
-                                    <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''}  setcontrastErrText={setcontrastErrText} ></Input>
-                                </div>
-                                <div className="err">{contrastErrText}</div>
-                            </div>:<div className="fileCon">
-                                {
-                                    !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
-                                        <span></span>
-                                        Upload file (.sol)
-                                        <input type="file" id='file-input' accept=".sol" onChange={readSingleFile} />
-                                    </StyleSolInputUp></div> : <FileContent>
-                                        {
-                                            FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
-                                        }
-                                    </FileContent>
-                                }
-        
+                    </ShowDecting> : (
+                        currIndex === 0 ? <div className="addreccCon">
+                            <div className="select">
+                                <Select defaultValue="bsc" onChange={handleChange} dropdownClassName='dropCon' showArrow >
+                                    <Option value="bsc">  <img src={bscPic} alt="" /> BSC</Option>
+                                    <Option value="eth">  <img src={ethPic} alt="" /> ETH</Option>
+                                </Select>
                             </div>
+                            <div className="inputCon">
+                                <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input>
+                            </div>
+                            <div className="err">{contrastErrText}</div>
+                        </div> : <div className="fileCon">
+                            {
+                                !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
+                                    <span></span>
+                                    Upload file (.sol)
+                                    <input type="file" id='file-input' accept=".sol" onChange={readSingleFile} />
+                                </StyleSolInputUp></div> : <FileContent>
+                                    {
+                                        FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
+                                    }
+                                </FileContent>
+                            }
+
+                        </div>
                     )
                 }
-                
+
                 {
-                    (currIndex === 0 && !Testing) ?  <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> :(
+                    (currIndex === 0 && !Testing) ? <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
                         (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
                     )
                 }
 
-               
+
                 <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
                 <div className="detect" >
                     <span onClick={() => {
-                    history.push('/contract_detection/history')
-                }} >
-                    {TotalTest}+ Detected <span className='pointRight'></span>
+                        history.push('/contract_detection/history')
+                    }} >
+                        {TotalTest}+ Detected <span className='pointRight'></span>
                     </span>
                 </div>
             </WidthDiv>

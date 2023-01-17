@@ -30,10 +30,11 @@ export const ContainerCon = styled.div<{ isPadding?: boolean }>`
 export const WidthDiv = styled.div`
 
     .title{
-        font-size: 56px;
+        font-size: 64px;
         font-family: Poppins-SemiBold, Poppins;
         font-weight: 600;
-       
+       width: 909px;
+       text-align: center;
         line-height: 64px;
         margin-bottom: 72px;
         color: #f35626;
@@ -135,9 +136,11 @@ export const WidthDiv = styled.div`
         }
         .err{
             position: absolute;
-            bottom: -40px;
+            bottom: -35px;
             color: red;
-            left: 65px;
+            /* left: 65px; */
+            padding-left: 137px;
+            width: 100%;
         }
     }
     .notice{
@@ -427,8 +430,8 @@ export const ReportDom = styled.div`
         padding: 32px 40px 0;
         text-align: left;
         .reportLogo{
-            width: 100px;
-            height: 30px;
+            width: 133px;
+            height: 40px;
             background: url(${reportLogo}) no-repeat;
             background-size: 100% 100%;
         }
@@ -729,9 +732,7 @@ export const ReportDetail = styled.div`
 export const CloseColor = styled(close) <{ strokeColor?: string }>`
 width: 18px;
 height: 18px;
-  path {
-    stroke: ${({ theme, strokeColor }) => (strokeColor ? strokeColor : '#000')};
-  }
+
 `
 export const WrokContainer = styled.div`
     width: 683px;
@@ -762,13 +763,13 @@ export const WrokContainer = styled.div`
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            :hover{
+            /* :hover{
                 background: #fff;
                 border: none;
                 path {
                     stroke: '#000';
                 }
-            }
+            } */
             
         }
 
