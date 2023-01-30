@@ -222,6 +222,8 @@ export default function ContractDetection(): JSX.Element {
         setcontrastErrText('')
         setFileValue('')
         setFileShow(false)
+        setAddressContract('')
+        setdetectIng(false)
     }
 
     const styleButton: BtnProp = useMemo(() => {
