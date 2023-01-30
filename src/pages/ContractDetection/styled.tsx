@@ -1059,7 +1059,9 @@ export const InputCon = styled.input`
 export const ItemDiv = styled.div<{ width: string, type: number }>`
  width: ${({ width }) => width};
  text-align: ${({ type }) => type === 0 ? 'center' : type === 1 ? 'left' : 'right'};
-
+&.chainText{
+    text-transform: uppercase;
+}
 `
 
 
