@@ -324,6 +324,15 @@ export const ShowDecting = styled.div`
     border: 1px solid #23252C;
     margin-bottom: 24px;
     margin: 0 auto 24px;
+    .sorryText{
+        font-size: 16px;
+        font-family: Poppins-Regular, Poppins;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 16px;
+        text-align: center;
+        margin-top: 55px;
+    }
     .loading{
         background: url(${loadingPic});
         background-size: 100% 100%;

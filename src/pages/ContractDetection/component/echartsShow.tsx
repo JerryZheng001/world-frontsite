@@ -71,6 +71,7 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
             legend: [{
                 orient: 'vertical',
                 data:nameArray,
+                selectedMode:false,
                 // left: 'right',
                 // top: 'center',
                 // align: 'left',

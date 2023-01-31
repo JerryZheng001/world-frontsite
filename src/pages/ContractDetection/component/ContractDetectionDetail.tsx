@@ -124,7 +124,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 let a = document.createElement('a')
                 document.body.appendChild(a)
                 a.href = saveUrl
-                a.download = 'report'
+                a.download = 'Triathon Audit report'
                 a.click()
                 setIsShare(false)
             })
@@ -198,7 +198,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
             <div className="detect" onClick={() => {
                 history.push('/contract_detection')
             }}>Detect other contract</div>
-            <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
+            <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit ( email : triathonspace@gmail.com )</div>
             <ReportDom>
                 <div className={isShare ? 'SharereportShow' : UploadType === 'address' ? 'reportShow' : 'reportShow fileConNew'} id='pic' >
                     {
@@ -261,11 +261,16 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                 <span>Contract Address</span>
                                 <span>
                                     {
-                                        IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address.slice(0, 6) + '...' + IntroInfo.contract_address.slice(-6) : ''
+                                       !isShare ?(IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address.slice(0, 6) + '...' + IntroInfo.contract_address.slice(-6) : '') : (IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address : '')
                                     }
+                                    {/* {
+                                        IntroInfo.contract_address.length > 10 ? IntroInfo.contract_address.slice(0, 6) + '...' + IntroInfo.contract_address.slice(-6) : ''
+                                    } */}
 
-
-                                    <CopyShowTipsSmall account={IntroInfo.contract_address || 'none'} ></CopyShowTipsSmall>
+                                    {
+                                        !isShare && <CopyShowTipsSmall account={IntroInfo.contract_address || 'none'} ></CopyShowTipsSmall>
+                                    }
+                                    
                                 </span>
                             </div>
                         </div>

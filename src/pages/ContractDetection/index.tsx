@@ -98,6 +98,7 @@ export default function ContractDetection(): JSX.Element {
     const [Testing, setTesting] = useState(false)
     const [TakeResultAllTime, setTakeResultAllTime] = useState(false)
     const [showUploadFileButton, setshowUploadFileButton] = useState(false)
+    const [overTimer, setoverTimer] = useState(false)
     let timer1: any;
     //上传文件
     function readSingleFile(e: any) {
@@ -251,7 +252,10 @@ export default function ContractDetection(): JSX.Element {
             )
             return rst
         }
-
+        if(overTimer){
+            rst.text = 'sorry, there are too many requests'
+            return rst
+        }
         return {
             text: 'Start detection',
             event: () => { currIndex === 0 ? detectContrast() : detectFile() },
@@ -264,7 +268,8 @@ export default function ContractDetection(): JSX.Element {
         detectContrast,
         currIndex,
         detectIng,
-        useActiveWeb3React
+        useActiveWeb3React,
+        overTimer
     ])
     const handleChange = (value: any) => {
         setselectChain(value)
@@ -336,7 +341,19 @@ export default function ContractDetection(): JSX.Element {
                         const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
                         history.push(`/contract_detection/${Id}`)
                     }
-                } else {
+                } else if(code === 201){
+                    if (localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid) === Number(localStorage.getItem('CurrentTestId'))) {
+                        setoverTimer(true)
+                        setdetectIng(false)
+                        setTimeout(() => {
+                            ViewTestResult(testid)
+                        }, 3000);
+                    }
+                    
+                }   
+                
+                
+                else {
                     setErrOpen(true)
                     seterrorMsg(msg)
                     localStorage.setItem('TakeResultAllTime', 'false')
@@ -410,7 +427,9 @@ export default function ContractDetection(): JSX.Element {
             setcurrIndex(0)
             setAddressContract('')
             setTakeResultAllTime(false)
+            setoverTimer(false)
             localStorage.setItem('TakeResultAllTime', 'false')
+            
         },
         // eslint-disable-next-line
         [account],
@@ -446,8 +465,13 @@ export default function ContractDetection(): JSX.Element {
                     </div>
                     {
                         Testing ? <ShowDecting>
-                            <div className="loading"></div>
+                            {
+                                overTimer?<div className='sorryText'>sorry, there are too many requests</div>:<>
+                                 <div className="loading"></div>
                             <div className="text">Detecting…</div>
+                                </>
+                            }
+                           
                         </ShowDecting> : (
                             currIndex === 0 ? <div className="addreccCon">
                                 <div className="select">
