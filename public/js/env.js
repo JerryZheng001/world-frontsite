@@ -1,6 +1,6 @@
 window.ENV_CONFIG = {
-    currentEnv: 'prod',
-    // currentEnv: 'dev',
+    // currentEnv: 'prod',
+    currentEnv: 'dev',
     dev: {
       REACT_APP_ENV: 'development',
       REACT_APP_CHAIN_ID: '97',
