@@ -253,7 +253,7 @@ export default function ContractDetection(): JSX.Element {
             return rst
         }
         if(overTimer){
-            rst.text = 'sorry, there are too many requests'
+            rst.text = 'Too many requests, please wait'
             return rst
         }
         return {
@@ -466,7 +466,11 @@ export default function ContractDetection(): JSX.Element {
                     {
                         Testing ? <ShowDecting>
                             {
-                                overTimer?<div className='sorryText'>sorry, there are too many requests</div>:<>
+                                overTimer?
+                                <>
+                                 <div className="loading"></div>
+                                <div className='text'>Too many requests, please wait</div>
+                                </>:<>
                                  <div className="loading"></div>
                             <div className="text">Detecting…</div>
                                 </>
@@ -506,12 +510,11 @@ export default function ContractDetection(): JSX.Element {
                             !account ? <StyleButton onClick={() => {
                                 toggleWalletModal()
                             }} > Connect Wallet </StyleButton> : (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
-
                         )
                     }
 
 
-                    <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit</div>
+                    <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit ( email : triathonspace@gmail.com )</div>
                     <div className="detect" >
                         <span onClick={() => {
                             history.push('/contract_detection/history')
