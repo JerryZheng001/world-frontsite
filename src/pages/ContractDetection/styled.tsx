@@ -149,12 +149,16 @@ export const WidthDiv = styled.div`
        text-align: center;
         line-height: 64px;
         margin-bottom: 72px;
-        color: #f35626;
+        color: #FFFFFF;
+        /* color: #f35626;
         background-image: linear-gradient(92deg,#f35626,#feab3a);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: Hue 5s linear infinite;
-        user-select: none;
+        animation: Hue 5s linear infinite; */
+        /* background: linear-gradient(270deg, #72ACFF 0%, #5846F9 35%, #45D8FB 64%, #FF63EB 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+        user-select: none; */
         @keyframes Hue {
             0% {
             filter:hue-rotate(0deg)
@@ -485,12 +489,12 @@ export const ContractDetectionDetailDom = styled.div`
             font-family: Poppins-SemiBold, Poppins;
             font-weight: 600;
             line-height: 56px;
-            color: #f35626;
-            background-image: linear-gradient(92deg,#f35626,#feab3a);
+            color: #fff;
+            /* background-image: linear-gradient(92deg,#f35626,#feab3a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: Hue 5s linear infinite;
-            user-select: none;
+            user-select: none; */
             @keyframes Hue {
                 0% {
                 filter:hue-rotate(0deg)
@@ -931,12 +935,12 @@ export const HistoryDom = styled.div`
        
         line-height: 56px;
         margin-bottom: 14px;
-        color: #f35626;
-            background-image: linear-gradient(92deg,#f35626,#feab3a);
+        color: #fff;
+            /* background-image: linear-gradient(92deg,#f35626,#feab3a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: Hue 5s linear infinite;
-            user-select: none;
+            user-select: none; */
             @keyframes Hue {
                 0% {
                 filter:hue-rotate(0deg)
