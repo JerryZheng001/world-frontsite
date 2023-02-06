@@ -713,7 +713,7 @@ export const ColorText = styled.span<{ type: number }>`
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
     margin-bottom: 14px;
-    color: ${({ type }) => (type === 0 ? '#E13131' : type === 1 ? '#FF7620' : type === 2 ? '#FFC92B' : type === 3 ? '#20DDB5' : '#3772ff')};
+    color: ${({ type }) => (type === 0 ? '#E13131' : type === 1 ? '#FF7620' : type === 2 ? '#FFC92B' : type === 3 ? '#3772ff' : '#20DDB5')};
     line-height: 28px;
 `
 

@@ -68,7 +68,7 @@ function Web3StatusInner() {
     return (
       <Web3StatusConnect id="connect-error" onClick={toggleWalletModal}>
         <TitleIcon src={Error_img} />
-        <span style={{ color: '#EB423D' }}>{error instanceof UnsupportedChainIdError ? 'Please switch BSC' : 'NetWork'}</span>
+        <span style={{ color: '#EB423D' }}>{error instanceof UnsupportedChainIdError ? 'Please switch to BSC' : 'NetWork'}</span>
       </Web3StatusConnect>
     )
   } else {
