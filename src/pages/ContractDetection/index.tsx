@@ -112,7 +112,7 @@ export default function ContractDetection(): JSX.Element {
 
         // 接口调用
         let xml = new XMLHttpRequest();
-        xml.open('POST', baseURL + 'upload/', true)
+        xml.open('POST', baseURL + '/api/upload/', true)
         xml.setRequestHeader('Authorization', window.sessionStorage.getItem('token') || '');
 
         xml.send(formdata)

@@ -56,7 +56,7 @@ function App() {
         minHeight:'100vh'
       }}
     >
-      <HashRouter>
+      <HashRouter >
         <NavHeader />
         <Suspense fallback={<TextLoader />}>
           <Web3ReactManager>
