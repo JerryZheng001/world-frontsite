@@ -95,10 +95,10 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350'
             window.open(url, '_blank', option)
         }
-        const ResultText =  Math.floor(Number(IntroInfo.score) * 100) >=75 ? ShowText[0]
-        : Math.floor(Number(IntroInfo.score) * 100) >=50? ShowText[1]
-            : Math.floor(Number(IntroInfo.score) * 100) >=25 ? ShowText[2]
-                : Math.floor(Number(IntroInfo.score) * 100) >=2 ? ShowText[3]
+        const ResultText =  Math.floor(Number(IntroInfo.score) * 100) >=50 ? ShowText[0]
+        : Math.floor(Number(IntroInfo.score) * 100) >=30? ShowText[1]
+            : Math.floor(Number(IntroInfo.score) * 100) >=10 ? ShowText[2]
+                : Math.floor(Number(IntroInfo.score) * 100) >=5 ? ShowText[3]
                     : ShowText[4]
         const title = `I detected a Smart Contract in Triathon and get ${ResultText} Come together and detect your smart contract`
         const href = encodeURIComponent(document.location.href) || encodeURIComponent(window.location.href);
@@ -303,10 +303,10 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                 
                                 <div className="top">
                                     {
-                                        Math.floor(Number(IntroInfo.score) * 100) >=75 ? <ColorText type={0}>{ShowText[0]}</ColorText>
-                                            : Math.floor(Number(IntroInfo.score) * 100) >=50 ? <ColorText type={1}>{ShowText[1]}</ColorText>
-                                                : Math.floor(Number(IntroInfo.score) * 100) >=25 ? <ColorText type={2}>{ShowText[2]}</ColorText>
-                                                    : Math.floor(Number(IntroInfo.score) * 100) >=2 ? <ColorText type={3}>{ShowText[3]}</ColorText>
+                                        Math.floor(Number(IntroInfo.score) * 100) >=50 ? <ColorText type={0}>{ShowText[0]}</ColorText>
+                                            : Math.floor(Number(IntroInfo.score) * 100) >=30 ? <ColorText type={1}>{ShowText[1]}</ColorText>
+                                                : Math.floor(Number(IntroInfo.score) * 100) >=10 ? <ColorText type={2}>{ShowText[2]}</ColorText>
+                                                    : Math.floor(Number(IntroInfo.score) * 100) >=5 ? <ColorText type={3}>{ShowText[3]}</ColorText>
                                                         : <ColorText type={4}>{ShowText[4]}</ColorText>
                                     }
                                 </div>

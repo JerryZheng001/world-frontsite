@@ -90,10 +90,10 @@ export default function ContractDetectionHistory(): JSX.Element {
                             <ItemDiv width='240px' type={2}>{ shortenAddress(item.contract_address) }</ItemDiv>
                             <ItemDiv width='225px' type={2} className='chainText'> <img src={item.network==='Bsc'?bscPic:ethPic} alt="" className='chainImg'/> {item.network}</ItemDiv>
                             <ItemDiv width='225px' type={2}>{
-                                Math.floor(Number(item.score) * 100) >=75 ? ShowText[0]
-                                : Math.floor(Number(item.score) * 100) >=50 ? ShowText[1]
-                                    : Math.floor(Number(item.score) * 100) >=25 ? ShowText[2]
-                                        : Math.floor(Number(item.score) * 100) >=2 ? ShowText[3]
+                                Math.floor(Number(item.score) * 100) >=50 ? ShowText[0]
+                                : Math.floor(Number(item.score) * 100) >=30 ? ShowText[1]
+                                    : Math.floor(Number(item.score) * 100) >=10 ? ShowText[2]
+                                        : Math.floor(Number(item.score) * 100) >=5 ? ShowText[3]
                                             : ShowText[4]
                             }</ItemDiv>
                             <ItemDiv width='194px' type={2}>
