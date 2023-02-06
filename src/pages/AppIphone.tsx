@@ -98,9 +98,9 @@ function AppIphone() {
                     <div className="con">
                         <div className="intro">Please use the PC webpage to open and
                             access the latest version</div>
-                            <div className="link">https://triathon.space/#/contract_detection</div>
+                            <div className="link">https://detection.triathon.space/#/</div>
                             <div className="copy" onClick={()=>{
-                                setCopied('https://triathon.space/#/contract_detection')
+                                setCopied('https://detection.triathon.space/#/')
                             }}>Copy</div>
                     </div>
                 </Content>
