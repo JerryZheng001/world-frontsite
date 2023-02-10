@@ -1,4 +1,5 @@
-Service (ETHANIM - NFT - WEBSITE)
+Service (DETECTION)
+The online address is: https://detection.triathon.space/#/
 所用依赖： ui插件：antdesign；typescirptjs ；axios；web-vitals;styled-components react-router-dom echarts-for-react等等
 
 ```console
