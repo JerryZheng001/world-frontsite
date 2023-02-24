@@ -2,7 +2,7 @@ import { lazy } from 'react'
 import ConnectRouter from '../components/ConnectRouter'
 // const HomePage = lazy(() => import('./homePage'))
 const ContractDetection = lazy(() => import('./ContractDetection'))
-const ContractDetectionDetail = lazy(() => import('./ContractDetection/component/ContractDetectionDetail'))
+const ContractDetectionDetail = lazy(() => import('./ContractDetection/component/ContractDetectionDetailPro'))
 const ContractDetectionHistory = lazy(() => import('./ContractDetection/component/ContractDetectionHistory'))
 
 

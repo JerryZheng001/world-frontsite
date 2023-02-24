@@ -16,7 +16,8 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
         })
         var color=['#E13131','#FF7620','#FFC92B','#20DDB5']
         var data = [];
-        var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count + (echdata[3]?echdata[3].count:0) :0
+        var Total =  echdata.length!==0 ? Number(Number(echdata[3].ratio)*100).toFixed(2) + '%' :0
+        // var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count + (echdata[3]?echdata[3].count:0) :0
         for (var i = 0; i < echdata.length; i++) {
             data.push({
                 value: echdata[i].count,
@@ -24,8 +25,8 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
                 name: '\t\t\t' + echdata[i].type + '\t\t\t\t' + echdata[i].count +  '\t'  + '('+ Number(Number(echdata[i].ratio)*100).toFixed(2)+ '%' +')',
                 itemStyle: {
                     normal: {
-                        borderWidth: 2,
-                        borderRadius:5,
+                        borderWidth: 1,
+                        // borderRadius:5,
                         borderColor:color[i],
                     }
                 }
@@ -55,15 +56,15 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
             },
             title: {
                 text: Total ,
-                left: '14%',
-                top: '35%',
-                subtext:'Total item',
-                subtextStyle:{
-                    fontSize: "14px",
-                },
+                left: '26.5%',
+                top: '44%',
+                // subtext:'Total item',
+                // subtextStyle:{
+                //     fontSize: "14px",
+                // },
                 textStyle: {
                     color: '#ffffff',
-                    fontSize: "34px",
+                    fontSize: "24px",
                     fontFamily: "Poppins-SemiBold, Poppins",
                     fontWeight:"600"
                 }
@@ -97,11 +98,12 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
                 name: '',
                 type: 'pie',
                 clockWise: false,
-                radius: ['120%', '140%'],
-                // width:"55%",
-                // height:"55%",
+                avoidLabelOverlap:false,
+                radius: ['35%', '70%'],
+                width:"80%",
+                height:"80%",
                 hoverAnimation: true,
-                center: ['20%', '50%'],
+                center: ['40%', '50%'],
                 top:"center",
                 itemStyle: {
                     normal:{
@@ -122,5 +124,5 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
 
 
 
-    return  <div id="echarts" style={{width:'555px',height:'250px'}}></div>
+    return  <div id="echarts" style={{width:'744px',height:'411px'}}></div>
 }
