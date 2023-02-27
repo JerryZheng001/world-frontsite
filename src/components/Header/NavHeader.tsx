@@ -14,7 +14,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useActiveWeb3React } from "../../hooks";
 import Web3Status from "../Web3Status";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { ChevronDown, ArrowLeft } from 'react-feather'
 import { ExternalHeaderLink, ExternalLink } from "../../theme";
 
@@ -303,6 +303,7 @@ const NavRouter: Tab[] = [
 export default function NavHeader(): JSX.Element {
   const [bgOpacity, setBgOpacity] = useState<number>(0);
   const [menuShow, setMenuShow] = useState(false);
+  const history = useHistory()
   // const [currentMyinfoTab, setCurrentMyinfoTab] = useCurrentMyinfoTab();
   // const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT);
 
@@ -350,7 +351,9 @@ export default function NavHeader(): JSX.Element {
   return (
     <StyledNav className="head-nav">
      
-      <Logo />
+      <Logo  onClick={()=>{
+        history.push('/contract_detection')
+      }} />
       <NavCon>
         {NavRouter.map(({ name, pathUrl, link, childPaths, comingSoon }) => {
           if (childPaths) {

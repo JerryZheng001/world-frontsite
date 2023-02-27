@@ -193,8 +193,8 @@ export const ColorTexts = styled.span<{ type: string }>`
     border-radius: 8px;
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
-    color: ${({ type }) => (type==='high'?'rgba(225, 49, 48, 1)':type==='medium'?'#FF761F':'#FFC92C')};
-    background: ${({ type }) => (type==='high'?'rgba(225, 49, 48, .2)':type==='medium'?'rgba(255, 118, 31, .2)':'rgba(255, 201, 44, .2)')};
+    color: ${({ type }) => (type==='High'?'rgba(225, 49, 48, 1)':type==='Medium'?'#FF761F':'#FFC92C')};
+    background: ${({ type }) => (type==='High'?'rgba(225, 49, 48, .2)':type==='Medium'?'rgba(255, 118, 31, .2)':'rgba(255, 201, 44, .2)')};
     padding: 4px 16px;
 `
 
@@ -238,6 +238,14 @@ export const Findings = styled.div`
                     line-height: 28px;
                 }
             }
+        }
+        .empty{
+            margin: 50px 0;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            font-family: Poppins;
+            font-weight: 400;
         }
     }
    

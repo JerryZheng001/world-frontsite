@@ -7,6 +7,7 @@ interface Echartechdata {
 }
 export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
    
+   
     useEffect(() => {
         var chartDom = document.getElementById('echarts');
         var myChart = chartDom && echarts.init(chartDom);
