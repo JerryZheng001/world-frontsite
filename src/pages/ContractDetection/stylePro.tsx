@@ -145,7 +145,7 @@ export const ItemsIntro = styled.div`
     }
 `
 export const Executive = styled.div`
-    margin-top: 227px;
+    margin-top: 180px;
     .con{
         height: 411px;
         margin-top: 28px;
