@@ -43,15 +43,23 @@ export const Container = styled.div`
         }
         .con{
             position: relative;
-            padding: 24px 0 31px;
+            padding: 24px 0 40px;
             p{
                 height: 96px;
                 font-size: 56px;
-                font-family: Poppins;
+                font-family: Poppins-SemiBold, Poppins;
                 color: #FFFFFF;
                 line-height: 96px;
                 margin-bottom: 24px;
-
+                font-weight: 600;
+                position: relative;
+                img{
+                    width: 180px;
+                    height: 180px;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                }
             }
             .text{
                 font-size: 20px;
@@ -59,6 +67,7 @@ export const Container = styled.div`
                 font-weight: 400;
                 color: #FFFFFF;
                 line-height: 28px;
+                margin-bottom: 20px;
             }
         }
     }

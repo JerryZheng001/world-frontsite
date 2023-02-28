@@ -4,7 +4,7 @@ import { useHistory, } from 'react-router-dom'
 
 import { getTestResult } from '../../../utils/fetch/detect';
 import ErrModel from './ErrModel';
-
+import logo from '../../../assets/images/contrastDetecPro/logo.png'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { ColorTexts, Container, ContractDetectionDetailProDom, Disclaimer, Executive, Findings, ItemsIntro, Line, Summary, TitText } from '../stylePro';
@@ -140,7 +140,9 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 <div className="timer">{IntroInfo.title_time || '--'} — Triathon Verified </div>
                 <Line className='up'></Line>
                 <div className="con">
-                    <p>VoYage Token</p>
+                    <p>VoYage Token
+                        <img src={logo} alt="" />
+                    </p>
                     <div className="text">The security assessment wos presented by Triathon, based on Core plantfrom</div>
                 </div>
                 <Line className='down'></Line>
