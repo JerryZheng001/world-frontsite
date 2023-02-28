@@ -54,6 +54,7 @@ export const TitleIcon = styled.img`
 
 
 const Logo = styled.div`
+cursor: pointer;
   width: 149px;
   height: 32px;
   background: url(${HeaderLogo}) no-repeat;

@@ -21,7 +21,7 @@ export default function EchartsShow({ echdata, }:{echdata:Echartechdata[]}) {
         // var Total =  echdata.length!==0 ? echdata[0].count + echdata[1].count + echdata[2].count + (echdata[3]?echdata[3].count:0) :0
         for (var i = 0; i < echdata.length; i++) {
             data.push({
-                value: echdata[i].count,
+                value: Number(echdata[i].ratio)*100,
                 // eslint-disable-next-line 
                 name: '\t\t\t' + echdata[i].type + '\t\t\t\t' + echdata[i].count +  '\t'  + '('+ Number(Number(echdata[i].ratio)*100).toFixed(2)+ '%' +')',
                 itemStyle: {

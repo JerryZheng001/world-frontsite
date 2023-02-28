@@ -2,23 +2,23 @@ import httpUrl from '../axios'
 
 //获取用户nonce
 export function getUserNonce(params:any){ 
-  return httpUrl.get("user/get_nonce/",params)
+  return httpUrl.get("api/v1/user/get_nonce/",params)
 }
 //用户授权core
 export function getUserToCore(params:any){ 
-  return httpUrl.post("user/login/",params)
+  return httpUrl.post("api/v1/user/login/",params)
 }
 
 
 
 //上传合约地址
 export function getDetectAddressSubmit(data: any) {
-  return httpUrl.post("submit/", data)
+  return httpUrl.post("api/v1/submit/", data)
 }
 
 //上传文件
 export function getDetectFileUpload(data: any) {
-  return httpUrl.post("upload/", data)
+  return httpUrl.post("api/v1/upload/", data)
 }
 
 
@@ -50,5 +50,5 @@ export function getTestResult(params:any){
 
 //下载文件
 export function getFile(params:any){ 
-  return httpUrl.get("download/",params)
+  return httpUrl.get("api/v1/download/",params)
 }

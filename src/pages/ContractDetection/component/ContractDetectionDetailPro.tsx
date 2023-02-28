@@ -32,6 +32,7 @@ interface InfoData {
     code_source: string;
     certificate_code: string;
     issues: Issue[];
+    contract_address: string
 }
 
 
@@ -92,12 +93,17 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                     const { executive, summary, findings } = res.data
                     const { issues } = executive
                     const { info } = summary
+
+                    const newIssues = issues.map((item: EchartList, index: number) => {
+                        return { ...item, type: item.type === 'high' ? 'Critical' : item.type === 'medium' ? 'Medium' : item.type === 'low' ? 'Low' : 'Passed' }
+                    })
+
                     setIntroInfo(executive)
-                    setechartDate(issues)
+                    setechartDate(newIssues)
                     setSummaryInfo(summary)
                     setSummaryDate(info)
 
-                    const newFindingDate = Object.values(findings).map((item:any, index) => {
+                    const newFindingDate = Object.values(findings).map((item: any, index) => {
                         return { ...item, title: Object.keys(findings)[index] }
                     })
                     setFindDate(newFindingDate)
@@ -123,9 +129,11 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     }
 
     useEffect(() => {
+        window?.scrollTo(0, 0)
 
         const { params: { id } } = params.match
         getReportDetail(id)
+
         return () => {
 
         }
@@ -140,21 +148,24 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 <div className="timer">{IntroInfo.title_time || '--'} — Triathon Verified </div>
                 <Line className='up'></Line>
                 <div className="con">
-                    <p>VoYage Token
+                    <p>{SummaryInfo.contract_name || '--'}
                         <img src={logo} alt="" />
                     </p>
                     <div className="text">The security assessment wos presented by Triathon, based on Core plantfrom</div>
                 </div>
                 <Line className='down'></Line>
+                <div className="button" onClick={() => {
+                    history.push('/')
+                }}>Detect other Contract</div>
             </div>
             <Executive>
                 <TitText>Executive</TitText>
                 <div className="con">
                     <div className="left">
-                        <ItemsIntro>
+                        {/* <ItemsIntro>
                             <div className="intro">Type</div>
                             <div>{IntroInfo.type || '--'}</div>
-                        </ItemsIntro>
+                        </ItemsIntro> */}
                         <ItemsIntro>
                             <div className="intro">Time</div>
                             <div>{IntroInfo.time || '--'}</div>
@@ -165,7 +176,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </ItemsIntro>
                         <ItemsIntro>
                             <div className="intro">Chain</div>
-                            <div>{IntroInfo.chian || '--'}</div>
+                            <div className='chain'>{IntroInfo.chian || '--'}</div>
                         </ItemsIntro>
                         <ItemsIntro>
                             <div className="intro">Methods</div>
@@ -175,12 +186,17 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                             <div className="intro">Code source</div>
                             {/* <div>{IntroInfo.code_source || '--'}</div> */}
                             <div>
-                                <a href={baseURL+`download?id=${params.match.params.id}`}>
-                                    {/* {encodeURIComponent(baseURL+`download?id=${params.match.params.id}`)} */}
-                                    {
-                                        `download >>`
-                                    }
-                                    </a>
+                                {
+                                    !IntroInfo.chian ? <a href={baseURL + `download?id=${params.match.params.id}`}>
+                                        {/* {encodeURIComponent(baseURL+`download?id=${params.match.params.id}`)} */}
+                                        {
+                                            `download >>`
+                                        }
+                                    </a> : <a href={IntroInfo.chian === 'bsc' ? `https://bscscan.com/address/${IntroInfo.contract_address}` : `https://etherscan.io/address/${IntroInfo.contract_address}`} target='_blank' rel="noopener noreferrer" > {
+                                        IntroInfo.chian === 'bsc' ? `https://bscscan.com/address/` + IntroInfo.contract_address.slice(0, 6) + '...': `https://etherscan.io/address/` + IntroInfo.contract_address.slice(0, 6) + '...'
+                                    }</a>
+                                }
+
                             </div>
                         </ItemsIntro>
                         <ItemsIntro>
@@ -247,7 +263,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                     {
                                         item.recommend.map((item, index) => {
                                             return <div className="itemsList" key={index}>
-                                                {item}
+                                                - {item}
                                             </div>
                                         })
                                     }

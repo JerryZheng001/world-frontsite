@@ -70,6 +70,25 @@ export const Container = styled.div`
                 margin-bottom: 20px;
             }
         }
+        .button{
+            cursor: pointer;
+            width: 210px;
+            font-size: 20px;
+            font-family: Poppins-Regular, Poppins;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 28px;
+            margin-top: 80px;
+            position: relative;
+            &::before{
+                position: absolute;
+                bottom: 0;
+                content: '';
+                width: 100%;
+                height: 1px;
+                background: #fff;
+            }
+        }
     }
 `
 
@@ -121,9 +140,12 @@ export const ItemsIntro = styled.div`
     .intro{
         color: rgba(99, 107, 128, 1);
     }
+    .chain{
+        text-transform: uppercase;
+    }
 `
 export const Executive = styled.div`
-    margin-top: 335px;
+    margin-top: 227px;
     .con{
         height: 411px;
         margin-top: 28px;
