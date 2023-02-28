@@ -188,12 +188,12 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                             <div>
                                 {
                                     !IntroInfo.chian ? <a href={baseURL + `download?id=${params.match.params.id}`}>
-                                        {/* {encodeURIComponent(baseURL+`download?id=${params.match.params.id}`)} */}
+                                       
                                         {
                                             `download >>`
                                         }
-                                    </a> : <a href={IntroInfo.chian === 'bsc' ? `https://bscscan.com/address/${IntroInfo.contract_address}` : `https://etherscan.io/address/${IntroInfo.contract_address}`} target='_blank' rel="noopener noreferrer" > {
-                                        IntroInfo.chian === 'bsc' ? `https://bscscan.com/address/` + IntroInfo.contract_address.slice(0, 6) + '...': `https://etherscan.io/address/` + IntroInfo.contract_address.slice(0, 6) + '...'
+                                    </a> : <a href={(IntroInfo.chian === 'bsc') ? `https://bscscan.com/address/${IntroInfo.contract_address || ''}` : `https://etherscan.io/address/${IntroInfo.contract_address || ''}`} target='_blank' rel="noopener noreferrer" > {
+                                        IntroInfo.chian === 'bsc' ? `https://bscscan.com/address/` + IntroInfo.contract_address&& IntroInfo.contract_address.slice(0, 6) + '...': `https://etherscan.io/address/` + IntroInfo.contract_address&&IntroInfo.contract_address.slice(0, 6) + '...'
                                     }</a>
                                 }
 
