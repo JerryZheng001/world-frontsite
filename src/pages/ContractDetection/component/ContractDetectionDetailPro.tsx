@@ -9,10 +9,10 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { ColorTexts, Container, ContractDetectionDetailProDom, Disclaimer, Executive, Findings, ItemsIntro, Line, Summary, TitText } from '../stylePro';
 import EchartsShow from './echartsShow';
+import { getEnv } from '../../../utils/base/string';
 dayjs.extend(utc)
 
-
-
+const baseURL = getEnv('REACT_APP_DEV_REQUEST_URL')
 
 
 
@@ -175,7 +175,12 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                             <div className="intro">Code source</div>
                             {/* <div>{IntroInfo.code_source || '--'}</div> */}
                             <div>
-                                <a href="http://10.182.1.30:8888/download?id=121">http://10.182.1.30:8888/download?id=121</a>
+                                <a href={baseURL+`download?id=${params.match.params.id}`}>
+                                    {/* {encodeURIComponent(baseURL+`download?id=${params.match.params.id}`)} */}
+                                    {
+                                        `download >>`
+                                    }
+                                    </a>
                             </div>
                         </ItemsIntro>
                         <ItemsIntro>
