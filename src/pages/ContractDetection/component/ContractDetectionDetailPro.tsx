@@ -171,7 +171,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                     <p>{SummaryInfo.contract_name || '--'}
                         <img src={logo} alt="" />
                     </p>
-                    <div className="text">The security assessment wos presented by Triathon, based on Core plantfrom</div>
+                    <div className="text">The security assessment wos presented by Triathon, based on Core platform</div>
                 </div>
                 <Line className='down'></Line>
                 <div className="button" >
