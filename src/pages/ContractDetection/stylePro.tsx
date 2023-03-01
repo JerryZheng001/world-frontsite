@@ -4,7 +4,7 @@ import maskBg from '../../assets/images/contrastDetecPro/maskBg.png'
 import introBg from '../../assets/images/contrastDetecPro/introBg.png'
 import findBg from '../../assets/images/contrastDetecPro/findbg.png'
 import disBg from '../../assets/images/contrastDetecPro/disBg.png'
-
+import SharePic from '../../assets/images/contrastDetec/SharePic.png'
 
 export const ContractDetectionDetailProDom = styled.div`
     width: 100%;
@@ -73,7 +73,7 @@ export const Container = styled.div`
         .button{
 
             cursor: pointer;
-            width: 220px;
+            /* width: 220px; */
             text-align: center;
             font-size: 20px;
             font-family: Poppins-Regular, Poppins;
@@ -84,6 +84,7 @@ export const Container = styled.div`
             margin: 80px 0 0;
             position: relative;
             float: right;
+            
             &::before{
                 position: absolute;
                 bottom: 0;
@@ -91,6 +92,18 @@ export const Container = styled.div`
                 width: 210px;
                 height: 1px;
                 background: #fff;
+            }
+            .share{
+                width: 28px;
+                height: 28px;
+                border-radius: 14px;
+                cursor: pointer;
+                background: url(${SharePic}) no-repeat;
+                background-size: 100% 100%;
+                display: inline-block;
+                margin-left: 20px;
+                position: relative;
+                top: 8px;
             }
         }
     }
@@ -163,6 +176,17 @@ export const Executive = styled.div`
                 margin-bottom: 24px;
             }
         }
+        .right{
+            position: relative;
+            .show{
+                position: absolute;
+                position: absolute;
+                font-size: 16px;
+                left: 155px;
+                top: 40px;
+                color: rgba(99,107,128,1);
+            }
+        }
     }
 
 `
@@ -210,6 +234,19 @@ export const Summary = styled.div`
         }
         .des{
             flex: 1;
+            span{
+                position: relative;
+                cursor: pointer;
+                &::before{
+                    position: absolute;
+                    content: '';
+                    width: 100%;
+                    height: 1px;
+                    border-bottom: 1px solid #fff;
+                    bottom: 0;
+
+                }
+            }
         }
         .sev{
             text-align:right;

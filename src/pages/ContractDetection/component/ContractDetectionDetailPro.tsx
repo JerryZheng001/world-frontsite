@@ -10,6 +10,7 @@ import utc from 'dayjs/plugin/utc'
 import { ColorTexts, Container, ContractDetectionDetailProDom, Disclaimer, Executive, Findings, ItemsIntro, Line, Summary, TitText } from '../stylePro';
 import EchartsShow from './echartsShow';
 import { getEnv } from '../../../utils/base/string';
+import ScrollLink from '../../../components/ScrollLink'
 dayjs.extend(utc)
 
 const baseURL = getEnv('REACT_APP_DEV_REQUEST_URL')
@@ -79,7 +80,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     const [SummaryDate, setSummaryDate] = useState([] as Info[])
     const [echartDate, setechartDate] = useState([] as EchartList[])
     const [FindDate, setFindDate] = useState([] as FindDateList[])
-
+    const [ToTalItems, setToTalItems] = useState(0)
     const [ErrOpen, setErrOpen] = useState(false)
     const [errorMsg, seterrorMsg] = useState('')
     //报告详情
@@ -97,7 +98,11 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                     const newIssues = issues.map((item: EchartList, index: number) => {
                         return { ...item, type: item.type === 'high' ? 'Critical' : item.type === 'medium' ? 'Medium' : item.type === 'low' ? 'Low' : 'Passed' }
                     })
+                    const ToTalItems = issues.reduce((pre = 0, cur: EchartList) => {
+                        return pre + cur.count
+                    }, 0)
 
+                    setToTalItems(ToTalItems)
                     setIntroInfo(executive)
                     setechartDate(newIssues)
                     setSummaryInfo(summary)
@@ -119,6 +124,21 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
 
 
 
+    }
+
+    //分享twitter
+    const shareTwitter = () => {
+        const toOpen = function (url: string) {
+            const option =
+                'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=450,top=100,left=350'
+            window.open(url, '_blank', option)
+        }
+       
+        const title = `I detected a Smart Contract in @TriathonLab Come together and detect your smart contract %23Triathon`
+        const href = encodeURIComponent(document.location.href) || encodeURIComponent(window.location.href);
+        // const href = 'https://www.triathon.space/contract_detection';
+
+        toOpen('https://twitter.com/share/?text=' + title + '&url=' + href)
     }
 
     //关闭错误弹框
@@ -154,9 +174,14 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                     <div className="text">The security assessment wos presented by Triathon, based on Core plantfrom</div>
                 </div>
                 <Line className='down'></Line>
-                <div className="button" onClick={() => {
-                    history.push('/')
-                }}>Detect other Contract</div>
+                <div className="button" >
+                    <span onClick={() => {
+                        history.push('/')
+                    }} >Detect other Contract</span>
+                    <span className="share" onClick={()=>{
+                        shareTwitter()
+                    }}></span>
+                </div>
             </div>
             <Executive>
                 <TitText>Executive</TitText>
@@ -187,13 +212,13 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                             {/* <div>{IntroInfo.code_source || '--'}</div> */}
                             <div>
                                 {
-                                    !IntroInfo.chian ? <a href={baseURL + `download?id=${params.match.params.id}`}>
-                                       
+                                    !IntroInfo.chian ? <a href={baseURL + `api/v1/download?id=${params.match.params.id}`}>
+
                                         {
                                             `download >>`
                                         }
                                     </a> : <a href={(IntroInfo.chian === 'bsc') ? `https://bscscan.com/address/${IntroInfo.contract_address || ''}` : `https://etherscan.io/address/${IntroInfo.contract_address || ''}`} target='_blank' rel="noopener noreferrer" > {
-                                        IntroInfo.chian === 'bsc' ? (`https://bscscan.com/address/` + IntroInfo.contract_address.slice(0, 6) + '...' ): (`https://etherscan.io/address/` + IntroInfo.contract_address.slice(0, 6) + '...')
+                                        IntroInfo.chian === 'bsc' ? (`https://bscscan.com/address/` + IntroInfo.contract_address.slice(0, 6) + '...') : (`https://etherscan.io/address/` + IntroInfo.contract_address.slice(0, 6) + '...')
                                     }</a>
                                 }
 
@@ -205,6 +230,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                         </ItemsIntro>
                     </div>
                     <div className="right">
+                        <div className="show">Total Item: {ToTalItems} </div>
                         <EchartsShow echdata={echartDate} />
                     </div>
                 </div>
@@ -226,7 +252,11 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                             SummaryDate.length !== 0 ? SummaryDate.map((item, index) => {
                                 return <div className="items">
                                     <div className="id">{item.id}</div>
-                                    <div className="des">{item.title}</div>
+
+                                    <div className="des">
+                                        <ScrollLink href={`#${item.id}`}>{item.title}</ScrollLink>
+                                        {/* {item.title} */}
+                                    </div>
                                     <div className="sev">
                                         <ColorTexts type={item.level} >{
                                             item.level === 'High' ? 'High risk' : item.level === 'Medium' ? 'Medium risk' : 'Low risk'
@@ -243,7 +273,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 <div className="findCon">
                     {
                         FindDate.length !== 0 ? FindDate.map((item, index) => {
-                            return <div className="fingItems" key={index}>
+                            return <div className="fingItems" key={index} id={item.id}>
                                 <div className="title">
                                     <div>{item.title}</div>
                                     <div className="right">{item.id}</div>
