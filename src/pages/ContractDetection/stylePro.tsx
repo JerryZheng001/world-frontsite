@@ -71,20 +71,24 @@ export const Container = styled.div`
             }
         }
         .button{
+
             cursor: pointer;
-            width: 210px;
+            width: 220px;
+            text-align: center;
             font-size: 20px;
             font-family: Poppins-Regular, Poppins;
             font-weight: 400;
             color: #FFFFFF;
             line-height: 28px;
-            margin-top: 80px;
+            /* margin-top: 80px; */
+            margin: 80px 0 0;
             position: relative;
+            float: right;
             &::before{
                 position: absolute;
                 bottom: 0;
                 content: '';
-                width: 100%;
+                width: 210px;
                 height: 1px;
                 background: #fff;
             }

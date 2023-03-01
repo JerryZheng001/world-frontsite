@@ -353,7 +353,8 @@ export default function NavHeader(): JSX.Element {
     <StyledNav className="head-nav">
      
       <Logo  onClick={()=>{
-        history.push('/contract_detection')
+        window.open('https://www.triathon.space/#/')
+        // history.push('/contract_detection')
       }} />
       <NavCon>
         {NavRouter.map(({ name, pathUrl, link, childPaths, comingSoon }) => {

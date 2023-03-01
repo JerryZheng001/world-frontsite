@@ -193,7 +193,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                                             `download >>`
                                         }
                                     </a> : <a href={(IntroInfo.chian === 'bsc') ? `https://bscscan.com/address/${IntroInfo.contract_address || ''}` : `https://etherscan.io/address/${IntroInfo.contract_address || ''}`} target='_blank' rel="noopener noreferrer" > {
-                                        IntroInfo.chian === 'bsc' ? `https://bscscan.com/address/` + IntroInfo.contract_address&& IntroInfo.contract_address.slice(0, 6) + '...': `https://etherscan.io/address/` + IntroInfo.contract_address&&IntroInfo.contract_address.slice(0, 6) + '...'
+                                        IntroInfo.chian === 'bsc' ? (`https://bscscan.com/address/` + IntroInfo.contract_address.slice(0, 6) + '...' ): (`https://etherscan.io/address/` + IntroInfo.contract_address.slice(0, 6) + '...')
                                     }</a>
                                 }
 
