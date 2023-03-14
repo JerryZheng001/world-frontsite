@@ -232,73 +232,73 @@ interface Tab extends TabContent {
 }
 
 const NavRouter: Tab[] = [
-  // {
-  //   name: 'Home',
-  //   pathUrl: 'home'
-  // },
-  // {
-  //   name: 'Product',
-  //   childPaths: [
-  //     {
-  //       name: 'Contract detection',
-  //       pathUrl: '/contract_detection'
-  //     },
-  //     {
-  //       name: 'BSC Detection',
-  //       link: 'https://www.triathon.space/#/battleground',
-  //       isJump:false
-  //     },
-  //     {
-  //       name: 'Expert mode',
-  //       link: 'https://www.triathon.space/#/expertmode',
-  //       isJump:false,
-  //     },
-  //     {
-  //       name: 'Mainstage',
-  //       link: 'https://battleground.triathon.space/mainstage#/',
-  //       isJump:false
-  //     },
+  {
+    name: 'Home',
+    pathUrl: 'home'
+  },
+  {
+    name: 'Product',
+    childPaths: [
+      {
+        name: 'Contract detection',
+        pathUrl: '/contract_detection'
+      },
+      {
+        name: 'BSC Detection',
+        link: 'https://www.triathon.space/#/battleground',
+        isJump:false
+      },
+      {
+        name: 'Expert mode',
+        link: 'https://www.triathon.space/#/expertmode',
+        isJump:false,
+      },
+      {
+        name: 'Mainstage',
+        link: 'https://battleground.triathon.space/mainstage#/',
+        isJump:false
+      },
       
-  //   ]
-  // },
+    ]
+  },
  
-  // {
-  //   name: 'ITO',
-  //   comingSoon: true,
-  // },
+  {
+    name: 'ITO',
+    comingSoon: true,
+  },
 
-  // {
-  //   name: 'About',
-  //   childPaths: [
-  //     {
-  //       name: 'White Paper',
-  //       pathUrl: '/whitepaper'
-  //     },
-  //     {
-  //       name: 'Economic Paper',
-  //       link: 'https://triathon.gitbook.io/economic-paper/',
-  //       isJump:true
-  //     },
-  //     {
-  //       name: 'Spaceship Map',
-  //       pathUrl: '/spaceShipMap'
-  //     },
-  //     {
-  //       name: 'Code Book',
-  //       pathUrl: '/codebook'
-  //     },
-  //     {
-  //       name: 'Play Book',
-  //       link: 'https://triathon.gitbook.io/triath/',
-  //       isJump:true
-  //     },
-  //   ]
-  // },
-  // {
-  //   name:'UserMode',
-  //   link:'https://www.triathon.space/#/home',
+  {
+    name: 'About',
+    childPaths: [
+      {
+        name: 'White Paper',
+        pathUrl: '/whitepaper'
+      },
+      {
+        name: 'Economic Paper',
+        link: 'https://triathon.gitbook.io/economic-paper/',
+        isJump:true
+      },
+      {
+        name: 'Spaceship Map',
+        pathUrl: '/spaceShipMap'
+      },
+      {
+        name: 'Code Book',
+        pathUrl: '/codebook'
+      },
+      {
+        name: 'Play Book',
+        link: 'https://triathon.gitbook.io/triath/',
+        isJump:true
+      },
+    ]
+  },
+  {
+    name:'UserMode',
+    link:'https://www.triathon.space/#/home',
     
-  // }
+  }
 ]
 
 export default function NavHeader(): JSX.Element {
