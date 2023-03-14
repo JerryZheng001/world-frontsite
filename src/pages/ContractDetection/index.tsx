@@ -14,6 +14,7 @@ import { getDetectAddressSubmit, getListsTotal, getTestResult, getTestStatus, ge
 import { Dots, SmallLoading } from '../../components/styleds'
 import { getEnv } from '../../utils/base/string'
 import { clearTimeout } from 'timers'
+
 const { Option } = Select;
 
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
