@@ -387,7 +387,7 @@ export const Findings = styled.div`
         width: 100%;
         padding: 48px 32px;
         height: auto;
-        background: url(${findBg}) no-repeat;
+        background: url(${findBg}) no-repeat 100% 100%;
         border-radius: 16px;
         .green {
           color: #3772ff;
