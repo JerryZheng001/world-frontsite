@@ -325,6 +325,8 @@ export const ColorTexts = styled.span<{ type: string }>`
       : "rgba(255, 201, 44, .2)"};
   padding: 4px 16px;
 `;
+export const Colorsecurity = styled.span<{ type:number}>``
+
 
 export const Findings = styled.div`
   margin-top: 150px;

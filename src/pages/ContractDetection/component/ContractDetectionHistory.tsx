@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  HistoryContainer,
-  HistoryDom,
-  InputCon,
-  ItemDiv,
-  SearchDom,
-} from "../styled";
+import { HistoryContainer, HistoryDom, ItemDiv } from "../styled";
 import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
-import { getHistoryLists, getListsTotal } from "../../../utils/fetch/detect";
+import { getHistoryLists } from "../../../utils/fetch/detect";
 import { shortenAddress } from "../../../utils";
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
@@ -21,6 +15,12 @@ interface ResultList {
   network: string;
   score?: any;
 }
+const showsecurity =[
+    "significant security risks",
+    "Some security risks",
+    "currently no security risks"
+]
+
 const ShowText = [
   "Significant Risk",
   "High Risk",
@@ -31,10 +31,11 @@ const ShowText = [
 export default function ContractDetectionHistory(): JSX.Element {
   const [TotalTest, setTotalTest] = useState(0);
   const [resultList, setresultList] = useState([] as ResultList[]);
-  const {account} = useWeb3React();
+  const { account } = useWeb3React();
 
   const history = useHistory();
   const [InputValue, setInputValue] = useState("");
+
 
   //历史记录
   const getTestList = () => {
@@ -50,21 +51,12 @@ export default function ContractDetectionHistory(): JSX.Element {
       }
     });
   };
-  //检测总数
-  const handleListTotal = () => {
-    getListsTotal().then((res) => {
-      if (res.data) {
-        setTotalTest(res.data);
-      }
-    });
-  };
 
-  const changeValue = (e: any) => {
-    setInputValue(e.target.value);
-  };
+
+
   useEffect(() => {
     getTestList();
-    handleListTotal();
+
     return () => {};
     // eslint-disable-next-line
   }, []);
