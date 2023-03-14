@@ -181,13 +181,13 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
           </div>
           <Line className="up"></Line>
           <div className="con">
-            <p>
+            <p style={{ marginBottom: 0 }}>
               {SummaryInfo.contract_name || "--"}
               <img src={logo} alt="" />
             </p>
             <div className="text">
-              The security assessment wos presented by Triathon, based on Core
-              platform
+              The security assessment wos presented by Triathon, based on <br />
+              Core platform
             </div>
           </div>
           <Line className="down"></Line>
@@ -287,7 +287,7 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
           <div className="sumaryIntro">
             <div className="head">
               <div className="id">
-                Id
+                ID
                 <div className="tips">
                   <div className="tipsCon">
                     <span></span>
@@ -300,11 +300,10 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
               <div className="des">
                 Description
                 <br />
-                <i>
-                  {" "}
+                <p>
                   (Click the title below to check the issue's description
                   recommendations)
-                </i>
+                </p>
               </div>
               <div className="sev">Severity</div>
             </div>
@@ -356,18 +355,21 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
                 return (
                   <div className="fingItems" key={index} id={item.id}>
                     <div className="title">
-                      <div>{item.title}</div>
                       <div className="right">{item.id}</div>
                     </div>
-                    <div className="button">
-                      <ColorTexts type={item.level}>
-                        {item.level === "High"
-                          ? "Severity : High risk"
-                          : item.level === "Medium"
-                          ? "Severity : Medium risk"
-                          : "Severity : Low risk"}
-                      </ColorTexts>
+                    <div className="title1">
+                      <div className="left">{item.title}</div>
+                      <div className="right">
+                        <ColorTexts type={item.level}>
+                          {item.level === "High"
+                            ? "Severity : High risk"
+                            : item.level === "Medium"
+                            ? "Severity : Medium risk"
+                            : "Severity : Low risk"}
+                        </ColorTexts>
+                      </div>
                     </div>
+
                     <div className="con">
                       <div>Description:</div>
                       <div>{item.description}</div>

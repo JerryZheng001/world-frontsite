@@ -42,7 +42,7 @@ export const Container = styled.div`
     }
     .con {
       position: relative;
-      padding: 24px 0 40px;
+      padding: 24px 0 24px;
       p {
         height: 96px;
         font-size: 56px;
@@ -53,8 +53,8 @@ export const Container = styled.div`
         font-weight: 600;
         position: relative;
         img {
-          width: 180px;
-          height: 180px;
+          width: 160px;
+          height: 160px;
           position: absolute;
           top: 0;
           right: 0;
@@ -83,15 +83,17 @@ export const Container = styled.div`
       position: absolute;
       top: 0;
       right: 0;
-
-      &::before {
-        position: absolute;
-        bottom: 0;
-        content: "";
-        width: 210px;
-        height: 1px;
-        background: #fff;
+      &:hover {
+        &::before {
+          position: absolute;
+          bottom: 0;
+          content: "";
+          width: 210px;
+          height: 1px;
+          background: #fff;
+        }
       }
+
       .share {
         width: 28px;
         height: 28px;
@@ -163,15 +165,15 @@ export const ItemsIntro = styled.div`
 export const Executive = styled.div`
   margin-top: 60px;
   .con {
-    height: 411px;
+    height: 380px;
     margin-top: 28px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* border-top: 1px solid rgba(255, 255, 255, 0.08); */
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
 
     .left {
       width: 525px;
-      padding: 47px 32px;
+      padding: 47px 0px 20px;
       > div {
         margin-bottom: 24px;
       }
@@ -251,13 +253,14 @@ export const Summary = styled.div`
         }
       }
       .des {
-        i {
+        p {
           display: inline-block;
           font-size: 12px;
           font-family: PingFangSC-Regular, PingFang SC;
           font-weight: 400;
           color: #3772ff;
           line-height: 24px;
+          
         }
       }
     }
@@ -274,7 +277,7 @@ export const Summary = styled.div`
     }
     .id {
       width: 415px;
-      padding-left: 32px;
+      /* padding-left: 32px; */
     }
     .des {
       flex: 1;
@@ -343,13 +346,13 @@ export const Findings = styled.div`
   }
   .findCon {
     margin-top: 48px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    /* border-top: 1px solid rgba(255, 255, 255, 0.08); */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.08); */
     .fingItems {
       padding: 60px 0 0 0;
       .title {
-        display: flex;
-        justify-content: space-between;
+        /* display: flex;
+        justify-content: space-between; */
         font-size: 24px;
         font-family: Poppins-SemiBold, Poppins;
         font-weight: 600;
@@ -357,7 +360,24 @@ export const Findings = styled.div`
         line-height: 32px;
         .right {
           color: rgba(255, 255, 255, 0.5);
+          text-align:right;
         }
+      }
+      .title1 {
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+        font-family: Poppins-SemiBold, Poppins;
+        font-weight: 600;
+        color: #ffffff;
+        line-height: 32px;
+        margin: 22px 0px 38px;
+        .right {
+          color: rgba(255, 255, 255, 0.5);
+          text-align:right;
+        }
+       
+
       }
       .button {
         text-align: right;
@@ -367,7 +387,7 @@ export const Findings = styled.div`
         width: 100%;
         padding: 48px 32px;
         height: auto;
-        background: url(${findBg}) repeat;
+        background: url(${findBg}) no-repeat;
         border-radius: 16px;
         .green {
           color: #3772ff;
@@ -408,7 +428,7 @@ export const Disclaimer = styled.div`
       font-weight: 600;
       color: #636b80;
       line-height: 52px;
-      margin-bottom: 50px;
+      margin-bottom: 25px;
     }
     .text {
       font-size: 16px;
