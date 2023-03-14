@@ -930,7 +930,6 @@ export const HistoryDom = styled.div`
   padding-top: 134px;
   width: 1294px;
   margin: 0 auto;
-
   .title {
     text-align: center;
     font-size: 56px;
@@ -952,19 +951,32 @@ export const HistoryDom = styled.div`
       }
     }
   }
-  .showTitle {
-    width: 370px;
-    margin: 0 auto 48px;
-    font-size: 48px;
-    font-family: Poppins-SemiBold, Poppins;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 56px;
-    /* background: linear-gradient(270deg, #72ACFF 0%, #5846F9 35%, #45D8FB 64%, #FF63EB 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        user-select: none; */
+  .addresscon {
+    width: 1294px;
+    height: 182px;
+    border-radius: 20px;
+    margin-top: 78px;
+    border: 1px solid red;
+    p{
+      margin:0;
+    }
+    p:nth-child(1) {
+      font-size: 24px;
+      font-family: Poppins-SemiBold, Poppins;
+      font-weight: 600;
+      color: #e13131;
+      line-height: 32px;
+    }
+    p:nth-child(2) {
+      font-size: 16px;
+      font-family: Poppins-Regular, Poppins;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 16px;
+      margin-top:16px;
+    }
   }
+
   .listCom {
     padding-top: 48px;
     .headIntro {

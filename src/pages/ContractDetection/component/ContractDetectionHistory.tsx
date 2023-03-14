@@ -12,6 +12,7 @@ import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import { getHistoryLists, getListsTotal } from "../../../utils/fetch/detect";
 import { shortenAddress } from "../../../utils";
 import { useHistory } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
 
 interface ResultList {
   id: number;
@@ -30,6 +31,7 @@ const ShowText = [
 export default function ContractDetectionHistory(): JSX.Element {
   const [TotalTest, setTotalTest] = useState(0);
   const [resultList, setresultList] = useState([] as ResultList[]);
+  const {account} = useWeb3React();
 
   const history = useHistory();
   const [InputValue, setInputValue] = useState("");
@@ -72,11 +74,13 @@ export default function ContractDetectionHistory(): JSX.Element {
       <HistoryDom>
         <div className="title">TRIATHON </div>
         <div className="title">Contract Detection Report</div>
-         <div className="address">
-            
+        <div className="addresscon">
+          <p>Significant Security Risks</p>
+          <p>
+            Your address: <span>{account}</span>{" "}
+          </p>
+        </div>
 
-         </div>
-      
         <div className="listCom">
           <div className="headIntro">
             <ItemDiv width="70px" type={0}>
