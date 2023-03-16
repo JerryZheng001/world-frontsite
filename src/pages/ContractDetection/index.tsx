@@ -1,18 +1,23 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import ethPic from '../../assets/images/contrastDetec/ethPic.png'
-import bscPic from '../../assets/images/contrastDetec/bscPic.png'
-import ErrModel from './component/ErrModel'
+import ethPic from '../../assets/images/tokenDetec/ethPic@2x.png'
+import bscPic from '../../assets/images/tokenDetec/bscPic@2x.png'
+// import tronPic from '../../assets/images/tokenDetec/avaPic@2x.png'
+import polyPic from '../../assets/images/tokenDetec/polyPic@2x.png'
+import avaPic from '../../assets/images/tokenDetec/tronPic@2x.png'
+import optimismPic from '../../assets/images/tokenDetec/optimismPic.png'
 
+
+import ErrModel from './component/ErrModel'
+import leftShowPic from '../../assets/images/tokenDetec/leftShowPic.png'
+import rightShowPic from '../../assets/images/tokenDetec/rightShowPic.png'
 import './antd.scss'
 import { useActiveWeb3React } from '../../hooks'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import { StyleCode } from './component/StyleCode'
-import { ContainerCon, FileContent, ShowDecting, StyleButton, StyledInput, StyleSolInputUp, WidthDiv } from './styled'
+import { BottomDiv, ComingDiv, ContainerCon, IntroDiv, ShowDecting, StyleButton, StyledInput, WidthDiv } from './styled'
 import { Select } from 'antd';
 import { useHistory } from 'react-router-dom'
-import { getDetectAddressSubmit, getListsTotal, getTestResult, getTestStatus, getUserNonce, getUserToCore } from '../../utils/fetch/detect'
+import { getDetectAddressSubmit, getListsTotal, getTestStatus } from '../../utils/fetch/detect'
 import { Dots, SmallLoading } from '../../components/styleds'
-import { getEnv } from '../../utils/base/string'
 import { clearTimeout } from 'timers'
 const { Option } = Select;
 
@@ -71,7 +76,6 @@ interface BtnProp {
     text: JSX.Element | string
     event?: () => void
 }
-const baseURL = getEnv('REACT_APP_DEV_REQUEST_URL')
 export default function ContractDetection(): JSX.Element {
 
     const { account } = useActiveWeb3React()
@@ -81,9 +85,7 @@ export default function ContractDetection(): JSX.Element {
     const [currIndex, setcurrIndex] = useState(0)
     const [AddressContract, setAddressContract] = useState('')
 
-    const [FileValue, setFileValue] = useState('')
-    const [FileShow, setFileShow] = useState(false)
-    const [selectChain, setselectChain] = useState('bsc')
+    const [selectChain, setselectChain] = useState('BSC')
 
 
     const [contrastErrText, setcontrastErrText] = useState('')
@@ -92,71 +94,13 @@ export default function ContractDetection(): JSX.Element {
 
     const [detectIng, setdetectIng] = useState(false)
 
-    const [CurrentTestId, setCurrentTestId] = useState('' as unknown as number)
     const [TotalTest, setTotalTest] = useState(0)
 
     const [Testing, setTesting] = useState(false)
-    const [TakeResultAllTime, setTakeResultAllTime] = useState(false)
-    const [showUploadFileButton, setshowUploadFileButton] = useState(false)
+    // const [TakeResultAllTime, setTakeResultAllTime] = useState(false)
     const [overTimer, setoverTimer] = useState(false)
     let timer1: any;
-    //上传文件
-    function readSingleFile(e: any) {
-        var file = e.target.files[0];
-        if (!file) { return; }
 
-        const formdata = new FormData();
-        // 这里只是基本设置，对应接口需求设置响应的类型属性值
-        formdata.set('file', file);
-        formdata.set('main_file', file.name);
-
-        // 接口调用
-        let xml = new XMLHttpRequest();
-        xml.open('POST', baseURL + 'api/v1/upload/', true)
-        xml.setRequestHeader('Authorization', window.sessionStorage.getItem('token') || '');
-
-        xml.send(formdata)
-
-        xml.onload = (res) => {
-            const { code, data, msg } = JSON.parse(xml.responseText)
-
-            if (code === 30001) {
-                setErrOpen(true)
-                seterrorMsg(msg)
-            }
-            if (code === 500) {
-                setErrOpen(true)
-                seterrorMsg('The service is busy, please try again')
-            }
-            if (code === 200) {
-                if (data.status === 2) {
-                    setErrOpen(true)
-                    seterrorMsg(msg)
-                }
-                if (data.status === 1) {
-                    setErrOpen(true)
-                    seterrorMsg(msg)
-                }
-                
-
-                if (data.id) {
-                    setCurrentTestId(data.id)
-                    localStorage.setItem('CurrentTestId', data.id)
-                    localStorage.setItem('TakeResultAllTime', 'true')
-                    setshowUploadFileButton(true)
-                }
-            }
-        }
-
-        var reader = new FileReader();
-        reader.onload = function (e: any) {
-            var contents = e.target.result;
-            setFileValue(contents)
-            setFileShow(true)
-
-        };
-        reader.readAsText(file, "utf-8");
-    }
     //合约地址检测
     const detectContrast = useCallback(
         () => {
@@ -165,55 +109,46 @@ export default function ContractDetection(): JSX.Element {
                 setcontrastErrText('Notice：Address is validated incorrectly')
             } else {
                 setcontrastErrText('')
+                setdetectIng(true)
                 GetTestStatusStart()
             }
         },
         // eslint-disable-next-line
-        [AddressContract, history, account],
+        [AddressContract, history, account, selectChain, localStorage.getItem('chain')],
     )
-    const testAddress = () => {
-        console.log(selectChain, 'selectChain');
-
+    //token检测
+    const testAddress = (type?:number,newParams?:any) => {
         const params = {
-            address: AddressContract,
-            network: localStorage.getItem('chain')
+            token_address: AddressContract,
+            chain: localStorage.getItem('chain'),
+            user_address: account
         }
-
-        getDetectAddressSubmit(params).then((res: any) => {
+        getDetectAddressSubmit(type===1?newParams:params).then((res: any) => {
             const { code, data, msg } = res
-            if (code === 30001) {
+            if (code === 200) {
+                if (JSON.stringify(data) === '{}') {
+                    timer1 = setTimeout(() => {
+                        testAddress()
+                    }, 3000);
+                } else {
+                    const { id } = data
+
+                    clearTimeout(timer1)
+                    setTimeout(() => {
+                        setTesting(false)
+                        setdetectIng(false)
+                        history.push(`/contract_detection/${id}`)
+                    }, 1000);
+                }
+            } else {
                 setErrOpen(true)
                 seterrorMsg(msg)
             }
-            if (code === 500) {
-                setErrOpen(true)
-                seterrorMsg('The service is busy, please try again')
-            }
-            if (code === 200) {
-                const { id } = data
-                setCurrentTestId(id)
-                localStorage.setItem('CurrentTestId', id)
-                localStorage.setItem('TakeResultAllTime', 'true')
-                setdetectIng(true)
-                ViewTestResult(id)
-            }
         })
-
-
-
-
     }
 
 
-    const detectFile = () => {
-        const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
-        console.log(Id, 'Id');
-        if (Id) {
-            ViewTestResult(Id)
 
-        }
-
-    }
 
 
     //关闭错误弹框
@@ -221,8 +156,6 @@ export default function ContractDetection(): JSX.Element {
         setErrOpen(false)
         seterrorMsg('')
         setcontrastErrText('')
-        setFileValue('')
-        setFileShow(false)
         setAddressContract('')
         setdetectIng(false)
         setTesting(false)
@@ -253,13 +186,13 @@ export default function ContractDetection(): JSX.Element {
             )
             return rst
         }
-        if(overTimer){
+        if (overTimer) {
             rst.text = 'Too many requests, please wait'
             return rst
         }
         return {
             text: 'Start detection',
-            event: () => { currIndex === 0 ? detectContrast() : detectFile() },
+            event: () => { detectContrast() },
             disabled: false
         }
         // eslint-disable-next-line
@@ -270,132 +203,71 @@ export default function ContractDetection(): JSX.Element {
         currIndex,
         detectIng,
         useActiveWeb3React,
-        overTimer
+        overTimer,
+        selectChain,
+        // eslint-disable-next-line
+        localStorage.getItem('chain'),
+        AddressContract
     ])
     const handleChange = (value: any) => {
         setselectChain(value)
         localStorage.setItem('chain', value)
     }
-    //获取nonce
-    const handelFiret = useCallback(
-        () => {
-            if (!account) return
-
-            getUserNonce({ address: account }).then((res: any) => {
-                if (res.code === 200) {
-                    const { nonce } = res.data
-                    const Params = { nonce: nonce, address: account }
-                    getUserToCore(Params).then((re: any) => {
-                        if (re.code === 200) {
-                            const { token } = re.data
-                            window.sessionStorage.setItem('token', 'Bearer ' + token)
-                            GetTestStatusStart()
-                        } else {
-                            setErrOpen(true)
-                            seterrorMsg(re.msg)
-                        }
-
-
-                    })
-                } else {
-                    setErrOpen(true)
-                    seterrorMsg(res.msg)
-                }
-
-            })
-        },
-        // eslint-disable-next-line
-        [account],
-    )
-
-
 
     //检测总数
     const handleListTotal = () => {
         getListsTotal().then(res => {
             if (res.data) {
-                setTotalTest(res.data)
+                const { total } = res.data
+                setTotalTest(total)
             }
         })
-    }
-    //查看检测结果
-    const ViewTestResult = useCallback(
-        (testid: any) => {
-
-            getTestResult({ id: testid }).then((res: any) => {
-                const { code, data, msg } = res
-                if (code === 200) {
-                    if (JSON.stringify(data) === '{}') {
-                        console.log(TakeResultAllTime, 'TakeResultAllTime==>', localStorage.getItem('TakeResultAllTime'), testid, localStorage.getItem('CurrentTestId'), localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid) === Number(localStorage.getItem('CurrentTestId')));
-
-                        if (localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid) === Number(localStorage.getItem('CurrentTestId'))) {
-                            setdetectIng(true)
-                            setTimeout(() => {
-                                ViewTestResult(testid)
-                            }, 3000);
-                        }
-
-                    } else {
-                        setTesting(false)
-                        setdetectIng(false)
-
-                        const Id = CurrentTestId || localStorage.getItem('CurrentTestId')
-                        history.push(`/contract_detection/${Id}`)
-                    }
-                } else if(code === 201){
-                    if (localStorage.getItem('TakeResultAllTime') === 'true' && Number(testid) === Number(localStorage.getItem('CurrentTestId'))) {
-                        setoverTimer(true)
-                        setdetectIng(false)
-                        setTimeout(() => {
-                            ViewTestResult(testid)
-                        }, 3000);
-                    }
-                    
-                }   
-                
-                
-                else {
-                    setErrOpen(true)
-                    seterrorMsg(msg)
-                    localStorage.setItem('TakeResultAllTime', 'false')
-                    
-                }
+            .catch(e => {
+                console.log(e, 'wrong');
 
             })
-        },
-        [TakeResultAllTime, CurrentTestId, history],
-    )
+    }
 
 
     //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
     const GetTestStatusStart = useCallback(
         () => {
+            let timer2:any;
 
             if (!account) return
 
-            getTestStatus({ addr: account }).then((res: any) => {
+            getTestStatus({ user_address: account }).then((res: any) => {
 
                 if (res.code === 200) {
                     const { data, msg } = res
-                    if (data.status === 2) {
+                    // const data = {
+                    //     status:'1',
+                    //     chain:'BSC',
+                    //     address:'0xa4838122c683f732289805FC3C207Febd55BabDD'
+                    // }
+                    // const msg = ''
+                    if (data.status === "2") {
                         setErrOpen(true)
                         seterrorMsg(msg)
                     }
-                    if (data.status === 1) {
-
-                        localStorage.setItem('CurrentTestId', data.id)
-                        localStorage.setItem('TakeResultAllTime', 'true')
-                        setTakeResultAllTime(true)
-                        setTimeout(() => {
-                            setTesting(true)
-                            ViewTestResult(data.id)
-                        }, 0);
-
+                    if (data.status === "1") {
+                        setAddressContract(data.address)
+                        localStorage.setItem('chain', data.chain)
+                        setselectChain(data.chain)
+                        setTesting(true)
+                        const reParams = {
+                            token_address: data.address,
+                            chain: data.chain,
+                            user_address: account
+                        }
+                        timer2 = setTimeout(() => {
+                            testAddress(1,reParams)
+                        }, 3000);
                     }
-                    if (data.status === 0) {
+                    if (data.status === "0") {
                         setTesting(false)
                         setdetectIng(false)
-
+                        clearTimeout(timer2)
                         if (contrastRegex.test(AddressContract)) {
                             testAddress()
                         }
@@ -413,7 +285,7 @@ export default function ContractDetection(): JSX.Element {
             })
         },
         // eslint-disable-next-line
-        [AddressContract, ViewTestResult, account, selectChain],
+        [AddressContract, account, selectChain],
     )
 
 
@@ -423,14 +295,12 @@ export default function ContractDetection(): JSX.Element {
             setErrOpen(false)
             seterrorMsg('')
             setcontrastErrText('')
-            setFileValue('')
-            setFileShow(false)
             setcurrIndex(0)
             setAddressContract('')
-            setTakeResultAllTime(false)
+            // setTakeResultAllTime(false)
             setoverTimer(false)
             localStorage.setItem('TakeResultAllTime', 'false')
-            
+
         },
         // eslint-disable-next-line
         [account],
@@ -438,10 +308,10 @@ export default function ContractDetection(): JSX.Element {
 
 
     useEffect(() => {
-        localStorage.setItem('chain', 'bsc')
-        handelFiret()
+        localStorage.setItem('chain', 'BSC')
         handleListTotal()
         PageStart()
+        GetTestStatusStart()
         // eslint-disable-next-line
         return () => {
 
@@ -456,87 +326,106 @@ export default function ContractDetection(): JSX.Element {
 
 
     return <ContainerCon className="ContractDetection">
+        {/* 合约检测入口 */}
         <div className="homeContainer">
+            {/* 内容区域 */}
             <div className="container">
                 <WidthDiv className='ContracDec'>
-                    <div className="title">Triathon Contract Detection</div>
+                    <div className="title">Triathon Contract Detection
+                        <span></span></div>
                     <div className="tabs">
-                        <span className={currIndex === 0 ? 'active tab1' : 'tab1'} onClick={() => setcurrIndex(0)}>Detect with address</span>
-                        <span className={currIndex === 1 ? 'active tab2' : 'tab2'} onClick={() => setcurrIndex(1)}>Detect with file</span>
+                        A Crypto Detection and security Platform for Everyone
                     </div>
                     {
                         Testing ? <ShowDecting>
                             {
-                                overTimer?
-                                <>
-                                 <div className="loading"></div>
-                                <div className='text'>Too many requests, please wait</div>
-                                </>:<>
-                                 <div className="loading"></div>
-                            <div className="text">Detecting…</div>
-                                </>
+                                overTimer ?
+                                    <>
+                                        <div className="loading"></div>
+                                        <div className='text'>Too many requests, please wait</div>
+                                    </> : <>
+                                        <div className="loading"></div>
+                                        <div className="text">Detecting…</div>
+                                    </>
                             }
-                           
-                        </ShowDecting> : (
-                            currIndex === 0 ? <div className="addreccCon">
-                                <div className="select">
-                                    <Select defaultValue="bsc" onChange={handleChange} dropdownClassName='dropCon' showArrow >
-                                        <Option value="bsc">  <img src={bscPic} alt="" /> BSC</Option>
-                                        <Option value="eth">  <img src={ethPic} alt="" /> ETH</Option>
-                                    </Select>
-                                </div>
-                                <div className="inputCon">
-                                    <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the contact address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input>
-                                </div>
-                                <div className="err">{contrastErrText}</div>
-                            </div> : <div className="fileCon">
-                                {
-                                    !FileShow ? <div className="uploadBefore"><StyleSolInputUp >
-                                        <span></span>
-                                        Upload file (.sol)
-                                        <input type="file" id='file-input' accept=".sol" onChange={readSingleFile} />
-                                    </StyleSolInputUp></div> : <FileContent>
-                                        {
-                                            FileValue !== '' && <StyleCode value={FileValue}></StyleCode>
-                                        }
-                                    </FileContent>
-                                }
 
+                        </ShowDecting> : <div className="addreccCon">
+                            <div className="select">
+                                <Select defaultValue="BSC" onChange={handleChange} dropdownClassName='dropCon' showArrow >
+                                    <Option value="BSC">  <img src={bscPic} alt="" /> BSC</Option>
+                                    <Option value="ETH">  <img src={ethPic} alt="" /> ETH</Option>
+                                    <Option value="Optimism">  <img src={optimismPic} alt="" /> Optimism</Option>
+                                    <Option value="Polygon">  <img src={polyPic} alt="" /> Polygon</Option>
+                                    <Option value="Avalanche">  <img src={avaPic} alt="" /> Avalanche</Option>
+                                </Select>
                             </div>
-                        )
+                            <div className="inputCon">
+                                <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the Token address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input>
+                            </div>
+                            <div className="err">{contrastErrText}</div>
+                        </div>
                     }
 
                     {
-                        (currIndex === 0 && !Testing) ? <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
+                        !Testing && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
+                    }
+                    {/* {
+                        (!Testing) ? 
+                        <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
                             !account ? <StyleButton onClick={() => {
                                 toggleWalletModal()
                             }} > Connect Wallet </StyleButton> : (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
                         )
-                    }
+                    } */}
 
 
-                    <div className="notice">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit ( email : triathonspace@gmail.com )</div>
-                    <div className="detect" >
-                        <span onClick={() => {
-                            history.push('/contract_detection/history')
-                        }} >
-                            {TotalTest}+ Detected <span className='pointRight'></span>
-                        </span>
-                    </div>
+
                 </WidthDiv>
             </div>
-            <div className="playContainer">
+            {/* 悬浮小图标 */}
+            {/* <div className="playContainer">
 
-           
-            <div className="play1"></div>
-            <div className="play2"></div>
-            <div className="play3"></div>
-            <div className="play4"></div>
-            <div className="play5"></div>
-            <div className="play6"></div>
-            </div>
+
+                <div className="play1"></div>
+                <div className="play2"></div>
+                <div className="play3"></div>
+                <div className="play4"></div>
+                <div className="play5"></div>
+                <div className="play6"></div>
+            </div> */}
         </div>
+        <IntroDiv>
+            <div>
+                <div className="top">4</div>
+                <div className="bottom">Engines</div>
+            </div>
+            <div>
+                <div className="top">5</div>
+                <div className="bottom">Public Chains Supported</div>
+            </div>
 
+            <div>
+                <div className="top">200+</div>
+                <div className="bottom">Detect Items</div>
+            </div>
+            <div>
+                <div className="top">{TotalTest || '--'} +</div>
+                <div className="bottom">Detected Contracts</div>
+            </div>
+        </IntroDiv>
+        <ComingDiv>
+            <div className="tit">Address security scan</div>
+            <div className="intro">Conduct a comprehensive scan of your address for security vulnerabilities</div>
+            <div className="coming">Coming Soon</div>
+        </ComingDiv>
+        <BottomDiv>
+            <div className="left">
+                <img src={leftShowPic} alt="" />
+            </div>
+            <div className="right">
+                <img src={rightShowPic} alt="" />
+            </div>
+        </BottomDiv>
         <ErrModel
             isOpen={ErrOpen}
             onDismiss={closeErrTip}
