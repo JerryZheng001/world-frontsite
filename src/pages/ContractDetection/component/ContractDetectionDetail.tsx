@@ -194,10 +194,10 @@ export default function ContractDetectionDetail(params: any): JSX.Element {
     return <ContractDetectionDetailDom className='ContractDetectionDetail'>
 
         <div className="container">
-            <div className="title">Triathon Contract Detection Report</div>
+            <div className="title">Address Security Scan</div>
             <div className="detect" onClick={() => {
                 history.push('/contract_detection')
-            }}>Detect other contract</div>
+            }}>Conduct a comprehensive scan of your address for security vulnerabilities.</div>
             <div className="text">Notice : This detection is the basic item scan, please do not treat it as the final audit report.For the final report, please contract customer service for manual audit ( email : triathonspace@gmail.com )</div>
             <ReportDom>
                 <div className={isShare ? 'SharereportShow' : UploadType === 'address' ? 'reportShow' : 'reportShow fileConNew'} id='pic' >

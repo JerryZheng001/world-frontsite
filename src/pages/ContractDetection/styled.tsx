@@ -21,6 +21,7 @@ import play3 from "../../assets/images/contrastDetec/play3@2x.png";
 import play4 from "../../assets/images/contrastDetec/play4@2x.png";
 import play5 from "../../assets/images/contrastDetec/play5@2x.png";
 import play6 from "../../assets/images/contrastDetec/play6@2x.png";
+import CommingImg from '../../assets/images/tokenDetec/CommingImg.png'
 import securitybg from "../../assets/images/securitybg.png";
 import subscribebg from "../../assets/images/subscribebg.png";
 import AddressBg from "../../assets/images/addressBg.png"
@@ -28,11 +29,16 @@ import AddressBg from "../../assets/images/addressBg.png"
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
   height: 100%;
-  background: url(${homePageBg});
-  background-size: 100% 100%;
+  /* border:1px solid red; */
+  /* 
+  background-size: 100% 100%; */
   background-repeat: no-repeat;
   position: relative;
   .homeContainer {
+    border:1px solid red;
+    background: url(${homePageBg});
+    background-size:100% 100%;
+    background-repeat:no-repeat;
     .playContainer {
       z-index: 1;
       width: 1294px;
