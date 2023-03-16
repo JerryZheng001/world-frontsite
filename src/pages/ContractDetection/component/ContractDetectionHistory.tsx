@@ -21,6 +21,18 @@ interface ResultList {
   contract_address: string;
   network: string;
   score?: any;
+  project: string;
+  contract: string;
+  chain: string;
+  token: string;
+  token_symbol: string;
+  balance: string;
+  approved_amount: string;
+  advice: number;
+  risk: number;
+  malicious_behavior: [];
+  nft_name: string;
+  nft_symbol: string;
 }
 const showsecurity = [
   "significant security risks",
@@ -113,7 +125,7 @@ export default function ContractDetectionHistory(): JSX.Element {
               <Erc20Listdom resultList={resultList}></Erc20Listdom>
             </TabPane>
             <TabPane tab="ERC - 721" key="3">
-              <Erc721Listdom resultList={resultList}></Erc721Listdom>
+              <Erc721Listdom data={resultList}></Erc721Listdom>
             </TabPane>
           </Tabs>
         </div>

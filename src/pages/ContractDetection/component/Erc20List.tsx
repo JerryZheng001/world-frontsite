@@ -9,7 +9,7 @@ import danger from "../../../assets/images/danger.png";
 import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
 // import { useHistory } from "react-router-dom";
-interface Echartechdata {
+interface ERC20TYPE {
   project: string;
   contract: string;
   chain: string;
@@ -25,7 +25,7 @@ interface Echartechdata {
 export default function listdom({
   resultList,
 }: {
-  resultList: Echartechdata[];
+  resultList: ERC20TYPE[];
 }) {
   // const history = useHistory();
   return (

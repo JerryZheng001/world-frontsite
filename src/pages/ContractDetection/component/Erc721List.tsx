@@ -7,7 +7,7 @@ import danger from "../../../assets/images/danger.png";
 import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
 // import { useHistory } from "react-router-dom";
-interface Echartechdata {
+interface ERC721TYPE {
   project: string;
   contract: string;
   chain: string;
@@ -21,9 +21,9 @@ interface Echartechdata {
 }
 
 export default function listdom({
-  resultList,
+    data,
 }: {
-  resultList: Echartechdata[];
+    data: ERC721TYPE[];
 }) {
   // const history = useHistory();
  
@@ -61,8 +61,8 @@ export default function listdom({
           </ItemheadDiv>
         </div>
         <div className="container">
-          {resultList.length !== 0 ? (
-            resultList.map((item, index) => {
+          {data.length !== 0 ? (
+            data.map((item, index) => {
               return (
                 <div className="listItems" key={index}>
                   <ItemDiv width="340px" type={1}>
