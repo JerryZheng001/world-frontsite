@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { HistoryContainer, HistoryDom, ItemDiv } from "../styled";
-import Right from "../../../assets/images/contrastDetec/right@2x.png";
-import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
-import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
-import { getHistoryLists } from "../../../utils/fetch/detect";
-import { shortenAddress } from "../../../utils";
+import { HistoryContainer, HistoryDom } from "../styled";
+import { Colorsecurity } from "../stylePro";
+
+import {
+  getHistoryLists,
+  getWalletdetection,
+} from "../../../utils/fetch/detect";
+
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
+import Erc20Listdom from "../component/Erc20List";
+import Erc721Listdom from "../component/Erc721List";
+import Icon_svg from "../../../assets/svg/icon.svg";
+import { Tabs } from "antd";
+const { TabPane } = Tabs;
 
 interface ResultList {
   id: number;
@@ -15,11 +22,11 @@ interface ResultList {
   network: string;
   score?: any;
 }
-const showsecurity =[
-    "significant security risks",
-    "Some security risks",
-    "currently no security risks"
-]
+const showsecurity = [
+  "significant security risks",
+  "Some security risks",
+  "currently no security risks",
+];
 
 const ShowText = [
   "Significant Risk",
@@ -29,34 +36,37 @@ const ShowText = [
   "Excellent",
 ];
 export default function ContractDetectionHistory(): JSX.Element {
-  const [TotalTest, setTotalTest] = useState(0);
+  const [TotalTest, setTotalTest] = useState(10);
   const [resultList, setresultList] = useState([] as ResultList[]);
   const { account } = useWeb3React();
 
   const history = useHistory();
   const [InputValue, setInputValue] = useState("");
 
-
-  //历史记录
-  const getTestList = () => {
+  //钱包检测列表
+  const getTestList = (type:number) => {
+    setresultList([])
     const Params = {
-      page: 1,
-      pagesize: 100,
-      name: InputValue,
+      user_address: account,
+      chain: "BSC",
+      option: Number(type),
     };
-    getHistoryLists(Params).then((res) => {
+    getWalletdetection(Params).then((res) => {
+   
       if (res.data) {
-        const { results } = res.data;
-        setresultList(results);
+        const { result,count_risk } = res.data;
+        setTotalTest(count_risk)
+        setresultList(result);
+        
       }
     });
   };
-
-
+  const callback = (key:any)=>{
+    getTestList(key)
+  }
 
   useEffect(() => {
-    getTestList();
-
+    getTestList(2);
     return () => {};
     // eslint-disable-next-line
   }, []);
@@ -67,88 +77,55 @@ export default function ContractDetectionHistory(): JSX.Element {
         <div className="title">TRIATHON </div>
         <div className="title">Contract Detection Report</div>
         <div className="addresscon">
-          <p>Significant Security Risks</p>
           <p>
-            Your address: <span>{account}</span>{" "}
+            <Colorsecurity type={TotalTest}>
+              {TotalTest >= Number(10) && showsecurity[2]}
+              {TotalTest < Number(10) &&
+                TotalTest > Number(0) &&
+                showsecurity[1]}
+              {TotalTest == Number(0) && showsecurity[0]}
+            </Colorsecurity>
+          </p>
+          <p>
+            Your address: <span>{account}</span>
           </p>
         </div>
-
-        <div className="listCom">
-          <div className="headIntro">
-            <ItemDiv width="70px" type={0}>
-              #
-            </ItemDiv>
-            <ItemDiv width="340px" type={1}>
-              Name
-            </ItemDiv>
-            <ItemDiv width="240px" type={2}>
-              Contract address
-            </ItemDiv>
-            <ItemDiv width="225px" type={2}>
-              Chain
-            </ItemDiv>
-            <ItemDiv width="225px" type={2}>
-              Result
-            </ItemDiv>
-            <ItemDiv width="194px" type={2}>
-              Operation
-            </ItemDiv>
+        <div className="datacon">
+          <h4>Following are the security recommendations</h4>
+          <div className="showcard">
+            <div className="item">
+              <h3>
+                <Colorsecurity type={TotalTest}>{TotalTest}</Colorsecurity>
+              </h3>
+              <p>Approval security risks</p>
+            </div>
+            <div className="item" style={{ margin: "0 33px" }}>
+              <h3>Coming Soon</h3>
+              <p>Approval security risks</p>
+            </div>
+            <div className="item">
+              <h3>Coming Soon</h3>
+              <p>Approval security risks</p>
+            </div>
           </div>
-          <div className="container">
-            {resultList.length !== 0 ? (
-              resultList.map((item, index) => {
-                return (
-                  <div className="listItems" key={index}>
-                    <ItemDiv width="70px" type={0}>
-                      {index + 1}
-                    </ItemDiv>
-                    <ItemDiv width="340px" type={1}>
-                      {item.file_name}
-                    </ItemDiv>
-                    <ItemDiv width="240px" type={2}>
-                      {shortenAddress(item.contract_address)}
-                    </ItemDiv>
-                    <ItemDiv width="225px" type={2} className="chainText">
-                      {" "}
-                      <img
-                        src={item.network === "Bsc" ? bscPic : ethPic}
-                        alt=""
-                        className="chainImg"
-                      />{" "}
-                      {item.network}
-                    </ItemDiv>
-                    <ItemDiv width="225px" type={2}>
-                      {Math.floor(Number(item.score) * 100) >= 50
-                        ? ShowText[0]
-                        : Math.floor(Number(item.score) * 100) >= 30
-                        ? ShowText[1]
-                        : Math.floor(Number(item.score) * 100) >= 10
-                        ? ShowText[2]
-                        : Math.floor(Number(item.score) * 100) >= 5
-                        ? ShowText[3]
-                        : ShowText[4]}
-                    </ItemDiv>
-                    <ItemDiv width="194px" type={2}>
-                      <img
-                        src={Right}
-                        alt=""
-                        className="rightPoint"
-                        onClick={() => {
-                          history.push(`/contract_detection/${item.id}`);
-                        }}
-                      />
-                    </ItemDiv>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="empty"> No Data ~</div>
-            )}
+          <Tabs defaultActiveKey="1" onChange={callback}>
+            <TabPane tab="ERC - 20" key="2">
+              <Erc20Listdom resultList={resultList}></Erc20Listdom>
+            </TabPane>
+            <TabPane tab="ERC - 721" key="3">
+              <Erc721Listdom resultList={resultList}></Erc721Listdom>
+            </TabPane>
+          </Tabs>
+        </div>
+        <div className="subscribe">
+          <div className="left">
+            <h3>Security subscribe service</h3>
+            <p>push address security risk to you in time</p>
+          </div>
+          <div className="right">
+            <span>Coming Soon</span>
           </div>
         </div>
-        {resultList.length !== 0 && (
-          <div className="footerIntro">Only Showing 1~100</div>
-        )}
       </HistoryDom>
     </HistoryContainer>
   );

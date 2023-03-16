@@ -21,6 +21,11 @@ export function getDetectFileUpload(data: any) {
   return httpUrl.post("api/v1/upload/", data)
 }
 
+//钱包检测
+export function getWalletdetection(data: any) {
+  return httpUrl.post("api/v1/wallet_detect/detect", data)
+}
+
 
 
 

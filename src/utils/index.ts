@@ -127,3 +127,4 @@ export function getUTCDate(time: number) {
   const _arr = new Date(time * 1000).toUTCString().split(' ')
   return _arr[0] + ' ' + _arr[1] + ' ' + _arr[2] + ' ' + _arr[3]
 }
+
