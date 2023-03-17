@@ -118,7 +118,7 @@ export default function ContractDetection(): JSX.Element {
     //     [AddressContract, history, account, selectChain, localStorage.getItem('chain')],
     // )
     const detectContrast =(()=>{
-        history.push('/contract_detection/history')
+        history.push('/wallet_detection/detail')
     })
     //token检测
     const testAddress = (type?:number,newParams?:any) => {

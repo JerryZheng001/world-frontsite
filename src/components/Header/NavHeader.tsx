@@ -234,7 +234,7 @@ interface Tab extends TabContent {
 const NavRouter: Tab[] = [
   {
     name: 'Home',
-    pathUrl: ''
+    pathUrl: 'home'
   },
   {
     name: 'Product',
