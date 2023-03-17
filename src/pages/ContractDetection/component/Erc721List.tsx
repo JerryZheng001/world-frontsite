@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import Right from "../../../assets/images/contrastDetec/right@2x.png";
+import React, {  } from "react";
+// import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
@@ -17,20 +17,15 @@ interface ERC721TYPE {
   approved_amount: string;
   advice: number;
   risk: number;
-  malicious_behavior: [];
+  malicious_behavior: [string];
 }
 
-export default function listdom({
-    data,
-}: {
-    data: ERC721TYPE[];
-}) {
+export default function listdom({ data }: { data: ERC721TYPE[] }) {
   // const history = useHistory();
- 
+
   return (
     <ListDom>
       <div className="listCom">
-     
         <div className="headIntro">
           <ItemheadDiv
             width="326px"
@@ -43,7 +38,7 @@ export default function listdom({
           >
             Approved Spender (Project/Contract）
           </ItemheadDiv>
-          <ItemheadDiv width="120px" type={1} style={{paddingLeft:'10px'}}>
+          <ItemheadDiv width="120px" type={1} style={{ paddingLeft: "10px" }}>
             Chain
           </ItemheadDiv>
           <ItemheadDiv width="240px" type={1}>
@@ -67,18 +62,18 @@ export default function listdom({
                 <div className="listItems" key={index}>
                   <ItemDiv width="340px" type={1}>
                     <div className="address">
-                      <div className="item" style={{marginLeft:'14px'}}>
-                        <img src={item.advice > 0 ? danger : safe} alt="" />
+                      <div className="item" style={{ marginLeft: "14px" }}>
+                        <img src={item?.advice > 0 ? danger : safe} alt="" />
                       </div>
                       {item?.project === null ? (
                         <div className="item">
                           <span>{item?.project}</span>
-                          <span>{shortenAddress(item.contract)}</span>
+                          <span>{shortenAddress(item?.contract)}</span>
                         </div>
                       ) : (
                         <div className="item">
                           <p className="noproject">
-                            {shortenAddress(item.contract)}
+                            {shortenAddress(item?.contract)}
                           </p>
                         </div>
                       )}
@@ -101,7 +96,9 @@ export default function listdom({
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="100px" type={2}>
-                    <ColorInner type={item?.advice}>{item?.advice}</ColorInner>
+                    <ColorInner type={item?.advice}>
+                      {item?.advice > 0 ? "Revoke" : "Keep Vuke"}
+                    </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="258px" type={1}>
                     <div className="btn1"> Revoke Access</div>

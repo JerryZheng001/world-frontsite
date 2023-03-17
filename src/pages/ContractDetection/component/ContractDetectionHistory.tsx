@@ -3,15 +3,15 @@ import { HistoryContainer, HistoryDom } from "../styled";
 import { Colorsecurity } from "../stylePro";
 
 import {
-  getHistoryLists,
+  // getHistoryLists,
   getWalletdetection,
 } from "../../../utils/fetch/detect";
 
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import Erc20Listdom from "../component/Erc20List";
 import Erc721Listdom from "../component/Erc721List";
-import Icon_svg from "../../../assets/svg/icon.svg";
+// import Icon_svg from "../../../assets/svg/icon.svg";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
@@ -30,7 +30,7 @@ interface ResultList {
   approved_amount: string;
   advice: number;
   risk: number;
-  malicious_behavior: [];
+  malicious_behavior: [string];
   nft_name: string;
   nft_symbol: string;
 }
@@ -40,20 +40,20 @@ const showsecurity = [
   "currently no security risks",
 ];
 
-const ShowText = [
-  "Significant Risk",
-  "High Risk",
-  "Medium Risk",
-  "Some Risk",
-  "Excellent",
-];
+// const ShowText = [
+//   "Significant Risk",
+//   "High Risk",
+//   "Medium Risk",
+//   "Some Risk",
+//   "Excellent",
+// ];
 export default function ContractDetectionHistory(): JSX.Element {
   const [TotalTest, setTotalTest] = useState(10);
   const [resultList, setresultList] = useState([] as ResultList[]);
   const { account } = useWeb3React();
 
-  const history = useHistory();
-  const [InputValue, setInputValue] = useState("");
+  // const history = useHistory();
+  // const [InputValue, setInputValue] = useState("");
 
   //钱包检测列表
   const getTestList = (type:number) => {
@@ -65,8 +65,8 @@ export default function ContractDetectionHistory(): JSX.Element {
     };
     getWalletdetection(Params).then((res) => {
    
-      if (res.data) {
-        const { result,count_risk } = res.data;
+      if (res?.data) {
+        const { result = [],count_risk= 0 } = res?.data;
         setTotalTest(count_risk)
         setresultList(result);
         
@@ -95,7 +95,7 @@ export default function ContractDetectionHistory(): JSX.Element {
               {TotalTest < Number(10) &&
                 TotalTest > Number(0) &&
                 showsecurity[1]}
-              {TotalTest == Number(0) && showsecurity[0]}
+              {TotalTest === Number(0) && showsecurity[0]}
             </Colorsecurity>
           </p>
           <p>

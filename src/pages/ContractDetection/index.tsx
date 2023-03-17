@@ -1,74 +1,75 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import ethPic from '../../assets/images/tokenDetec/ethPic@2x.png'
-import bscPic from '../../assets/images/tokenDetec/bscPic@2x.png'
-// import tronPic from '../../assets/images/tokenDetec/avaPic@2x.png'
-import polyPic from '../../assets/images/tokenDetec/polyPic@2x.png'
-import avaPic from '../../assets/images/tokenDetec/tronPic@2x.png'
-import optimismPic from '../../assets/images/tokenDetec/optimismPic.png'
+// import ethPic from '../../assets/images/tokenDetec/ethPic@2x.png'
+// import bscPic from '../../assets/images/tokenDetec/bscPic@2x.png'
+// // import tronPic from '../../assets/images/tokenDetec/avaPic@2x.png'
+// import polyPic from '../../assets/images/tokenDetec/polyPic@2x.png'
+// import avaPic from '../../assets/images/tokenDetec/tronPic@2x.png'
+// import optimismPic from '../../assets/images/tokenDetec/optimismPic.png'
 
 
 import ErrModel from './component/ErrModel'
 import leftShowPic from '../../assets/images/tokenDetec/leftShowPic.png'
 import rightShowPic from '../../assets/images/tokenDetec/rightShowPic.png'
+import AddressIcon from '../../assets/images/address_icon.png'
 import './antd.scss'
 import { useActiveWeb3React } from '../../hooks'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import { BottomDiv, ComingDiv, ContainerCon, IntroDiv, ShowDecting, StyleButton, StyledInput, WidthDiv } from './styled'
-import { Select } from 'antd';
+import { BottomDiv, ComingDiv, ContainerCon, IntroDiv, ShowDecting, StyleButton, WidthDiv } from './styled'
+// import { Select } from 'antd';
 import { useHistory } from 'react-router-dom'
 import { getDetectAddressSubmit, getListsTotal, getTestStatus } from '../../utils/fetch/detect'
 import { Dots, SmallLoading } from '../../components/styleds'
 import { clearTimeout } from 'timers'
-const { Option } = Select;
+// const { Option } = Select;
 
 // const inputRegex = RegExp(/^\d+\.?(\d{1})?$/)
-const inputRegex = RegExp(/^[a-zA-Z\d]+$/)
+// const inputRegex = RegExp(/^[a-zA-Z\d]+$/)
 const contrastRegex = RegExp(/^0x[a-fA-F0-9]{40}$/)
-function Input({
-    value,
-    onUserInput,
-    placeholder,
-    ShowRed,
-    setcontrastErrText,
-    ...rest
-}: {
-    value: string | number
-    onUserInput: (input: string) => void
-    setcontrastErrText: (e: any) => void
-    error?: boolean
-    ShowRed?: boolean
-    placeholder?: string
-} & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
+// function Input({
+//     value,
+//     onUserInput,
+//     placeholder,
+//     ShowRed,
+//     setcontrastErrText,
+//     ...rest
+// }: {
+//     value: string | number
+//     onUserInput: (input: string) => void
+//     setcontrastErrText: (e: any) => void
+//     error?: boolean
+//     ShowRed?: boolean
+//     placeholder?: string
+// } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
 
-    const enforcer = (nextUserInput: string) => {
-        if (inputRegex.test(nextUserInput) || !nextUserInput) {
-            onUserInput(nextUserInput)
-        }
-    }
-    const testInput = (e: any) => {
-        if (contrastRegex.test(e.target.value)) {
-            setcontrastErrText('')
-        } else {
-            setcontrastErrText('Notice：Address is validated incorrectly')
-        }
-    }
+//     const enforcer = (nextUserInput: string) => {
+//         if (inputRegex.test(nextUserInput) || !nextUserInput) {
+//             onUserInput(nextUserInput)
+//         }
+//     }
+//     const testInput = (e: any) => {
+//         if (contrastRegex.test(e.target.value)) {
+//             setcontrastErrText('')
+//         } else {
+//             setcontrastErrText('Notice：Address is validated incorrectly')
+//         }
+//     }
 
 
-    return (
-        <StyledInput
-            {...rest}
-            value={value}
-            onChange={event => enforcer(event.target.value)}
-            autoComplete="off"
-            autoCorrect="off"
-            type="text"
-            ShowRed={ShowRed}
-            placeholder={placeholder || ''}
-            onBlur={event => testInput(event)}
-        />
+//     return (
+//         <StyledInput
+//             {...rest}
+//             value={value}
+//             onChange={event => enforcer(event.target.value)}
+//             autoComplete="off"
+//             autoCorrect="off"
+//             type="text"
+//             ShowRed={ShowRed}
+//             placeholder={placeholder || ''}
+//             onBlur={event => testInput(event)}
+//         />
 
-    )
-}
+//     )
+// }
 
 
 interface BtnProp {
@@ -102,20 +103,23 @@ export default function ContractDetection(): JSX.Element {
     let timer1: any;
 
     //合约地址检测
-    const detectContrast = useCallback(
-        () => {
+    // const detectContrast = useCallback(
+    //     () => {
 
-            if (!contrastRegex.test(AddressContract)) {
-                setcontrastErrText('Notice：Address is validated incorrectly')
-            } else {
-                setcontrastErrText('')
-                setdetectIng(true)
-                GetTestStatusStart()
-            }
-        },
-        // eslint-disable-next-line
-        [AddressContract, history, account, selectChain, localStorage.getItem('chain')],
-    )
+    //         if (!contrastRegex.test(AddressContract)) {
+    //             setcontrastErrText('Notice：Address is validated incorrectly')
+    //         } else {
+    //             setcontrastErrText('')
+    //             setdetectIng(true)
+    //             GetTestStatusStart()
+    //         }
+    //     },
+    //     // eslint-disable-next-line
+    //     [AddressContract, history, account, selectChain, localStorage.getItem('chain')],
+    // )
+    const detectContrast =(()=>{
+        history.push('/contract_detection/history')
+    })
     //token检测
     const testAddress = (type?:number,newParams?:any) => {
         const params = {
@@ -209,10 +213,10 @@ export default function ContractDetection(): JSX.Element {
         localStorage.getItem('chain'),
         AddressContract
     ])
-    const handleChange = (value: any) => {
-        setselectChain(value)
-        localStorage.setItem('chain', value)
-    }
+    // const handleChange = (value: any) => {
+    //     setselectChain(value)
+    //     localStorage.setItem('chain', value)
+    // }
 
     //检测总数
     const handleListTotal = () => {
@@ -240,12 +244,7 @@ export default function ContractDetection(): JSX.Element {
 
                 if (res.code === 200) {
                     const { data, msg } = res
-                    // const data = {
-                    //     status:'1',
-                    //     chain:'BSC',
-                    //     address:'0xa4838122c683f732289805FC3C207Febd55BabDD'
-                    // }
-                    // const msg = ''
+                   
                     if (data.status === "2") {
                         setErrOpen(true)
                         seterrorMsg(msg)
@@ -331,10 +330,10 @@ export default function ContractDetection(): JSX.Element {
             {/* 内容区域 */}
             <div className="container">
                 <WidthDiv className='ContracDec'>
-                    <div className="title">Triathon Contract Detection
+                    <div className="title">Address Security Scan
                         <span></span></div>
                     <div className="tabs">
-                        A Crypto Detection and security Platform for Everyone
+                    Conduct a comprehensive scan of your address for security vulnerabilities.
                     </div>
                     {
                         Testing ? <ShowDecting>
@@ -350,7 +349,7 @@ export default function ContractDetection(): JSX.Element {
                             }
 
                         </ShowDecting> : <div className="addreccCon">
-                            <div className="select">
+                            {/* <div className="select">
                                 <Select defaultValue="BSC" onChange={handleChange} dropdownClassName='dropCon' showArrow >
                                     <Option value="BSC">  <img src={bscPic} alt="" /> BSC</Option>
                                     <Option value="ETH">  <img src={ethPic} alt="" /> ETH</Option>
@@ -358,9 +357,10 @@ export default function ContractDetection(): JSX.Element {
                                     <Option value="Polygon">  <img src={polyPic} alt="" /> Polygon</Option>
                                     <Option value="Avalanche">  <img src={avaPic} alt="" /> Avalanche</Option>
                                 </Select>
-                            </div>
+                            </div> */}
                             <div className="inputCon">
-                                <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the Token address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input>
+                                {/* <Input value={AddressContract} onUserInput={val => setAddressContract(val)} placeholder='Please enter the Token address' ShowRed={contrastErrText === '' || AddressContract === ''} setcontrastErrText={setcontrastErrText} ></Input> */}
+                                 <img src={AddressIcon} alt="" /> <span>Your address: {account }</span>
                             </div>
                             <div className="err">{contrastErrText}</div>
                         </div>
@@ -369,54 +369,36 @@ export default function ContractDetection(): JSX.Element {
                     {
                         !Testing && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
                     }
-                    {/* {
-                        (!Testing) ? 
-                        <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton> : (
-                            !account ? <StyleButton onClick={() => {
-                                toggleWalletModal()
-                            }} > Connect Wallet </StyleButton> : (FileValue !== '' && !Testing && showUploadFileButton) && <StyleButton onClick={styleButton.event}>{styleButton.text}</StyleButton>
-                        )
-                    } */}
+                  
 
 
 
                 </WidthDiv>
             </div>
-            {/* 悬浮小图标 */}
-            {/* <div className="playContainer">
-
-
-                <div className="play1"></div>
-                <div className="play2"></div>
-                <div className="play3"></div>
-                <div className="play4"></div>
-                <div className="play5"></div>
-                <div className="play6"></div>
-            </div> */}
         </div>
         <IntroDiv>
-            <div>
+            {/* <div>
                 <div className="top">4</div>
                 <div className="bottom">Engines</div>
-            </div>
+            </div> */}
             <div>
                 <div className="top">5</div>
                 <div className="bottom">Public Chains Supported</div>
             </div>
 
             <div>
-                <div className="top">200+</div>
-                <div className="bottom">Detect Items</div>
+                <div className="top">119K+</div>
+                <div className="bottom">Malicious Contracts Collected</div>
             </div>
             <div>
                 <div className="top">{TotalTest || '--'} +</div>
-                <div className="bottom">Detected Contracts</div>
+                <div className="bottom">Scan Adresses</div>
             </div>
         </IntroDiv>
         <ComingDiv>
             <div className="tit">Address security scan</div>
             <div className="intro">Conduct a comprehensive scan of your address for security vulnerabilities</div>
-            <div className="coming">Coming Soon</div>
+            <div className="go" onClick={()=>{window.open("https://www.triathon.space/tokenDetections/#/")}}>Go</div>
         </ComingDiv>
         <BottomDiv>
             <div className="left">

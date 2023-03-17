@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import Right from "../../../assets/images/contrastDetec/right@2x.png";
+import React, {  } from "react";
+// import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
-
 
 import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
@@ -19,14 +18,10 @@ interface ERC20TYPE {
   approved_amount: string;
   advice: number;
   risk: number;
-  malicious_behavior: [];
+  malicious_behavior: [string];
 }
 
-export default function listdom({
-  resultList,
-}: {
-  resultList: ERC20TYPE[];
-}) {
+export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
   return (
     <ListDom>
@@ -67,23 +62,30 @@ export default function listdom({
             resultList.map((item, index) => {
               return (
                 <div className="listItems" key={index}>
-                  <ItemDiv width="326px" type={1}>
+                  <ItemDiv width="326px" type={1} className="fistinner">
                     <div className="address">
                       <div className="item">
-                        <img src={item.advice > 0 ? danger : safe} alt="" />
+                        <img src={item?.advice > 0 ? danger : safe} alt="" />
                       </div>
-                      {item?.project === null ? (
+                      {item?.project !== null ? (
                         <div className="item">
                           <span>{item?.project}</span>
-                          <span>{shortenAddress(item.contract)}</span>
+                          <span>{shortenAddress(item?.contract)}</span>
                         </div>
                       ) : (
                         <div className="item">
-                          <p className="noproject">
-                            {shortenAddress(item.contract)}
+                          <p
+                            className="noproject"
+                            style={{ lineHeight: "60px" }}
+                          >
+                            {shortenAddress(item?.contract)}
                           </p>
                         </div>
                       )}
+                    </div>
+                    <div className="txt_tips">
+                      <span></span>
+                      {item?.malicious_behavior[0]}
                     </div>
                   </ItemDiv>
                   <ItemDiv width="74px" type={1}>
@@ -94,28 +96,22 @@ export default function listdom({
                     />
                   </ItemDiv>
                   <ItemDiv width="220px" type={1} className="chainText">
-                    <span>{item?.token} </span>{" "}
+                    <span>{item?.token} </span>
                     <span>{item?.token_symbol}</span>
                   </ItemDiv>
                   <ItemDiv width="140px" type={2} className="chainBalance">
-                    {item?.balance} {item?.token_symbol}
-                    {/* {Math.floor(Number(item.score) * 100) >= 50
-                      ? ShowText[0]
-                      : Math.floor(Number(item.score) * 100) >= 30
-                      ? ShowText[1]
-                      : Math.floor(Number(item.score) * 100) >= 10
-                      ? ShowText[2]
-                      : Math.floor(Number(item.score) * 100) >= 5
-                      ? ShowText[3]
-                      : ShowText[4]} */}
+                    <span className="itemstyle">{item?.balance}</span>{" "}
+                    <span>{item?.token_symbol}</span>
                   </ItemDiv>
                   <ItemDiv width="160px" type={2}>
-                    <ColorInner type={item?.advice}>
+                    <ColorInner type={item?.advice} className="approve">
                       {item?.approved_amount}
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="100px" type={2}>
-                    <ColorInner type={item?.advice}>{item?.advice}</ColorInner>
+                    <ColorInner type={item?.advice}>
+                      {item?.advice > 0 ? "Revoke" : "Keep Vuke"}
+                    </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="204px" type={1}>
                     <div className="btn"> Revoke Access</div>

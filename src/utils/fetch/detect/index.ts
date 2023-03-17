@@ -43,7 +43,7 @@ export function getHistoryLists(params:any){
 //检测记录总数
 
 export function getListsTotal(){ 
-  return httpUrl.get("api/v1/total")
+  return httpUrl.get("api/v1/wallet_detect/total")
 }
 
 

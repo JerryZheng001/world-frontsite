@@ -53,7 +53,7 @@ function App() {
       id="root"
       style={{
         background: " #111112",
-        minHeight:'100vh'
+        // minHeight:'100vh'
       }}
     >
       <HashRouter >

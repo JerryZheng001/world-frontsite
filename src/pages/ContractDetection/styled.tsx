@@ -13,18 +13,21 @@ import uploadFile from "../../assets/images/contrastDetec/uploadFile.svg";
 import coreImg from "../../assets/images/contrastDetec/coreImg.png";
 import loadingPic from "../../assets/images/contrastDetec/loading.png";
 import notice from "../../assets/images/contrastDetec/notice.svg";
-import StyleBg from "../../assets/images/contrastDetec/StyleBg.png";
-import homePageBg from "../../assets/images/contrastDetec/homePageBg.png";
+// import StyleBg from "../../assets/images/contrastDetec/StyleBg.png";
+import homePageBg from "../../assets/images/addressBg.png";
 import play1 from "../../assets/images/contrastDetec/play1@2x.png";
 import play2 from "../../assets/images/contrastDetec/play2@2x.png";
 import play3 from "../../assets/images/contrastDetec/play3@2x.png";
 import play4 from "../../assets/images/contrastDetec/play4@2x.png";
 import play5 from "../../assets/images/contrastDetec/play5@2x.png";
 import play6 from "../../assets/images/contrastDetec/play6@2x.png";
-import CommingImg from '../../assets/images/tokenDetec/CommingImg.png'
+// import CommingImg from "../../assets/images/tokenDetec/CommingImg.png";
 import securitybg from "../../assets/images/securitybg.png";
 import subscribebg from "../../assets/images/subscribebg.png";
-import AddressBg from "../../assets/images/addressBg.png"
+import AddressBg from "../../assets/images/addressBg.png";
+import Tokenbg from "../../assets/images/contrastDetec/tokenbg.png";
+import arrowRight from "../../assets/images/arrowRight.png";
+import TitleIcon from "../../assets/images/titleIcon.png";
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
@@ -34,11 +37,11 @@ export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   background-size: 100% 100%; */
   background-repeat: no-repeat;
   position: relative;
+  padding-bottom: 133px;
   .homeContainer {
-    border:1px solid red;
     background: url(${homePageBg});
-    background-size:100% 100%;
-    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     .playContainer {
       z-index: 1;
       width: 1294px;
@@ -148,30 +151,32 @@ export const ContainerCon = styled.div<{ isPadding?: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     position: relative;
     z-index: 3;
   }
 `;
 export const WidthDiv = styled.div`
   .title {
+    position:relative;
     font-size: 64px;
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
     width: 909px;
     text-align: center;
     line-height: 64px;
+    margin-top: 200px;
     margin-bottom: 72px;
     color: #ffffff;
-    /* color: #f35626;
-        background-image: linear-gradient(92deg,#f35626,#feab3a);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: Hue 5s linear infinite; */
-    /* background: linear-gradient(270deg, #72ACFF 0%, #5846F9 35%, #45D8FB 64%, #FF63EB 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-        user-select: none; */
+    span {
+      display: inline-block;
+      width: 179px;
+      height: 42px;
+      position: absolute;
+      top: -42px;
+      right: 0px;
+      background: url(${TitleIcon}) 0% 0% / 100% 100% no-repeat;
+    }
     @keyframes Hue {
       0% {
         filter: hue-rotate(0deg);
@@ -183,8 +188,12 @@ export const WidthDiv = styled.div`
   }
   .tabs {
     text-align: center;
-    height: 28px;
-    margin-bottom: 40px;
+    font-size: 20px;
+    font-family: Poppins-Medium, Poppins;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 28px;
+    margin-bottom: 72px;
     > span {
       cursor: pointer;
       font-size: 20px;
@@ -257,10 +266,25 @@ export const WidthDiv = styled.div`
       }
     }
     .inputCon {
-      width: 475px;
+      width: 636px;
       height: 60px;
       border-radius: 8px;
-      border: 1px solid #23252c;
+      border: 1px solid rgba(185, 192, 216, 0.25);
+      padding: 22px 34px;
+      img {
+        width: 26px;
+        height: 26px;
+        margin-top: -8px;
+        margin-right: 10px;
+      }
+      span {
+        display: inline-block;
+        font-size: 16px;
+        font-family: Poppins-Regular, Poppins;
+        font-weight: 400;
+        color: #ffffff;
+        line-height: 16px;
+      }
     }
     .err {
       position: absolute;
@@ -470,7 +494,7 @@ export const StyleButton = styled.div<{
   color: #ffffff;
   line-height: 50px;
   text-align: center;
-  margin: 56px auto 24px;
+  margin: 40px auto 100px;
 `;
 export const StyleCodeDom = styled.div`
   width: 636px;
@@ -486,9 +510,10 @@ export const StyleCodeDom = styled.div`
 export const ContractDetectionDetailDom = styled.div`
   width: 100%;
   padding-top: 134px;
-  background: url(${StyleBg});
-  background-size: 100% 620px;
+  background: url(${homePageBg});
+  background-size: 100% 100%;
   background-repeat: no-repeat;
+
   .container {
     max-width: 1294px;
     width: 1294px;
@@ -501,6 +526,7 @@ export const ContractDetectionDetailDom = styled.div`
       font-weight: 600;
       line-height: 56px;
       color: #fff;
+      margin-bottom: 40px;
 
       @keyframes Hue {
         0% {
@@ -930,9 +956,9 @@ export const WrokContainer = styled.div`
 `;
 export const HistoryContainer = styled.div`
   width: 100%;
-  background: url(${AddressBg});
-  background-size: 100% auto;
-  background-repeat: no-repeat;
+  /* background: url(${AddressBg});
+  background-size: 100% 100%;
+  background-repeat: no-repeat; */
 `;
 export const HistoryDom = styled.div`
   padding-top: 134px;
@@ -1038,22 +1064,24 @@ export const HistoryDom = styled.div`
     background: rgba(31, 32, 45, 0.5);
     border-radius: 20px;
     .ant-tabs-bar {
-      border-bottom:none !important;
-     
-      color: #FFFFFF !important;
-      line-height: 28px!important;
-      margin:58px 0 0 0 !important;
+      border-bottom: none !important;
+
+      color: #ffffff !important;
+      line-height: 28px !important;
+      margin: 58px 0 0 0 !important;
     }
-    .ant-tabs-ink-bar ,.ant-tabs-ink-bar-animated {
-      display:none!important;
+    .ant-tabs-ink-bar,
+    .ant-tabs-ink-bar-animated {
+      display: none !important;
     }
-    .ant-tabs-nav ,.ant-tabs-tab{
-      margin-right:16px!important;
+    .ant-tabs-nav,
+    .ant-tabs-tab {
+      margin-right: 16px !important;
       font-size: 20px !important;
       font-family: Poppins-Medium, Poppins;
       font-weight: 500 !important;
     }
-    
+
     h4 {
       font-size: 24px;
       font-family: Poppins-SemiBold, Poppins;
@@ -1281,8 +1309,34 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
   width: ${({ width }) => width};
   text-align: ${({ type }) =>
     type === 0 ? "center" : type === 1 ? "left" : "right"};
+  &.fistinner {
+    position: relative;
+    .txt_tips {
+      display: none;
+      width: 244px;
+      padding: 16px 12px;
+      background: #353945;
+      backdrop-filter: blur(29px);
+      position: absolute;
+      bottom: -72px;
+      left: 10px;
+      span {
+        display: inline-block;
+        position: absolute;
+        top: -5px;
+        width: 10px;
+        height: 10px;
+        background: #353945;
+        transform: rotate(45deg);
+      }
+    }
+    &:hover {
+      .txt_tips {
+        display: block;
+      }
+    }
+  }
   &.chainText {
-    text-transform: uppercase;
     span {
       font-size: 14px;
       font-family: Poppins-Regular, Poppins;
@@ -1293,15 +1347,48 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     span:nth-child(2) {
       color: #636b80;
       padding-left: 5px;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+    span:nth-child(1) {
+      display: inline-block;
+      width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(216, 216, 216, 0.2);
+        margin-right: 10px;
+      }
     }
   }
-  .chainBalance {
+  .approve {
+    display: inline-block;
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &.chainBalance {
     font-size: 14px;
     font-family: Poppins-Regular, Poppins;
     font-weight: 400;
     color: #ffffff;
     line-height: 14px;
+    .itemstyle {
+      display: inline-block;
+      width: 70px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
+
   .address {
     display: flex;
     margin-left: 14px;
@@ -1351,6 +1438,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     line-height: 36px;
     text-align: center;
     margin-left: 65px;
+    cursor: pointer;
   }
   .btn1 {
     width: 144px;
@@ -1465,89 +1553,108 @@ export const ErrWraper = styled.div`
   }
 `;
 export const BottomDiv = styled.div`
-    width: 1294px;
-    height: 620px;
-    margin: 32px auto 0;
-    display: flex;
-    justify-content: space-between;
-    >div{
-        
-        background: #161618;
-        border-radius: 32px;
-        img{
-            width: 100%;
-            height: 100%;
-        }
+  width: 1294px;
+  height: 620px;
+  margin: 32px auto 0;
+  display: flex;
+  justify-content: space-between;
+  > div {
+    background: #161618;
+    border-radius: 32px;
+    img {
+      width: 100%;
+      height: 100%;
     }
-    .left{
-        width: 854px;
-      
-    }
-    .right{
-        width: 408px;
-       
-    }
-`
+  }
+  .left {
+    width: 854px;
+  }
+  .right {
+    width: 408px;
+  }
+`;
 export const ComingDiv = styled.div`
-    width: 1294px;
-    height: 340px;
-    margin: 0 auto;
-    background: url(${CommingImg});
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    padding: 70px 0 0 50px;
-    .tit{
-        font-size: 44px;
-        font-family: Poppins-SemiBold, Poppins;
-        font-weight: 600;
-        color: #FFFFFF;
-        line-height: 52px;
+  width: 1294px;
+  height: 340px;
+  margin: 0 auto;
+  background: url(${Tokenbg});
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 70px 0 0 50px;
+  .tit {
+    font-size: 44px;
+    font-family: Poppins-SemiBold, Poppins;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 52px;
+  }
+  .intro {
+    font-size: 16px;
+    font-family: Poppins-Regular, Poppins;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 24px;
+    margin: 24px 0 48px 0;
+  }
+  .coming {
+    width: 158px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    text-align: center;
+    line-height: 52px;
+    font-size: 16px;
+    font-family: Poppins-SemiBold, Poppins;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .go {
+    width: 110px;
+    height: 52px;
+    line-height: 52px;
+    border-radius: 8px;
+    border: 1px solid #ffffff;
+    font-family: Poppins-SemiBold, Poppins;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    &::after {
+      content: "";
+      margin-left: 10px;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: url(${arrowRight});
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
-    .intro{
-        font-size: 16px;
-        font-family: Poppins-Regular, Poppins;
-        font-weight: 400;
-        color: #FFFFFF;
-        line-height: 24px;
-        margin: 24px 0 48px 0;
-    }
-    .coming{
-        width: 158px;
-        height: 52px;
-        background: rgba(255, 255, 255, 0.06);
-        border-radius: 8px;
-        text-align: center;
-        line-height: 52px;
-        font-size: 16px;
-        font-family: Poppins-SemiBold, Poppins;
-        font-weight: 600;
-        color: #FFFFFF;
-        cursor: pointer;
-    }
-`
+  }
+`;
 export const IntroDiv = styled.div`
-margin: 0 auto 84px;
-    width: 1294px;
-    display: flex;
-    >div{
-        flex: 1;
-        height: 160px;
-        text-align: center;
-        padding-top: 32px;
-        .top{
-            font-size: 44px;
-            font-family: Poppins-SemiBold, Poppins;
-            font-weight: 600;
-            color: #FFFFFF;
-            line-height: 60px;
-            margin-bottom: 12px;
-        }
-        .bottom{
-            font-size: 16px;
-            font-family: Poppins-Regular, Poppins;
-            font-weight: 400;
-            color: #7D828C;
-            line-height: 24px;
-        }
+  margin: 0 auto 84px;
+  width: 1294px;
+  display: flex;
+  > div {
+    flex: 1;
+    height: 160px;
+    text-align: center;
+    padding-top: 32px;
+    .top {
+      font-size: 44px;
+      font-family: Poppins-SemiBold, Poppins;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 60px;
+      margin-bottom: 12px;
     }
-`
+    .bottom {
+      font-size: 16px;
+      font-family: Poppins-Regular, Poppins;
+      font-weight: 400;
+      color: #7d828c;
+      line-height: 24px;
+    }
+  }
+`;
