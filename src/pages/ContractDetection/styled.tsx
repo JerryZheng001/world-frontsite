@@ -14,7 +14,7 @@ import coreImg from "../../assets/images/contrastDetec/coreImg.png";
 import loadingPic from "../../assets/images/contrastDetec/loading.png";
 import notice from "../../assets/images/contrastDetec/notice.svg";
 // import StyleBg from "../../assets/images/contrastDetec/StyleBg.png";
-import homePageBg from "../../assets/images/addressBg.png";
+import homePageBg from "../../assets/images/contrastDetec/homePageBg.png";
 import play1 from "../../assets/images/contrastDetec/play1@2x.png";
 import play2 from "../../assets/images/contrastDetec/play2@2x.png";
 import play3 from "../../assets/images/contrastDetec/play3@2x.png";
@@ -40,7 +40,7 @@ export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   padding-bottom: 133px;
   .homeContainer {
     background: url(${homePageBg});
-    background-size: 100% 100%;
+    background-size: 100% 146%;
     background-repeat: no-repeat;
     .playContainer {
       z-index: 1;
@@ -158,7 +158,7 @@ export const ContainerCon = styled.div<{ isPadding?: boolean }>`
 `;
 export const WidthDiv = styled.div`
   .title {
-    position:relative;
+    position: relative;
     font-size: 64px;
     font-family: Poppins-SemiBold, Poppins;
     font-weight: 600;
@@ -1313,6 +1313,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     position: relative;
     .txt_tips {
       display: none;
+      border-radius: 4px;
       width: 244px;
       padding: 16px 12px;
       background: #353945;
@@ -1320,6 +1321,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       position: absolute;
       bottom: -72px;
       left: 10px;
+      z-index: 4;
       span {
         display: inline-block;
         position: absolute;
@@ -1375,18 +1377,23 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     text-overflow: ellipsis;
   }
   &.chainBalance {
-    font-size: 14px;
-    font-family: Poppins-Regular, Poppins;
-    font-weight: 400;
-    color: #ffffff;
-    line-height: 14px;
+    span {
+      font-size: 14px;
+      font-family: Poppins-Regular, Poppins;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 14px;
+
+    }
     .itemstyle {
       display: inline-block;
-      width: 70px;
+
+      width: 65px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
   }
 
   .address {

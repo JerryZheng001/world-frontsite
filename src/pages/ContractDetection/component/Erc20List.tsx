@@ -4,9 +4,11 @@ import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
+// import JSBI from 'jsbi'
 
 import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
+// import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 // import { useHistory } from "react-router-dom";
 interface ERC20TYPE {
   project: string;
@@ -23,6 +25,15 @@ interface ERC20TYPE {
 
 export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
+ 
+  const revokeCallback = (e:any)=>{
+    console.log(e)
+  //   const {contract} = e|| {};
+  //  const ERC20TokenAmount = new TokenAmount(contract, JSBI.BigInt(0))
+  // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(ERC20TokenAmount, SWAP_TRIAS[chainId || 56])
+
+  }
+  
   return (
     <ListDom>
       <div className="listCom">
@@ -114,7 +125,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="204px" type={1}>
-                    <div className="btn"> Revoke Access</div>
+                    <div className="btn" onClick={()=>revokeCallback(item)}> Revoke Access</div>
                   </ItemDiv>
                 </div>
               );

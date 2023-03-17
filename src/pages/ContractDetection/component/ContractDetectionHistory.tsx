@@ -90,6 +90,11 @@ export default function ContractDetectionHistory(): JSX.Element {
         <div className="title">Contract Detection Report</div>
         <div className="addresscon">
           <p>
+            <span>
+            {/* <embed style ={{color:"red"}} src={Icon_svg} type="image/svg+xml" /> */}
+            
+
+            </span>
             <Colorsecurity type={TotalTest}>
               {TotalTest >= Number(10) && showsecurity[2]}
               {TotalTest < Number(10) &&
