@@ -60,7 +60,7 @@ export default function ContractDetection(): JSX.Element {
     setTesting(true);
     const params = {
       chain: "BSC",
-      user_address: '0x3f22d944aaf02e629c32789103400c27e3cb04ab',
+      user_address: account,
     };
 
     getList(params).then((res: any) => {
