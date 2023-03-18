@@ -5,6 +5,7 @@ import ENS_ABI from '../constants/abis/ens-registrar.json'
 import ENS_PUBLIC_RESOLVER_ABI from '../constants/abis/ens-public-resolver.json'
 import UNISOCKS_ABI from '../constants/abis/unisocks.json'
 import MYBASTET_ABI from '../constants/abis/myBastet.json'
+import ERC20_ABI from '../constants/abis/erc20.json'
 import { getContract } from '../utils'
 import { useActiveWeb3React } from './index'
 import { ChainId } from '../constants/chain'
@@ -64,4 +65,7 @@ export function useSocksController(): Contract | null {
 export function useMyBastetContract(): Contract | null {
   const { chainId } = useActiveWeb3React()
   return useContract(chainId ? MYBASTET_ADDRESS[chainId] : undefined, MYBASTET_ABI, true)
+}
+export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
+  return useContract(tokenAddress, ERC20_ABI, withSignerIfPossible)
 }

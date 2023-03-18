@@ -1089,9 +1089,18 @@ export const HistoryDom = styled.div`
       color: #ffffff;
       line-height: 32px;
       text-align: center;
-      margin-bottom: 60px;
     }
+    h6 {
+      font-size: 14px;
+      font-family: Poppins-Regular, Poppins;
+      font-weight: 400;
+      color: #636b80;
+      line-height: 14px;
+      text-align: center;
+    }
+
     .showcard {
+      margin-top: 60px;
       display: flex;
       display: -webkit-flex;
       height: 120px;
@@ -1170,6 +1179,7 @@ export const HistoryDom = styled.div`
       width: 100%;
       .listItems {
         height: 80px;
+        /* padding-bottom:80px; */
         display: flex;
         align-items: center;
         div {
@@ -1185,8 +1195,64 @@ export const HistoryDom = styled.div`
           .chainImg {
             width: 24px;
             height: 24px;
-            margin-left: 27px;
+            margin-left: 10px;
           }
+        }
+      }
+      .listItems:nth-last-child(1) {
+        .fistinner {
+          .txt_tips {
+            display: none;
+            border-radius: 4px;
+            width: 244px;
+            padding: 16px 12px;
+            background: #353945;
+            backdrop-filter: blur(29px);
+            position: absolute;
+            top: -72px !important;
+            left: 10px;
+            z-index: 4;
+            height: 80px;
+            span {
+              display: inline-block;
+              position: absolute;
+              top: 75px !important;
+              width: 10px !important;
+              height: 10px !important;
+              background: #353945;
+              transform: rotate(45deg);
+            }
+          }
+          &:hover {
+            .txt_tips {
+              display: block;
+            }
+          }
+        }
+        .chainApprove,.chainText{
+          .txt_tips {
+            display: none;
+            position: absolute;
+            top: -60px !important;
+            left: 0px;
+            z-index: 4;
+            height: 50px;
+            span {
+              display: inline-block;
+              position: absolute;
+              top: 43px !important;
+              width: 10px !important;
+              height: 10px !important;
+              background: #353945;
+              transform: rotate(45deg);
+            }
+          }
+          &:hover {
+            .txt_tips {
+              display: block;
+            }
+          }
+          
         }
       }
       .empty {
@@ -1195,7 +1261,7 @@ export const HistoryDom = styled.div`
         font-weight: 500;
         color: #ffffff;
         text-align: center;
-        margin-top: 200px;
+        margin: 100px 0;
       }
     }
   }
@@ -1322,6 +1388,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       bottom: -72px;
       left: 10px;
       z-index: 4;
+     
       span {
         display: inline-block;
         position: absolute;
@@ -1346,28 +1413,74 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       color: #ffffff;
       line-height: 14px;
     }
-    span:nth-child(2) {
+    span:nth-child(1) {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: rgb(216, 216, 216, 0.2);
+
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    span:nth-child(3) {
       color: #636b80;
       padding-left: 5px;
       display: inline-block;
       text-transform: uppercase;
     }
-    span:nth-child(1) {
+    span:nth-child(2) {
       display: inline-block;
-      width: 130px;
+      width: 100px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      &::before {
-        content: "";
+      text-align: right;
+    }
+
+  }
+  &.chainApprove,&.chainText {
+    position: relative;
+    .txt_tips {
+      display: none;
+      border-radius: 4px !important;
+      width: 242px;
+      padding: 16px 12px;
+      background: #353945;
+      backdrop-filter: blur(29px);
+      position: absolute;
+      bottom: -62px;
+      left: 0px;
+      opacity: 1;
+      z-index: 1;
+      text-align:left;
+      font-size: 12px !important;
+      font-family: Poppins-Regular, Poppins;
+      span {
+        border-radius: 2px !important;
         display: inline-block;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: rgba(216, 216, 216, 0.2);
-        margin-right: 10px;
+        position: absolute;
+        top: -6px;
+        width: 10px;
+        height: 10px;
+        background: #353945;
+        transform: rotate(45deg);
       }
     }
+    &:hover {
+      .txt_tips {
+        display: block;
+      }
+    }
+
+  }
+  &.chainApprove {
+    .txt_tips {
+      width:auto !important;
+      left:40px !important;
+      
+
+    }
+
   }
   .approve {
     display: inline-block;
@@ -1375,6 +1488,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-top: 7px;
   }
   &.chainBalance {
     span {
@@ -1383,17 +1497,14 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       font-weight: 400;
       color: #ffffff;
       line-height: 14px;
-
     }
     .itemstyle {
       display: inline-block;
-
       width: 65px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
   }
 
   .address {
@@ -1454,7 +1565,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     border-radius: 6px;
     line-height: 36px;
     text-align: center;
-    margin-left: 130px;
+    margin-left: 96px;
   }
 `;
 

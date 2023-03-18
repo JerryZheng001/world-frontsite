@@ -33,7 +33,7 @@ export default [
   },
   {
     name: "ContractDetectionHistory",
-    path: "/wallet_detection/detail",
+    path: "/wallet_detection/detail/:id",
     show: true,
     component: ConnectRouter(ContractDetectionHistory),
   },

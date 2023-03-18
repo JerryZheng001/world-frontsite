@@ -41,10 +41,14 @@ export function getHistoryLists(params:any){
 }
 
 //检测记录总数
-
 export function getListsTotal(){ 
   return httpUrl.get("api/v1/wallet_detect/total")
 }
+//检测记录总数
+export function getList(data: any){ 
+  return httpUrl.post("api/v1/wallet_detect/merge_detect",data)
+}
+
 
 
 

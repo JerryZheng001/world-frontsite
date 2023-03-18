@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 // import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
@@ -45,13 +45,13 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
             NFT
           </ItemheadDiv>
 
-          <ItemheadDiv width="160px" type={2}>
+          <ItemheadDiv width="161px" type={2}>
             Approved Amount
           </ItemheadDiv>
-          <ItemheadDiv width="100px" type={2}>
-            Aadvice
+          <ItemheadDiv width="120px" type={2}>
+            advice
           </ItemheadDiv>
-          <ItemheadDiv width="258px" type={2} style={{ paddingRight: "14px" }}>
+          <ItemheadDiv width="251px" type={2} style={{ paddingRight: "14px" }}>
             opera
           </ItemheadDiv>
         </div>
@@ -60,24 +60,33 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
             data.map((item, index) => {
               return (
                 <div className="listItems" key={index}>
-                  <ItemDiv width="340px" type={1}>
+                  <ItemDiv width="340px" type={1} className="fistinner">
                     <div className="address">
-                      <div className="item" style={{ marginLeft: "14px" }}>
+                      <div className="item">
                         <img src={item?.advice > 0 ? danger : safe} alt="" />
                       </div>
-                      {item?.project === null ? (
+                      {item?.project !== null ? (
                         <div className="item">
                           <span>{item?.project}</span>
                           <span>{shortenAddress(item?.contract)}</span>
                         </div>
                       ) : (
                         <div className="item">
-                          <p className="noproject">
+                          <p
+                            className="noproject"
+                            style={{ lineHeight: "60px" }}
+                          >
                             {shortenAddress(item?.contract)}
                           </p>
                         </div>
                       )}
                     </div>
+                    {item?.malicious_behavior.length > 0 && (
+                      <div className="txt_tips">
+                        <span></span>
+                        {item?.malicious_behavior[0]}
+                      </div>
+                    )}
                   </ItemDiv>
                   <ItemDiv width="120px" type={1}>
                     <img
@@ -87,20 +96,27 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
                     />
                   </ItemDiv>
                   <ItemDiv width="240px" type={1} className="chainText">
+                    <span></span>
                     <span>{item?.nft_name} </span>
                     <span>{item?.nft_symbol}</span>
+                    {item?.nft_name && (
+                      <div className="txt_tips">
+                        <span></span>
+                        {item?.nft_name}{item?.nft_symbol}
+                      </div>
+                    )}
                   </ItemDiv>
-                  <ItemDiv width="160px" type={2}>
+                  <ItemDiv width="161px" type={2}>
                     <ColorInner type={item?.advice}>
                       {item?.approved_amount}
                     </ColorInner>
                   </ItemDiv>
-                  <ItemDiv width="100px" type={2}>
+                  <ItemDiv width="120px" type={2}>
                     <ColorInner type={item?.advice}>
                       {item?.advice > 0 ? "Revoke" : "Keep Vuke"}
                     </ColorInner>
                   </ItemDiv>
-                  <ItemDiv width="258px" type={1}>
+                  <ItemDiv width="251px" type={1}>
                     <div className="btn1"> Revoke Access</div>
                   </ItemDiv>
                 </div>

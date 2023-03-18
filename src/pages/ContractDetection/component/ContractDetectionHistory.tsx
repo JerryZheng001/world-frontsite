@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HistoryContainer, HistoryDom } from "../styled";
 import { Colorsecurity } from "../stylePro";
 
-import {
-  // getHistoryLists,
-  getWalletdetection,
-} from "../../../utils/fetch/detect";
-
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import Erc20Listdom from "../component/Erc20List";
 import Erc721Listdom from "../component/Erc721List";
@@ -35,9 +30,9 @@ interface ResultList {
   nft_symbol: string;
 }
 const showsecurity = [
-  "significant security risks",
-  "Some security risks",
   "currently no security risks",
+  "Some security risks",
+  "significant security risks",
 ];
 
 // const ShowText = [
@@ -48,52 +43,40 @@ const showsecurity = [
 //   "Excellent",
 // ];
 export default function ContractDetectionHistory(): JSX.Element {
-  const [TotalTest, setTotalTest] = useState(10);
-  const [resultList, setresultList] = useState([] as ResultList[]);
+  const TotalTest: any = Number(localStorage.getItem("totalNum"));
+  // const TotalTest: any = Number(0);
+  const ErcData: any = JSON.parse(localStorage.getItem("ercData") || "");
+  const NftData: any = JSON.parse(localStorage.getItem("nftData") || "");
+  const [erc20resultList, setErc20resultList] = useState([] as ResultList[]);
+  const [nftresultList, setNftresultList] = useState([] as ResultList[]);
   const { account } = useWeb3React();
-
-  // const history = useHistory();
-  // const [InputValue, setInputValue] = useState("");
-
-  //钱包检测列表
-  const getTestList = (type:number) => {
-    setresultList([])
-    const Params = {
-      user_address: account,
-      chain: "BSC",
-      option: Number(type),
-    };
-    getWalletdetection(Params).then((res) => {
-   
-      if (res?.data) {
-        const { result = [],count_risk= 0 } = res?.data;
-        setTotalTest(count_risk)
-        setresultList(result);
-        
-      }
-    });
-  };
-  const callback = (key:any)=>{
-    getTestList(key)
-  }
+  const history = useHistory();
 
   useEffect(() => {
-    getTestList(2);
-    return () => {};
-    // eslint-disable-next-line
-  }, []);
+    const addressString = window.location.href;
+
+    if (
+      addressString.substring(addressString.lastIndexOf("/") + 1) !== account ||
+      !account
+    ) {
+      history.push("/home");
+    }
+
+    setErc20resultList(ErcData?.result || []);
+    setNftresultList(NftData?.result || []);
+    // eslint-disable-next-line 
+  }, [account]);
+  // eslint-disable-next-line 
 
   return (
     <HistoryContainer>
       <HistoryDom>
-        <div className="title">TRIATHON </div>
-        <div className="title">Contract Detection Report</div>
+        <div className="title">Triathon </div>
+        <div className="title">Address Security Report</div>
         <div className="addresscon">
           <p>
             <span>
-            {/* <embed style ={{color:"red"}} src={Icon_svg} type="image/svg+xml" /> */}
-            
-
+              {/* <embed style ={{color:"red"}} src={Icon_svg} type="image/svg+xml" /> */}
             </span>
             <Colorsecurity type={TotalTest}>
               {TotalTest >= Number(10) && showsecurity[2]}
@@ -109,6 +92,12 @@ export default function ContractDetectionHistory(): JSX.Element {
         </div>
         <div className="datacon">
           <h4>Following are the security recommendations</h4>
+          {TotalTest === Number(0) && (
+            <h6>
+              but there are too few interaction records. It is recommended to
+              perform regular checks.
+            </h6>
+          )}
           <div className="showcard">
             <div className="item">
               <h3>
@@ -117,20 +106,20 @@ export default function ContractDetectionHistory(): JSX.Element {
               <p>Approval security risks</p>
             </div>
             <div className="item" style={{ margin: "0 33px" }}>
-              <h3>Coming Soon</h3>
+              <h3>COMING SOON</h3>
               <p>Approval security risks</p>
             </div>
             <div className="item">
-              <h3>Coming Soon</h3>
-              <p>Approval security risks</p>
+              <h3>COMING SOON</h3>
+              <p>Asset security</p>
             </div>
           </div>
-          <Tabs defaultActiveKey="1" onChange={callback}>
+          <Tabs defaultActiveKey="1">
             <TabPane tab="ERC - 20" key="2">
-              <Erc20Listdom resultList={resultList}></Erc20Listdom>
+              <Erc20Listdom resultList={erc20resultList}></Erc20Listdom>
             </TabPane>
             <TabPane tab="ERC - 721" key="3">
-              <Erc721Listdom data={resultList}></Erc721Listdom>
+              <Erc721Listdom data={nftresultList}></Erc721Listdom>
             </TabPane>
           </Tabs>
         </div>

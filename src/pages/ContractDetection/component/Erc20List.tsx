@@ -1,14 +1,14 @@
-import React, {  } from "react";
+import React from "react";
 // import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
 // import JSBI from 'jsbi'
-
+// import { TokenAmount } from '../../../constants/token'
 import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
-// import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
+// import { ApprovalState, useApproveCallback } from '../../../hooks/useApproveCallback'
 // import { useHistory } from "react-router-dom";
 interface ERC20TYPE {
   project: string;
@@ -25,15 +25,16 @@ interface ERC20TYPE {
 
 export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
- 
-  const revokeCallback = (e:any)=>{
-    console.log(e)
-  //   const {contract} = e|| {};
-  //  const ERC20TokenAmount = new TokenAmount(contract, JSBI.BigInt(0))
-  // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(ERC20TokenAmount, SWAP_TRIAS[chainId || 56])
 
-  }
-  
+  // const revokeCallback = (e:any)=>{
+  //   console.log(e)
+  // const {contract} = e|| {};
+  //  const ERC20TokenAmount = new TokenAmount('0xF43B79193c33dAc3530Db9307C54E4885df364de', JSBI.BigInt(0))
+  // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(ERC20TokenAmount, contract)
+  // triasApprovalCallback()
+
+  // }
+
   return (
     <ListDom>
       <div className="listCom">
@@ -55,16 +56,16 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
           <ItemheadDiv width="220px" type={1}>
             Token
           </ItemheadDiv>
-          <ItemheadDiv width="140px" type={2}>
+          <ItemheadDiv width="141px" type={2}>
             Balance
           </ItemheadDiv>
           <ItemheadDiv width="160px" type={2}>
             Approved Amount
           </ItemheadDiv>
           <ItemheadDiv width="100px" type={2}>
-            Aadvice
+            advice
           </ItemheadDiv>
-          <ItemheadDiv width="204px" type={2} style={{ paddingRight: "14px" }}>
+          <ItemheadDiv width="202px" type={2} style={{ paddingRight: "14px" }}>
             opera
           </ItemheadDiv>
         </div>
@@ -94,10 +95,12 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                         </div>
                       )}
                     </div>
-                    <div className="txt_tips">
-                      <span></span>
-                      {item?.malicious_behavior[0]}
-                    </div>
+                    {item?.malicious_behavior.length > 0 && (
+                      <div className="txt_tips">
+                        <span></span>
+                        {item?.malicious_behavior[0]}
+                      </div>
+                    )}
                   </ItemDiv>
                   <ItemDiv width="74px" type={1}>
                     <img
@@ -107,17 +110,30 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     />
                   </ItemDiv>
                   <ItemDiv width="220px" type={1} className="chainText">
+                    <span></span>
                     <span>{item?.token} </span>
                     <span>{item?.token_symbol}</span>
+                    {item?.token && (
+                      <div className="txt_tips">
+                        <span></span>
+                        {item?.token}{item?.token_symbol}
+                      </div>
+                    )}
                   </ItemDiv>
                   <ItemDiv width="140px" type={2} className="chainBalance">
                     <span className="itemstyle">{item?.balance}</span>{" "}
                     <span>{item?.token_symbol}</span>
                   </ItemDiv>
-                  <ItemDiv width="160px" type={2}>
+                  <ItemDiv width="160px" type={2} className="chainApprove">
                     <ColorInner type={item?.advice} className="approve">
                       {item?.approved_amount}
                     </ColorInner>
+                    {item?.approved_amount && (
+                      <div className="txt_tips">
+                        <span></span>
+                        {item?.approved_amount}
+                      </div>
+                    )}
                   </ItemDiv>
                   <ItemDiv width="100px" type={2}>
                     <ColorInner type={item?.advice}>
@@ -125,7 +141,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="204px" type={1}>
-                    <div className="btn" onClick={()=>revokeCallback(item)}> Revoke Access</div>
+                    <div className="btn"> Revoke Access</div>
                   </ItemDiv>
                 </div>
               );
