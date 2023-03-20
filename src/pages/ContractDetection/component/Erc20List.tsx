@@ -40,7 +40,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
       <div className="listCom">
         <div className="headIntro">
           <ItemheadDiv
-            width="326px"
+            width="320px"
             type={1}
             style={{
               borderRadius: "8px",

@@ -33,7 +33,7 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
       <div className="listCom">
         <div className="headIntro">
           <ItemheadDiv
-            width="326px"
+            width="325px"
             type={1}
             style={{
               borderRadius: "8px",
