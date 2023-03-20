@@ -63,6 +63,12 @@ export default function ContractDetectionHistory(): JSX.Element {
       history.push("/home");
     }
 
+    //滑倒顶部
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
     setErc20resultList(ErcData?.result || []);
     setNftresultList(NftData?.result || []);
     // eslint-disable-next-line

@@ -205,6 +205,10 @@ export default function ContractDetection(): JSX.Element {
   //初始化
   const PageStart = useCallback(
     () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       setErrOpen(false);
       seterrorMsg("");
       setcontrastErrText("");

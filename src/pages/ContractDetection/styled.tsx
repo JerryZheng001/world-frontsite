@@ -960,6 +960,7 @@ export const WrokContainer = styled.div`
 `;
 export const HistoryContainer = styled.div`
   width: 100%;
+  height: 100%;
   /* background: url(${AddressBg});
   background-size: 100% 100%;
   background-repeat: no-repeat; */
