@@ -744,6 +744,10 @@ export const ColorInner = styled.span<{ type: number }>`
   color: ${({ type }) => (type === 0 ? "#20DDB5" : "#E13131")};
 `;
 
+export const ColorInner1 = styled.span<{ type: string }>`
+  color: ${({ type }) => (type === "Unlimited" ? "#E13131" : "#20DDB5")};
+`;
+
 export const ColorText = styled.span<{ type: number }>`
   font-size: 20px;
   font-family: Poppins-SemiBold, Poppins;

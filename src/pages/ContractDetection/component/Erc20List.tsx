@@ -6,7 +6,7 @@ import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
 // import JSBI from 'jsbi'
 // import { TokenAmount } from '../../../constants/token'
-import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
+import { ListDom, ItemDiv, ItemheadDiv, ColorInner,ColorInner1 } from "../styled";
 import { shortenAddress } from "../../../utils/index";
 // import { ApprovalState, useApproveCallback } from '../../../hooks/useApproveCallback'
 // import { useHistory } from "react-router-dom";
@@ -125,9 +125,9 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     <span>{item?.token_symbol}</span>
                   </ItemDiv>
                   <ItemDiv width="160px" type={2} className="chainApprove">
-                    <ColorInner type={item?.advice} className="approve">
+                    <ColorInner1 type={item?.approved_amount} className="approve">
                       {item?.approved_amount}
-                    </ColorInner>
+                    </ColorInner1>
                     {item?.approved_amount && (
                       <div className="txt_tips">
                         <span></span>
