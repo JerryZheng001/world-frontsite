@@ -1464,7 +1464,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
 
 
   }
-  &.chainApprove,&.chainText {
+  &.chainText {
     position: relative;
     .txt_tips {
       display: none;
@@ -1500,11 +1500,38 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
 
   }
   &.chainApprove {
+    position: relative;
     .txt_tips {
-      width:auto !important;
-      left:40px !important;
-      
-
+      display: none;
+      border-radius: 4px !important;
+      width: auto;
+      padding: 16px 12px;
+      background: #353945;
+      backdrop-filter: blur(29px);
+      position: absolute;
+      bottom: -62px;
+      right: 0px;
+      opacity: 1;
+      z-index: 1;
+      text-align:left;
+      font-size: 12px !important;
+      font-family: Poppins-Regular, Poppins;
+      span {
+        border-radius: 2px !important;
+        display: inline-block;
+        position: absolute;
+        top: -6px;
+        right:5px;
+        width: 10px;
+        height: 10px;
+        background: #353945;
+        transform: rotate(45deg);
+      }
+    }
+    &:hover {
+      .txt_tips {
+        display: block;
+      }
     }
 
   }
