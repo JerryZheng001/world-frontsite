@@ -60,7 +60,7 @@ export default function ContractDetectionHistory(): JSX.Element {
       addressString.substring(addressString.lastIndexOf("/") + 1) !== account ||
       !account
     ) {
-      history.push("/home");
+      history.push("/");
     }
 
     //滑倒顶部
