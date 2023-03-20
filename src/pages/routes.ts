@@ -15,16 +15,16 @@ const ContractDetectionHistory = lazy(
 export default [
   {
     name: "contract_detection",
-    path: "/",
+    path: "/wallet_security",
     show: true,
     component: ConnectRouter(ContractDetection),
   },
-  {
-    name: "contract_detection",
-    path: "/home",
-    show: true,
-    component: ConnectRouter(ContractDetection),
-  },
+  // {
+  //   name: "contract_detection",
+  //   path: "/wallet_detection",
+  //   show: true,
+  //   component: ConnectRouter(ContractDetection),
+  // },
   {
     name: "ContractDetection",
     path: "/contract_detection",
@@ -33,7 +33,7 @@ export default [
   },
   {
     name: "ContractDetectionHistory",
-    path: "/wallet_detection/detail/:id",
+    path: "/wallet_security/detail/:id",
     show: true,
     component: ConnectRouter(ContractDetectionHistory),
   },

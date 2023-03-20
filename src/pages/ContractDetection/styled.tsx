@@ -1043,8 +1043,7 @@ export const HistoryDom = styled.div`
     margin: 78px 0 24px;
     background: url(${securitybg}) no-repeat;
     background-size: 100% auto;
-    position:relative;
-
+    position: relative;
 
     p {
       margin: 0 136px;
@@ -1068,12 +1067,11 @@ export const HistoryDom = styled.div`
     .logo {
       display: inline-block;
       width: 88px;
-      height:88px;
-      position:absolute;
-      top:40px;
-      left:27px;
+      height: 88px;
+      position: absolute;
+      top: 40px;
+      left: 27px;
     }
-
   }
   .datacon {
     padding: 60px 32px 30px;
@@ -1190,7 +1188,7 @@ export const HistoryDom = styled.div`
           color: #575a61;
         }
         .leftborder {
-          border-radius:8px 0 0 8px;
+          border-radius: 8px 0 0 8px;
         }
       }
     }
@@ -1248,9 +1246,9 @@ export const HistoryDom = styled.div`
             }
           }
         }
-       .chainText{
+        .chainText {
           .txt_tips {
-            display: block;
+            display: none;
             position: absolute;
             top: -60px !important;
             left: 0px;
@@ -1271,17 +1269,17 @@ export const HistoryDom = styled.div`
               display: block;
             }
           }
-          
         }
         .chainApprove {
-        .txt_tips {
-            display: block;
+          .txt_tips {
+            display: none;
             position: absolute;
             top: -60px !important;
             right: 0px;
             z-index: 4;
             height: 50px;
-            width:auto!important;
+            width: auto !important;
+
             span {
               display: inline-block;
               position: absolute;
@@ -1294,10 +1292,36 @@ export const HistoryDom = styled.div`
           }
           &:hover {
             .txt_tips {
-              display: none;
+              display: block;
             }
           }
-      }
+        }
+        .chainBalance {
+          .txt_tips {
+            display: none;
+            position: absolute;
+            top: -60px !important;
+            right: 0px;
+            z-index: 4;
+            height: 50px;
+            width: auto !important;
+
+            span {
+              display: inline-block;
+              position: absolute;
+              top: 43px !important;
+              width: 10px !important;
+              height: 10px !important;
+              background: #353945;
+              transform: rotate(45deg);
+            }
+          }
+          &:hover {
+            .txt_tips {
+              display: block;
+            }
+          }
+        }
       }
 
       .empty {
@@ -1433,7 +1457,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       bottom: -72px;
       left: 10px;
       z-index: 4;
-     
+
       span {
         display: inline-block;
         position: absolute;
@@ -1454,7 +1478,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     border-radius: 8px 0px 0px 8px !important;
   }
   &.chainText {
-    display:flex;
+    display: flex;
     span {
       font-size: 14px;
       font-family: Poppins-Regular, Poppins;
@@ -1472,7 +1496,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     }
     span:nth-child(2) {
       display: inline-block;
-      margin-top:4px;
+      margin-top: 4px;
       width: 95px;
       white-space: nowrap;
       overflow: hidden;
@@ -1480,14 +1504,12 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       text-align: right;
     }
     span:nth-child(3) {
-      margin-top:4px;
+      margin-top: 4px;
       color: #636b80;
       padding-left: 5px;
       display: inline-block;
       text-transform: uppercase;
     }
-
-
   }
   &.chainText {
     position: relative;
@@ -1503,7 +1525,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       left: 0px;
       opacity: 1;
       z-index: 1;
-      text-align:left;
+      text-align: left;
       font-size: 12px !important;
       font-family: Poppins-Regular, Poppins;
       span {
@@ -1522,7 +1544,6 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
         display: block;
       }
     }
-
   }
   &.chainApprove {
     position: relative;
@@ -1538,7 +1559,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       right: 0px;
       opacity: 1;
       z-index: 1;
-      text-align:left;
+      text-align: left;
       font-size: 12px !important;
       font-family: Poppins-Regular, Poppins;
       span {
@@ -1546,7 +1567,7 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
         display: inline-block;
         position: absolute;
         top: -6px;
-        right:5px;
+        right: 5px;
         width: 10px;
         height: 10px;
         background: #353945;
@@ -1558,7 +1579,6 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
         display: block;
       }
     }
-
   }
   .approve {
     display: inline-block;
@@ -1569,22 +1589,57 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     margin-top: 7px;
   }
   &.chainBalance {
-    display:flex;
+    display: flex;
+    position: relative;
+    /* background:red; */
     span {
       font-size: 14px;
       font-family: Poppins-Regular, Poppins;
       font-weight: 400;
       color: #ffffff;
       line-height: 14px;
-      margin-right:5px;
+      margin-right: 5px;
+      width: 70px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: right;
     }
     .itemstyle {
-      text-align:right;
+      text-align: right;
       display: inline-block;
       width: 70px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .txt_tips {
+      display: none;
+      border-radius: 4px;
+      width: auto;
+      padding: 16px 12px;
+      background: #353945;
+      backdrop-filter: blur(29px);
+      position: absolute;
+      top: 30px !important;
+      right: 0px;
+      z-index: 4;
+      font-size: 12px !important;
+      span {
+        display: inline-block;
+        position: absolute;
+        top: -5px !important;
+        right: 5px;
+        width: 10px !important;
+        height: 10px !important;
+        background: #353945;
+        transform: rotate(45deg);
+      }
+    }
+    :hover {
+      .txt_tips {
+        display: block;
+      }
     }
   }
 

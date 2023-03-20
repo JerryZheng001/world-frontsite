@@ -73,7 +73,7 @@ export default function ContractDetection(): JSX.Element {
         localStorage.setItem("totalNum", totalNum);
         localStorage.setItem("ercData", JSON.stringify(erc20));
         localStorage.setItem("nftData", JSON.stringify(nft721));
-        history.push(`/wallet_detection/detail/${account}`);
+        history.push(`/wallet_security/detail/${account}`);
       } else {
         setErrOpen(true);
         seterrorMsg("123");

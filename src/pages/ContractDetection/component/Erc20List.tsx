@@ -126,6 +126,12 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                   <ItemDiv width="140px" type={2} className="chainBalance">
                     <span className="itemstyle">{item?.balance}</span>{" "}
                     <span>{item?.token_symbol}</span>
+                    {item?.balance && (
+                      <div className="txt_tips">
+                        <span></span>
+                        {item?.balance}&nbsp;&nbsp;{item?.token_symbol}
+                      </div>
+                    )}
                   </ItemDiv>
                   <ItemDiv width="160px" type={2} className="chainApprove">
                     <ColorInner1 type={item?.approved_amount} className="approve">
