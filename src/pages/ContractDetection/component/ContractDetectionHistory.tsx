@@ -109,7 +109,7 @@ export default function ContractDetectionHistory(): JSX.Element {
             </div>
             <div className="item" style={{ margin: "0 33px" }}>
               <h3>COMING SOON</h3>
-              <p>Approval security risks</p>
+              <p>Interactive security risks</p>
             </div>
             <div className="item">
               <h3>COMING SOON</h3>

@@ -4,7 +4,7 @@ import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
-import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
+import { ListDom, ItemDiv, ItemheadDiv, ColorInner,ColorInner1 } from "../styled";
 import { shortenAddress } from "../../../utils/index";
 // import { useHistory } from "react-router-dom";
 interface ERC721TYPE {
@@ -107,9 +107,9 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
                     )}
                   </ItemDiv>
                   <ItemDiv width="161px" type={2}>
-                    <ColorInner type={item?.advice}>
+                    <ColorInner1 type={item?.approved_amount}>
                       {item?.approved_amount}
-                    </ColorInner>
+                    </ColorInner1>
                   </ItemDiv>
                   <ItemDiv width="120px" type={2}>
                     <ColorInner type={item?.advice}>
