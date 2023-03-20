@@ -1248,9 +1248,9 @@ export const HistoryDom = styled.div`
             }
           }
         }
-        .chainApprove,.chainText{
+       .chainText{
           .txt_tips {
-            display: none;
+            display: block;
             position: absolute;
             top: -60px !important;
             left: 0px;
@@ -1273,7 +1273,33 @@ export const HistoryDom = styled.div`
           }
           
         }
+        .chainApprove {
+        .txt_tips {
+            display: block;
+            position: absolute;
+            top: -60px !important;
+            right: 0px;
+            z-index: 4;
+            height: 50px;
+            width:auto!important;
+            span {
+              display: inline-block;
+              position: absolute;
+              top: 43px !important;
+              width: 10px !important;
+              height: 10px !important;
+              background: #353945;
+              transform: rotate(45deg);
+            }
+          }
+          &:hover {
+            .txt_tips {
+              display: none;
+            }
+          }
       }
+      }
+
       .empty {
         font-size: 16px;
         font-family: Poppins-Medium, Poppins;
@@ -1441,7 +1467,6 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       width: 24px;
       height: 24px;
       background: rgb(216, 216, 216, 0.2);
-
       border-radius: 50%;
       margin-right: 5px;
     }
