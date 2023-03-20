@@ -19,12 +19,12 @@ export default [
     show: true,
     component: ConnectRouter(ContractDetection),
   },
-  // {
-  //   name: "contract_detection",
-  //   path: "/wallet_detection",
-  //   show: true,
-  //   component: ConnectRouter(ContractDetection),
-  // },
+  {
+    name: "contract_detection",
+    path: "/home",
+    show: true,
+    component: ConnectRouter(ContractDetection),
+  },
   {
     name: "ContractDetection",
     path: "/contract_detection",
