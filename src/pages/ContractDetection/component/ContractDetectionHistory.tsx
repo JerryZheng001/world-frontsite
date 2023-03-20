@@ -6,7 +6,9 @@ import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import Erc20Listdom from "../component/Erc20List";
 import Erc721Listdom from "../component/Erc721List";
-// import Icon_svg from "../../../assets/svg/icon.svg";
+import Icon_green from "../../../assets/svg/icon_green.svg";
+import Icon_red from "../../../assets/svg/icon_red.svg";
+import Icon_yellow from "../../../assets/svg/icon_yellow.svg";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
@@ -44,7 +46,6 @@ const showsecurity = [
 // ];
 export default function ContractDetectionHistory(): JSX.Element {
   const TotalTest: any = Number(localStorage.getItem("totalNum"));
-  // const TotalTest: any = Number(0);
   const ErcData: any = JSON.parse(localStorage.getItem("ercData") || "");
   const NftData: any = JSON.parse(localStorage.getItem("nftData") || "");
   const [erc20resultList, setErc20resultList] = useState([] as ResultList[]);
@@ -74,10 +75,8 @@ export default function ContractDetectionHistory(): JSX.Element {
         <div className="title">Triathon </div>
         <div className="title">Address Security Report</div>
         <div className="addresscon">
+          
           <p>
-            <span>
-              {/* <embed style ={{color:"red"}} src={Icon_svg} type="image/svg+xml" /> */}
-            </span>
             <Colorsecurity type={TotalTest}>
               {TotalTest >= Number(10) && showsecurity[2]}
               {TotalTest < Number(10) &&
@@ -89,6 +88,9 @@ export default function ContractDetectionHistory(): JSX.Element {
           <p>
             Your address: <span>{account}</span>
           </p>
+          <span className="logo">
+              <embed src={TotalTest >= Number(10) ? Icon_red : TotalTest === Number(0) ? Icon_green : Icon_yellow} type="image/svg+xml" />
+          </span>
         </div>
         <div className="datacon">
           <h4>Following are the security recommendations</h4>

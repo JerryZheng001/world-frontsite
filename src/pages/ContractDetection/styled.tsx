@@ -1042,6 +1042,8 @@ export const HistoryDom = styled.div`
     margin: 78px 0 24px;
     background: url(${securitybg}) no-repeat;
     background-size: 100% auto;
+    position:relative;
+
 
     p {
       margin: 0 136px;
@@ -1062,6 +1064,15 @@ export const HistoryDom = styled.div`
       line-height: 16px;
       padding-top: 16px;
     }
+    .logo {
+      display: inline-block;
+      width: 88px;
+      height:88px;
+      position:absolute;
+      top:40px;
+      left:27px;
+    }
+
   }
   .datacon {
     padding: 60px 32px 30px;

@@ -3,16 +3,16 @@
     <title>LDWPAMIZKXHLO</title>
     <defs>
         <linearGradient x1="100.713%" y1="50.008%" x2="-0.713%" y2="50.008%" id="linearGradient-1">
-            <stop stop-color="#FFC32B" stop-opacity="0" offset="0%"></stop>
-            <stop stop-color="#FFC32B" offset="100%"></stop>
+            <stop stop-color="#E13131" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#E13131" offset="100%"></stop>
         </linearGradient>
         <linearGradient x1="100.713%" y1="50.008%" x2="-0.713%" y2="50.008%" id="linearGradient-2">
-            <stop stop-color="#FFC32B" offset="0%"></stop>
-            <stop stop-color="#FFC32B" stop-opacity="0" offset="100%"></stop>
+            <stop stop-color="#E13131" offset="0%"></stop>
+            <stop stop-color="#E13131" stop-opacity="0" offset="100%"></stop>
         </linearGradient>
         <linearGradient x1="100.713%" y1="50.008%" x2="-0.713%" y2="50.008%" id="linearGradient-3">
-            <stop stop-color="#FFC32B" offset="0%"></stop>
-            <stop stop-color="#FFC32B" stop-opacity="0" offset="100%"></stop>
+            <stop stop-color="#E13131" offset="0%"></stop>
+            <stop stop-color="#E13131" stop-opacity="0" offset="100%"></stop>
         </linearGradient>
     </defs>
     <g id="新首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
