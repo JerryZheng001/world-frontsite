@@ -4,7 +4,12 @@ import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
-import { ListDom, ItemDiv, ItemheadDiv, ColorInner,ColorInner1 } from "../styled";
+import {
+  ListDom,
+  ItemDiv,
+  ItemheadDiv,
+  ColorInner,
+} from "../styled";
 import { shortenAddress } from "../../../utils/index";
 // import { useHistory } from "react-router-dom";
 interface ERC721TYPE {
@@ -14,7 +19,7 @@ interface ERC721TYPE {
   nft_name: string;
   nft_symbol: string;
   balance: string;
-  approved_amount: string;
+  approved_amount: number;
   advice: number;
   risk: number;
   malicious_behavior: [string];
@@ -38,7 +43,12 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
           >
             Approved Spender (Project/Contract）
           </ItemheadDiv>
-          <ItemheadDiv width="120px" type={1} style={{ paddingLeft: "10px" }}>
+          <ItemheadDiv
+            width="120px"
+            type={1}
+            style={{ paddingLeft: "10px" }}
+            className="leftborder"
+          >
             Chain
           </ItemheadDiv>
           <ItemheadDiv width="240px" type={1}>
@@ -102,22 +112,24 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
                     {item?.nft_name && (
                       <div className="txt_tips">
                         <span></span>
-                        {item?.nft_name}{item?.nft_symbol}
+                        {item?.nft_name} &nbsp;&nbsp;
+                        {item?.nft_symbol}
                       </div>
                     )}
                   </ItemDiv>
                   <ItemDiv width="161px" type={2}>
-                    <ColorInner1 type={item?.approved_amount}>
-                      {item?.approved_amount}
-                    </ColorInner1>
+                    <ColorInner type={item?.approved_amount}>
+                      {item?.approved_amount === 0 ? "single" : "approval all"}
+                    </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="120px" type={2}>
                     <ColorInner type={item?.advice}>
                       {item?.advice > 0 ? "Revoke" : "Keep Vuke"}
                     </ColorInner>
                   </ItemDiv>
-                  <ItemDiv width="251px" type={1}>
-                    <div className="btn1"> Revoke Access</div>
+                  <ItemDiv width="251px" type={2} >
+                    -- &nbsp;&nbsp;
+                    {/* <div className="btn1"> Revoke Access</div> */}
                   </ItemDiv>
                 </div>
               );

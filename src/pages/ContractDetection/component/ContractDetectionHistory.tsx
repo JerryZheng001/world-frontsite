@@ -24,7 +24,7 @@ interface ResultList {
   token: string;
   token_symbol: string;
   balance: string;
-  approved_amount: string;
+  approved_amount: any;
   advice: number;
   risk: number;
   malicious_behavior: [string];
@@ -65,9 +65,9 @@ export default function ContractDetectionHistory(): JSX.Element {
 
     setErc20resultList(ErcData?.result || []);
     setNftresultList(NftData?.result || []);
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [account]);
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
 
   return (
     <HistoryContainer>
@@ -75,7 +75,6 @@ export default function ContractDetectionHistory(): JSX.Element {
         <div className="title">Triathon </div>
         <div className="title">Address Security Report</div>
         <div className="addresscon">
-          
           <p>
             <Colorsecurity type={TotalTest}>
               {TotalTest >= Number(10) && showsecurity[2]}
@@ -89,7 +88,16 @@ export default function ContractDetectionHistory(): JSX.Element {
             Your address: <span>{account}</span>
           </p>
           <span className="logo">
-              <embed src={TotalTest >= Number(10) ? Icon_red : TotalTest === Number(0) ? Icon_green : Icon_yellow} type="image/svg+xml" />
+            <embed
+              src={
+                TotalTest >= Number(10)
+                  ? Icon_red
+                  : TotalTest === Number(0)
+                  ? Icon_green
+                  : Icon_yellow
+              }
+              type="image/svg+xml"
+            />
           </span>
         </div>
         <div className="datacon">

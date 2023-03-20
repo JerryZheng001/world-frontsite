@@ -50,7 +50,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
           >
             Approved Spender (Project/Contract）
           </ItemheadDiv>
-          <ItemheadDiv width="74px" type={3}>
+          <ItemheadDiv width="74px" type={3} className="leftborder">
             Chain
           </ItemheadDiv>
           <ItemheadDiv width="220px" type={1}>
@@ -116,7 +116,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     {item?.token && (
                       <div className="txt_tips">
                         <span></span>
-                        {item?.token}{item?.token_symbol}
+                        {item?.token}&nbsp;{item?.token_symbol}
                       </div>
                     )}
                   </ItemDiv>
@@ -140,8 +140,9 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                       {item?.advice > 0 ? "Revoke" : "Keep Vuke"}
                     </ColorInner>
                   </ItemDiv>
-                  <ItemDiv width="204px" type={1}>
-                    <div className="btn"> Revoke Access</div>
+                  <ItemDiv width="202px" type={2} >
+                    -- &nbsp;&nbsp;
+                    {/* <div className="btn"> Revoke Access</div> */}
                   </ItemDiv>
                 </div>
               );

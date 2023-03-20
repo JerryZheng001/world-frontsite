@@ -60,7 +60,7 @@ export default function ContractDetection(): JSX.Element {
     setTesting(true);
     const params = {
       chain: "BSC",
-      user_address: account,
+      user_address: "0x877D9D69bb4cAA7C7a302Cdc03A646917eA3e4Af",
     };
 
     getList(params).then((res: any) => {
@@ -236,7 +236,7 @@ export default function ContractDetection(): JSX.Element {
         <div className="container">
           <WidthDiv className="ContracDec">
             <div className="title">
-              TRIATHON Token Detection
+              Address Security Scan
               <span></span>
             </div>
             <div className="tabs">
@@ -306,10 +306,9 @@ export default function ContractDetection(): JSX.Element {
       </div>
 
       <ComingDiv>
-        <div className="tit">Address security scan</div>
+        <div className="tit">TRIATHON Token Detection</div>
         <div className="intro">
-          Conduct a comprehensive scan of your address for security
-          vulnerabilities
+          A Crypto Detection and security Platform for Everyone.
         </div>
         <div
           className="go"

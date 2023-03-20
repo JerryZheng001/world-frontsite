@@ -1188,6 +1188,9 @@ export const HistoryDom = styled.div`
           font-weight: 500;
           color: #575a61;
         }
+        .leftborder {
+          border-radius:8px 0 0 8px;
+        }
       }
     }
     .container {
@@ -1420,7 +1423,11 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       }
     }
   }
+  &.leftborder {
+    border-radius: 8px 0px 0px 8px !important;
+  }
   &.chainText {
+    display:flex;
     span {
       font-size: 14px;
       font-family: Poppins-Regular, Poppins;
@@ -1437,20 +1444,23 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
       border-radius: 50%;
       margin-right: 5px;
     }
-    span:nth-child(3) {
-      color: #636b80;
-      padding-left: 5px;
-      display: inline-block;
-      text-transform: uppercase;
-    }
     span:nth-child(2) {
       display: inline-block;
-      width: 100px;
+      margin-top:4px;
+      width: 95px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: right;
     }
+    span:nth-child(3) {
+      margin-top:4px;
+      color: #636b80;
+      padding-left: 5px;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
 
   }
   &.chainApprove,&.chainText {
@@ -1506,16 +1516,19 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     margin-top: 7px;
   }
   &.chainBalance {
+    display:flex;
     span {
       font-size: 14px;
       font-family: Poppins-Regular, Poppins;
       font-weight: 400;
       color: #ffffff;
       line-height: 14px;
+      margin-right:5px;
     }
     .itemstyle {
+      text-align:right;
       display: inline-block;
-      width: 65px;
+      width: 70px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
