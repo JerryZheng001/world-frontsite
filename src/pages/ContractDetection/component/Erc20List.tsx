@@ -45,7 +45,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
             style={{
               borderRadius: "8px",
               paddingLeft: "14px",
-              // marginRight: "6px",
+              marginRight: "6px",
             }}
           >
             Approved Spender (Project/Contract）
