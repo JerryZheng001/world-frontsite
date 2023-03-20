@@ -1305,7 +1305,6 @@ export const HistoryDom = styled.div`
             z-index: 4;
             height: 50px;
             width: auto !important;
-
             span {
               display: inline-block;
               position: absolute;
