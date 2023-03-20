@@ -15,7 +15,7 @@ const ContractDetectionHistory = lazy(
 export default [
   {
     name: "contract_detection",
-    path: "/wallet_security",
+    path: "/",
     show: true,
     component: ConnectRouter(ContractDetection),
   },
