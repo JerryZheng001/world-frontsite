@@ -45,7 +45,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
             style={{
               borderRadius: "8px",
               paddingLeft: "14px",
-              marginRight: "6px",
+              // marginRight: "6px",
             }}
           >
             Approved Spender (Project/Contract）
@@ -65,7 +65,7 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
           <ItemheadDiv width="100px" type={2}>
             advice
           </ItemheadDiv>
-          <ItemheadDiv width="202px" type={2} style={{ paddingRight: "14px" }}>
+          <ItemheadDiv width="200px" type={2} style={{ paddingRight: "14px" }}>
             opera
           </ItemheadDiv>
         </div>
@@ -102,6 +102,9 @@ export default function listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                       </div>
                     )}
                   </ItemDiv>
+                  <div>
+                    
+                  </div>
                   <ItemDiv width="74px" type={1}>
                     <img
                       src={item?.chain === "56" ? bscPic : ethPic}
