@@ -21,7 +21,7 @@ export function useApproveCallback(
   amountToApprove?: CurrencyAmount,
   spender?: string
 ): [ApprovalState, () => Promise<void>] {
-  console.log(4545);
+  console.log(amountToApprove,spender);
   
   const { account } = useActiveWeb3React()
   const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined
@@ -41,15 +41,20 @@ export function useApproveCallback(
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED
   }, [amountToApprove, currentAllowance, pendingApproval, spender])
+  console.log(789952222);
+  
+console.log(11111111,amountToApprove);
 
   const tokenContract = useTokenContract(token?.address)
   const addTransaction = useTransactionAdder()
 
   const approve = useCallback(async (): Promise<void> => {
-    if (approvalState !== ApprovalState.NOT_APPROVED) {
-      console.error('approve was called unnecessarily')
-      return
-    }
+
+    
+    // if (approvalState !== ApprovalState.NOT_APPROVED) {
+    //   console.error('approve was called unnecessarily')
+    //   return
+    // }
     if (!token) {
       console.error('no token')
       return
@@ -59,6 +64,7 @@ export function useApproveCallback(
       console.error('tokenContract is null')
       return
     }
+
 
     if (!amountToApprove) {
       console.error('missing amount to approve')
@@ -70,22 +76,26 @@ export function useApproveCallback(
       return
     }
 
+    
+
     let useExact = false
     const estimatedGas = await tokenContract.estimateGas.approve(spender, MaxUint256).catch(() => {
       // general fallback for tokens who restrict approval amounts
       useExact = true
-      return tokenContract.estimateGas.approve(spender, amountToApprove.raw.toString())
+      return tokenContract.estimateGas.approve(spender, 0)
     })
 
+    
     return tokenContract
-      .approve(spender, useExact ? amountToApprove.raw.toString() : MaxUint256, {
-        gasLimit: calculateGasMargin(estimatedGas)
-      })
+      .approve(spender, 0)
       .then((response: TransactionResponse) => {
+        console.log('++++++++++++++++');
+        
         addTransaction(response, {
           summary: 'Approve ' + amountToApprove.currency.symbol,
           approval: { tokenAddress: token.address, spender: spender }
         })
+   
       })
       .catch((error: Error) => {
         console.debug('Failed to approve token', error)
