@@ -100,7 +100,7 @@ function AppIphone() {
                             access the latest version</div>
                             <div className="link">https://detection.triathon.space/#/</div>
                             <div className="copy" onClick={()=>{
-                                setCopied('https://detection.triathon.space/#/')
+                                setCopied('https://www.triathon.space/wallet_security/#/')
                             }}>Copy</div>
                     </div>
                 </Content>
