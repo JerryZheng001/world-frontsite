@@ -1,17 +1,13 @@
 import React from "react";
-// import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
-import {
-  ListDom,
-  ItemDiv,
-  ItemheadDiv,
-  ColorInner,
-} from "../styled";
+import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
-// import { useHistory } from "react-router-dom";
+// import { useERC721ApproveAllCallback } from "../../../hooks/useERC721ApproveAllCallback";
+// import { useERC721Contract } from "../../../hooks/useContract";
+// import { ApprovalState } from "../../../hooks/useApproveCallback";
 interface ERC721TYPE {
   project: string;
   contract: string;
@@ -25,8 +21,17 @@ interface ERC721TYPE {
   malicious_behavior: [string];
 }
 
-export default function listdom({ data }: { data: ERC721TYPE[] }) {
-  // const history = useHistory();
+export default function Listdom({ data }: { data: ERC721TYPE[] }) {
+  // const OnRevoke = (params: any) => {
+  //   const { contract, nft_address } = params || {};
+  //   const Transaction721Contract = useERC721Contract(nft_address);
+  //   const [approvalState, approvalCallback] = useERC721ApproveAllCallback(
+  //     Transaction721Contract,
+  //     contract
+  //   );
+
+  //   approvalCallback();
+  // };
 
   return (
     <ListDom>
@@ -127,9 +132,17 @@ export default function listdom({ data }: { data: ERC721TYPE[] }) {
                       {item?.advice > 0 ? "Revoke" : "Keep Vuke"}
                     </ColorInner>
                   </ItemDiv>
-                  <ItemDiv width="251px" type={2} >
+                  <ItemDiv width="251px" type={2}>
                     -- &nbsp;&nbsp;
-                    {/* <div className="btn1"> Revoke Access</div> */}
+                    {/* <div
+                      className="btn1"
+                      onClick={() => {
+                        OnRevoke(item);
+                      }}
+                    >
+                     --
+                      Revoke Access
+                    </div> */}
                   </ItemDiv>
                 </div>
               );

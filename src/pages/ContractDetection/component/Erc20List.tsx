@@ -7,6 +7,7 @@ import danger from "../../../assets/images/danger.png";
 // import JSBI from "jsbi";
 // import { Token } from "../../../constants/token";
 // import { TokenAmount } from "../../../constants/token";
+// import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
 import {
   ListDom,
   ItemDiv,
@@ -19,8 +20,6 @@ import { shortenAddress } from "../../../utils/index";
 //   ApprovalState,
 //   useApproveCallback,
 // } from "../../../hooks/useCancleApprove";
-// import { useWalletModalToggle } from "../../../state/application/hooks";
-// import { useHistory } from "react-router-dom";
 interface ERC20TYPE {
   project: string;
   contract: string;
@@ -33,84 +32,48 @@ interface ERC20TYPE {
   risk: number;
   malicious_behavior: [string];
 }
-interface BtnProp {
-  disabled?: boolean;
-  text?: JSX.Element | string;
-  event?: () => void;
-}
-
 
 export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
-  // const toggleWalletModal = useWalletModalToggle();
+  // const token_address1 = localStorage.getItem('token_address') || '0xF43B79193c33dAc3530Db9307C54E4885df364de'
+  // const contract1 = localStorage.getItem('contract') || '0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433'
   // const ERC20TokenAmount = new TokenAmount(
   //   new Token(
-  //     97,
+  //     56,
+  //     token_address1,
+  //     18,
+  //     "tEPU",
+  //     "tEPU"
+  //   ),
+  //   JSBI.BigInt("0")
+  // );
+  // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(
+  //   ERC20TokenAmount,
+  //   contract1
+  // );
+  // const [tokenaddress,setTokenaddress] = useState();
+  // const parmasBag = () => {};
+  // const ERC20TokenAmount = new TokenAmount(
+  //   new Token(
+  //     56,
   //     "0xF43B79193c33dAc3530Db9307C54E4885df364de",
   //     18,
-  //     "TRIAS",
-  //     "TRIAS"
+  //     "token",
+  //     "token"
   //   ),
-  //   JSBI.BigInt('0')
+  //   JSBI.BigInt("0")
   // );
+
   // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(
   //   ERC20TokenAmount,
   //   "0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433"
   // );
-  // const revokefun = () => {
-  //   const rst: BtnProp = {
-  //     text: "Convert",
-  //     event: () => ({}),
-  //     disabled: true,
-  //   };
-  //   console.log(123333, triasApprovalState);
-  //   if (triasApprovalState !== ApprovalState.APPROVED) {
-  //     if (triasApprovalState === ApprovalState.NOT_APPROVED) {
-  //       rst.event = triasApprovalCallback;
-  //       rst.disabled = false;
-  //       return rst;
-  //     }
-  //     if (triasApprovalState === ApprovalState.PENDING) {
-  //       rst.text = <>Approve</>;
-  //       return rst;
-  //     }
-  //     if (triasApprovalState === ApprovalState.UNKNOWN) {
-  //       rst.text = <>Please refresh</>;
-  //       return rst;
-  //     }
-  //   }else {
-  //     console.log(787878);
-      
-  //     triasApprovalCallback()
-  //   }
+
+  // const Revokefun = (params: any) => {
+  //   const { contract, token_address, token } = params || {};
+
+  //   useApproveCallback(ERC20TokenAmount, token_address);
   // };
-
-  // const revokeButton: any = useMemo(() => {
-  //   console.log(123333,triasApprovalState);
-
-  //   const rst: BtnProp = {
-  //     text: "Convert",
-  //     event: () => ({}),
-  //     disabled: true,
-  //   };
-
-  //   if (triasApprovalState !== ApprovalState.APPROVED) {
-  //     if (triasApprovalState === ApprovalState.NOT_APPROVED) {
-  //       rst.text = "Approve";
-  //       rst.event = triasApprovalCallback;
-  //       rst.disabled = false;
-  //       return rst;
-  //     }
-  //     if (triasApprovalState === ApprovalState.PENDING) {
-  //       rst.text = <>Approve</>;
-  //       return rst;
-  //     }
-  //     if (triasApprovalState === ApprovalState.UNKNOWN) {
-  //       rst.text = <>Please refresh</>;
-  //       return rst;
-  //     }
-  //   }
-  // }, [ triasApprovalCallback, triasApprovalState]);
 
   return (
     <ListDom>
@@ -228,11 +191,16 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="202px" type={2}>
-                    {/* -- &nbsp;&nbsp; */}
-                    <div className="btn">
+                    -- &nbsp;&nbsp;
+                    {/* <div
+                      className="btn"
+                      onClick={() => {
+                        Revokefun(item);
+                      }}
+                    >
                       --
-                      {/* Revoke Access */}
-                    </div>
+                      Revoke Access
+                    </div> */}
                   </ItemDiv>
                 </div>
               );
@@ -242,6 +210,16 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
           )}
         </div>
       </div>
+
+      {/* <TransactionConfirmationModal
+          isOpen={true}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onDismiss={()=>{}}
+          hash={'1233333'}
+          attemptingTxn={false}
+          error={false}
+          errorMsg={'123'}
+        /> */}
     </ListDom>
   );
 }

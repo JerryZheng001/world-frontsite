@@ -1,21 +1,39 @@
 import React from 'react'
 import styled from 'styled-components'
 import PcModal from '../Modal/PcModal'
-import { Text } from 'rebass'
-import { CloseIcon, HideSmall, ShowSmall, TYPE } from '../../theme'
-import { RowBetween, RowFixed, RowFlat } from '../Row'
+// import { Text } from 'rebass'
+import { CloseIcon } from '../../theme'
+import { RowBetween } from '../Row'
 import { AutoColumn } from '../Column'
 import { useActiveWeb3React } from '../../hooks'
-import useTheme from '../../hooks/useTheme'
-import { LoadingView, SubmittedView } from '../ModalViews'
+import { LoadingView, SubmittedView } from '../../components/ModalViews'
 import { ChainId } from '../../constants/chain'
-import { AlertCircle } from 'react-feather'
+import Loader from '../../components/Loader'
 
 const Wrapper = styled.div`
-  width: 100%;
-  max-width: 500px;
-  border-radius: 4px;
-  background: ${({ theme }) => theme.bg3};
+  width: 384px;
+  min-height: 252px;
+  background: #22262f;
+  border-radius: 16px;
+  backdrop-filter: blur(29px);
+  padding: 40px 70px;
+  .title {
+    font-size: 24px;
+    font-family: Poppins-SemiBold, Poppins;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 32px;
+    text-align: center;
+  }
+  .text {
+    padding-top: 24px;
+    font-size: 14px;
+    font-family: Poppins-Regular, Poppins;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 22px;
+    text-align: center;
+  }
 `
 const Section = styled(AutoColumn)`
   padding: 24px;
@@ -27,37 +45,52 @@ const BottomSection = styled(Section)`
   padding: 0 3rem 2rem;
 `
 const CloseBtn = styled.div`
-  width: 77px;
-  height: 32px;
-  border-radius: 2px;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 146px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #353945;
+  font-size: 14px;
+  font-family: Poppins-SemiBold, Poppins;
+  font-weight: 600;
+  color: #ffffff;
   text-align: center;
-  line-height: 30px;
+  line-height: 40px;
+  margin: 32px auto 0;
+  cursor: pointer;
   &:hover {
-    border: 1px solid ${({ theme }) => theme.text3};
-    color: ${({ theme }) => theme.text3};
+    border: none;
+    background: #fff;
+    color: #000;
   }
+`
+
+const TitleText = styled.div<{ font?: number }>`
+  height: 32px;
+  font-size: 24px;
+  font-family: Poppins-SemiBold, Poppins;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 32px;
+  text-align: center;
+`
+const TitleText1 = styled.div<{ font?: number }>`
+  font-size: 14px;
+    font-family: Poppins-Regular,Poppins;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 22px;
+    padding: 24px 10px 0px 10px;
+    text-align: center;
 `
 
 const Close = styled(CloseIcon)`
   color: ${({ theme }) => theme.text2};
 `
 function ConfirmationPendingContent({ onDismiss, pendingText = '' }: { onDismiss: () => void; pendingText: string }) {
-  const theme = useTheme()
   return (
     <>
       <LoadingView onDismiss={onDismiss}>
-        <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={400} fontSize={18}>
-            Waiting For Confirmation
-          </Text> 
-          <AutoColumn gap="12px" justify={'center'}>
-            <Text fontWeight={400} fontSize={14} textAlign="center" color={theme.text2}>
-              {pendingText}
-            </Text>
-          </AutoColumn>
-        </AutoColumn>
+        <Loader />
       </LoadingView>
     </>
   )
@@ -66,18 +99,21 @@ function ConfirmationPendingContent({ onDismiss, pendingText = '' }: { onDismiss
 function TransactionSubmittedContent({
   onDismiss,
   chainId,
-  hash
+  hash,
+  type
 }: {
   onDismiss: () => void
   hash: string | undefined
   chainId: ChainId
+  type?:string
 }) {
   return (
     <>
       <SubmittedView onDismiss={onDismiss} hash={hash}>
-        <Text fontWeight={400} fontSize={18}>
-          Transaction Submitted
-        </Text>
+        <TitleText>submitted</TitleText>
+        {
+          type==='token'&& <TitleText1 >The GEON you converted will be issued to your address after the end of this round</TitleText1>
+        }
       </SubmittedView>
     </>
   )
@@ -99,9 +135,7 @@ export function ConfirmationModalContent({
       <Section>
         <RowBetween>
           <div></div>
-          <Text fontWeight={500} fontSize={18}>
-            {title}
-          </Text>
+          <TitleText font={18}>{title}</TitleText>
           <Close onClick={onDismiss} />
         </RowBetween>
         {topContent()}
@@ -122,32 +156,10 @@ export function TransactionErrorContent({
 }) {
   return (
     <Wrapper>
-      <Section>
-        <RowBetween style={{ height: 'fit-content' }}>
-          <RowFixed>
-            <AlertCircle style={{ marginRight: 10 }} />
-            <Text fontWeight={700} fontSize={16}>
-              {title || 'Prompt information'}
-            </Text>
-          </RowFixed>
-          <Close onClick={onDismiss} />
-        </RowBetween>
-        <ShowSmall>
-          <Text fontWeight={400} fontSize={16}>
-            {message}
-          </Text>
-        </ShowSmall>
-        <AutoColumn style={{ padding: '1rem 0 2rem' }} gap="24px">
-          <HideSmall>
-            <TYPE.darkGray fontWeight={400} fontSize={16} style={{ width: '85%' }}>
-              {message}
-            </TYPE.darkGray>
-          </HideSmall>
-        </AutoColumn>
-        <RowFlat style={{ justifyContent: 'flex-end' }}>
-          <CloseBtn onClick={onDismiss}>OK</CloseBtn>
-        </RowFlat>
-      </Section>
+      <div className="title">{title || 'Prompt information'}</div>
+      <div className="text">{message}</div>
+      <CloseBtn onClick={onDismiss}>OK</CloseBtn>
+      
     </Wrapper>
   )
 }
@@ -171,15 +183,16 @@ export default function TransactionConfirmationModal({
   content,
   error,
   errorMsg,
+  type,
   submittedContent
-}: ConfirmationModalProps & { error?: boolean; errorMsg?: string }) {
+}: ConfirmationModalProps & { error?: boolean; errorMsg?: string;type?:string }) {
   const { chainId } = useActiveWeb3React()
 
   if (!chainId) return null
 
   // confirmation screen
   return (
-    <PcModal isOpen={isOpen} minWidth={500} onDismiss={onDismiss} maxHeight={90}>
+    <PcModal isOpen={isOpen} minWidth={384} maxWidth={384} onDismiss={onDismiss} minHeight={214}>
       {attemptingTxn ? (
         <ConfirmationPendingContent onDismiss={onDismiss} pendingText={pendingText || ''} />
       ) : error ? (
@@ -189,11 +202,13 @@ export default function TransactionConfirmationModal({
         ></TransactionErrorContent>
       ) : hash ? (
         <>
-          {submittedContent ? (
+          <TransactionSubmittedContent chainId={chainId} hash={hash} onDismiss={onDismiss} type={type}/>
+
+          {/* {submittedContent ? (
             submittedContent()
           ) : (
             <TransactionSubmittedContent chainId={chainId} hash={hash} onDismiss={onDismiss} />
-          )}{' '}
+          )}{' '} */}
         </>
       ) : (
         content && content()
