@@ -7,7 +7,7 @@ import danger from "../../../assets/images/danger.png";
 // import JSBI from "jsbi";
 // import { Token } from "../../../constants/token";
 // import { TokenAmount } from "../../../constants/token";
-// import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
+// // import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
 import {
   ListDom,
   ItemDiv,
@@ -37,22 +37,8 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
   // const token_address1 = localStorage.getItem('token_address') || '0xF43B79193c33dAc3530Db9307C54E4885df364de'
   // const contract1 = localStorage.getItem('contract') || '0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433'
-  // const ERC20TokenAmount = new TokenAmount(
-  //   new Token(
-  //     56,
-  //     token_address1,
-  //     18,
-  //     "tEPU",
-  //     "tEPU"
-  //   ),
-  //   JSBI.BigInt("0")
-  // );
-  // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(
-  //   ERC20TokenAmount,
-  //   contract1
-  // );
-  // const [tokenaddress,setTokenaddress] = useState();
-  // const parmasBag = () => {};
+
+
   // const ERC20TokenAmount = new TokenAmount(
   //   new Token(
   //     56,
@@ -64,15 +50,13 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   //   JSBI.BigInt("0")
   // );
 
-  // const [triasApprovalState, triasApprovalCallback] = useApproveCallback(
-  //   ERC20TokenAmount,
-  //   "0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433"
-  // );
+
+  
 
   // const Revokefun = (params: any) => {
   //   const { contract, token_address, token } = params || {};
 
-  //   useApproveCallback(ERC20TokenAmount, token_address);
+  //   // triasApprovalCallback();
   // };
 
   return (
@@ -198,7 +182,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                         Revokefun(item);
                       }}
                     >
-                      --
+                    
                       Revoke Access
                     </div> */}
                   </ItemDiv>

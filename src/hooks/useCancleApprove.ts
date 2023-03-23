@@ -9,8 +9,12 @@ import {
 import { calculateGasMargin } from "../utils";
 import { useTokenContract } from "./useContract";
 import { useActiveWeb3React } from "./index";
+import JSBI from "jsbi";
+import { Token } from "../constants/token";
 import { CurrencyAmount, TokenAmount } from "../constants/token/fractions";
 import { ETHER } from "../constants/token";
+
+
 
 export enum ApprovalState {
   UNKNOWN,
@@ -23,7 +27,16 @@ export enum ApprovalState {
 export function useApproveCallback(
   amountToApprove?: CurrencyAmount,
   spender?: string
-): [ApprovalState, () => Promise<void>] {
+): [() => Promise<void>] {
+  //重新定义spender
+  console.log(1233);
+  
+
+  // spender = localStorage.getItem("contract") || "";
+  // const token_address = localStorage.getItem("token_address") || ;
+  // const token_erc20 = localStorage.getItem("token_erc20") || {};
+  //重新定义token
+
   const { account } = useActiveWeb3React();
   const token =
     amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined;
@@ -47,16 +60,16 @@ export function useApproveCallback(
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED;
   }, [amountToApprove, currentAllowance, pendingApproval, spender]);
-
   const tokenContract = useTokenContract(token?.address);
   const addTransaction = useTransactionAdder();
 
+
+
   const approve = useCallback(
+    
     async (): Promise<void> => {
-      // if (approvalState !== ApprovalState.NOT_APPROVED) {
-      //   console.error('approve was called unnecessarily')
-      //   return
-      // }
+
+
       if (!token) {
         console.error("no token");
         return;
@@ -96,7 +109,7 @@ export function useApproveCallback(
         })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: "unApprove " + amountToApprove.currency.symbol,
+            summary: "unApprove" + amountToApprove.currency.symbol,
             approval: { tokenAddress: token.address, spender: spender },
           });
         })
@@ -108,5 +121,5 @@ export function useApproveCallback(
     [token, tokenContract, amountToApprove, spender, addTransaction]
   );
 
-  return [approvalState, approve];
+  return [ approve];
 }
