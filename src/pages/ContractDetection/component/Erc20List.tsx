@@ -56,7 +56,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
     setTransactionModalOpen(false)
   }
   const ERC20TokenAmount = new TokenAmount(
-    new Token(97, erc20address, 18, erc20Token, erc20Token),
+    new Token(56, erc20address, 18, erc20Token, erc20Token),
     JSBI.BigInt("0")
   );
   // eslint-disable-next-line
@@ -75,6 +75,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
 
   useEffect(() => {
     if (!initLoad) return;
+    console.log(ApprovalState,"---------")
     if (triasApprovalState === ApprovalState.APPROVED) {
       setTransactionModalOpen(true)
       setAttemptingTxn(true)
