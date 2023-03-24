@@ -15,8 +15,14 @@ const ConfirmOrLoadingWrapper = styled.div`
   background: #22262f;
   border-radius: 16px;
   backdrop-filter: blur(29px);
+  .content {
+    div:nth-child(1){
+      font-size:24px;
+      color:#fff;
+    }
+  }
   .text {
-    font-size: 14px;
+    font-size: 16px;
     font-family: Poppins-Regular, Poppins;
     font-weight: 400;
     color: #ffffff;

@@ -79,7 +79,6 @@ export  function userErc20(): {
           addTransaction(response, {
             summary: `unapprove`
           })
-          console.log(45665);
           
           return response
         })

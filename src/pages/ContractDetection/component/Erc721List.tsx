@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
@@ -7,7 +7,8 @@ import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
 import { useERC721ApproveAllCallback } from "../../../hooks/useERC721ApproveAllCallback";
 import { useERC721Contract } from "../../../hooks/useContract";
-// import { ApprovalState } from "../../../hooks/useApproveCallback";
+import { ApprovalState } from "../../../hooks/useApproveCallback";
+import TransactionConfirmationModal from "../../../components/TransactionConfirmationModal";
 interface ERC721TYPE {
   project: string;
   contract: string;
@@ -22,10 +23,24 @@ interface ERC721TYPE {
 }
 
 export default function Listdom({ data }: { data: ERC721TYPE[] }) {
-  const [initLoad,setInitLoad] = useState(false);
-  const [erc721address,setErc721address] =useState('0xF43B79193c33dAc3530Db9307C54E4885df364de');
-  const [erc721contract,setErc721Contract] =useState('0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433');
-
+  const [initLoad, setInitLoad] = useState(false);
+  const [mathnum, setMathnum] = useState(1);
+  const [erc721address, setErc721address] = useState(
+    "0x89ec61846E20e45A23CFC2a4000F4a74e406b52e"
+  );
+  const [erc721contract, setErc721Contract] = useState(
+    "0xF568dB7Fd1A4afd826A6500134aFB385D7562E8b"
+  );
+  const [transactionModalOpen, setTransactionModalOpen] = useState(false);
+  const [attemptingTxn, setAttemptingTxn] = useState(false);
+  const [hash, setHash] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const transactionOnDismiss = () => {
+    setError(false);
+    setErrorMsg("");
+    setTransactionModalOpen(false);
+  };
 
   const Transaction721Contract = useERC721Contract(erc721address);
   // eslint-disable-next-line
@@ -34,17 +49,36 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
     erc721contract
   );
   const OnRevoke = (params: any) => {
-    const { contract, nft_address } = params || {};
-    setInitLoad(true)
-    setErc721address(nft_address)
-    setErc721Contract(contract)
+    setMathnum(Math.random());
+    setInitLoad(true);
+    setErc721address(params?.nft_address)
+    setErc721Contract(params?.contract)
   };
 
-  useEffect(()=>{
-    if(!initLoad) return; 
-    approvalCallback();
+  useEffect(() => {
+    if (!initLoad) return;
+    if (approvalState === ApprovalState.APPROVED) {
+      setTransactionModalOpen(true);
+      setAttemptingTxn(true);
+      approvalCallback()
+        .then((res: any) => {
+          if (res?.hash) {
+            setTransactionModalOpen(true);
+            setAttemptingTxn(false);
+            setHash(res?.hash);
+          }
+        })
+        .catch(() => {
+          setAttemptingTxn(false);
+          setError(true);
+          setErrorMsg("auction commit err");
+          console.error("auction commit err");
+        });
+    } else {
+      return;
+    }
     // eslint-disable-next-line
-  },[erc721address,erc721contract])
+  }, [erc721address, erc721contract, mathnum]);
 
   return (
     <ListDom>
@@ -163,6 +197,15 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
           )}
         </div>
       </div>
+      <TransactionConfirmationModal
+        isOpen={transactionModalOpen}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onDismiss={transactionOnDismiss}
+        hash={hash}
+        attemptingTxn={attemptingTxn}
+        error={error}
+        errorMsg={errorMsg}
+      />
     </ListDom>
   );
 }

@@ -148,7 +148,6 @@ export default function ContractDetection(): JSX.Element {
       });
   };
 
-
   //初始化
   const PageStart = useCallback(
     () => {
@@ -264,7 +263,7 @@ export default function ContractDetection(): JSX.Element {
         <div
           className="go"
           onClick={() => {
-            window.open("https://www.triathon.space/tokenDetections/#/"); 
+            window.open("https://www.triathon.space/tokenDetections/#/");
           }}
         >
           Go

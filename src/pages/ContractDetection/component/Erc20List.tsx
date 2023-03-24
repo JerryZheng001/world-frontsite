@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
@@ -7,7 +7,8 @@ import danger from "../../../assets/images/danger.png";
 import JSBI from "jsbi";
 import { Token } from "../../../constants/token";
 import { TokenAmount } from "../../../constants/token";
-// import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
+import { ApprovalState } from "../../../hooks/useApproveCallback";
+import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
 // import { useActiveWeb3React } from '../../../hooks'
 
 import {
@@ -18,9 +19,7 @@ import {
   ColorInner1,
 } from "../styled";
 import { shortenAddress } from "../../../utils/index";
-import {
-  useApproveCallback,
-} from "../../../hooks/useCancleApprove";
+import { useApproveCallback } from "../../../hooks/useCancleApprove";
 interface ERC20TYPE {
   project: string;
   contract: string;
@@ -36,38 +35,66 @@ interface ERC20TYPE {
 
 export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
-  const [initLoad,setInitLoad] = useState(false);
-  const [erc20address,setErc20address] =useState('0xF43B79193c33dAc3530Db9307C54E4885df364de');
-  const [erc20Token,setErc20Token] = useState('token')
-  const [erc20contract,setErc20Contract] =useState('0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433');
+  const [initLoad, setInitLoad] = useState(false);
+  const [mathnum, setMathnum] = useState(1);
+  const [erc20address, setErc20address] = useState(
+    "0xF43B79193c33dAc3530Db9307C54E4885df364de"
+  );
+  const [erc20Token, setErc20Token] = useState("token");
+  const [erc20contract, setErc20Contract] = useState(
+    "0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433"
+  );
 
+  const [transactionModalOpen, setTransactionModalOpen] = useState(false)
+  const [attemptingTxn, setAttemptingTxn] = useState(false)
+  const [hash, setHash] = useState('')
+  const [error, setError] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const transactionOnDismiss = () => {
+    setError(false)
+    setErrorMsg('')
+    setTransactionModalOpen(false)
+  }
   const ERC20TokenAmount = new TokenAmount(
-    new Token(
-      56,
-      erc20address,
-      18,
-      erc20Token,
-      erc20Token
-    ),
+    new Token(56, erc20address, 18, erc20Token, erc20Token),
     JSBI.BigInt("0")
   );
-// eslint-disable-next-line
-  const [triasApprovalState ,triasApprovalCallback] = useApproveCallback(
+  // eslint-disable-next-line
+  const [triasApprovalState, triasApprovalCallback] = useApproveCallback(
     ERC20TokenAmount,
     erc20contract
   );
 
   const Revokefun = (params: any) => {
-    setInitLoad(true)
-    setErc20address(params?.token_address)
-    setErc20Contract(params?.contract)
-    setErc20Token(params?.token)
+    setMathnum(Math.random());
+    setInitLoad(true);
+    setErc20address(params?.token_address);
+    setErc20Contract(params?.contract);
+    setErc20Token(params?.token);
   };
-  useEffect(()=>{
+
+  useEffect(() => {
     if (!initLoad) return;
-    triasApprovalCallback()
+    if (triasApprovalState === ApprovalState.APPROVED) {
+      setTransactionModalOpen(true)
+      setAttemptingTxn(true)
+      triasApprovalCallback().then((res:any) => {
+        if(res?.hash){
+          setTransactionModalOpen(true)
+          setAttemptingTxn(false)
+          setHash(res?.hash)
+        }
+      }).catch(()=>{
+        setAttemptingTxn(false)
+        setError(true)
+        setErrorMsg('auction commit err')
+        console.error('auction commit err')
+      });
+    } else {
+      return;
+    }
     // eslint-disable-next-line
-  },[erc20address,erc20contract])
+  }, [erc20address, erc20contract, mathnum]);
 
   return (
     <ListDom>
@@ -203,15 +230,15 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
         </div>
       </div>
 
-      {/* <TransactionConfirmationModal
-          isOpen={true}
+      <TransactionConfirmationModal
+          isOpen={transactionModalOpen}
           // eslint-disable-next-line @typescript-eslint/no-empty-function
-          onDismiss={()=>{}}
-          hash={'1233333'}
-          attemptingTxn={false}
-          error={false}
-          errorMsg={'123'}
-        /> */}
+          onDismiss={transactionOnDismiss}
+          hash={hash}
+          attemptingTxn={attemptingTxn}
+          error={error}
+          errorMsg={errorMsg}
+        />
     </ListDom>
   );
 }

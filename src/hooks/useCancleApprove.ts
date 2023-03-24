@@ -4,7 +4,7 @@ import { useCallback, useMemo } from "react";
 import { useTokenAllowance } from "../data/Allowances";
 import {
   useTransactionAdder,
-  useHasPendingApproval,
+  // useHasPendingApproval,
 } from "../state/transactions/hooks";
 import { calculateGasMargin } from "../utils";
 import { useTokenContract } from "./useContract";
@@ -27,12 +27,13 @@ export function useApproveCallback(
   const { account } = useActiveWeb3React();
   const token =
     amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined;
+
   const currentAllowance = useTokenAllowance(
     token,
     account ?? undefined,
     spender
   );
-  const pendingApproval = useHasPendingApproval(token?.address, spender);
+  // const pendingApproval = useHasPendingApproval(token?.address, spender);
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN;
@@ -41,12 +42,10 @@ export function useApproveCallback(
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
     // amountToApprove will be defined if currentAllowance is
-    return currentAllowance.lessThan(amountToApprove)
-      ? pendingApproval
-        ? ApprovalState.PENDING
-        : ApprovalState.NOT_APPROVED
-      : ApprovalState.APPROVED;
-  }, [amountToApprove, currentAllowance, pendingApproval, spender]);
+   
+    return Number(currentAllowance.toExact())>0
+      ? ApprovalState.APPROVED : ApprovalState.NOT_APPROVED;
+  }, [amountToApprove, currentAllowance, spender]);
 
   const tokenContract = useTokenContract(token?.address);
   const addTransaction = useTransactionAdder();
@@ -92,6 +91,7 @@ export function useApproveCallback(
             summary: "unApprove " + amountToApprove.currency.symbol,
             approval: { tokenAddress: token.address, spender: spender },
           });
+          return response
         })
         .catch((error: Error) => {
           console.debug("Failed to unapprove token", error);

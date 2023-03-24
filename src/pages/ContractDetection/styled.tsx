@@ -1710,7 +1710,8 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     border-radius: 6px;
     line-height: 36px;
     text-align: center;
-    margin-left: 105px;
+    margin-left: 82px;
+    cursor: pointer;
     &::before {
       content:'';
       display:inline-block;
