@@ -23,7 +23,7 @@ export enum ApprovalState {
 export function useApproveCallback(
   amountToApprove?: CurrencyAmount,
   spender?: string
-): [ApprovalState, (params: any) => Promise<void>] {
+): [ApprovalState, () => Promise<void>] {
   const { account } = useActiveWeb3React();
   const token =
     amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined;
@@ -52,8 +52,8 @@ export function useApproveCallback(
   const addTransaction = useTransactionAdder();
 
   const approve = useCallback(
-    async (params): Promise<void> => {
-      const { contract, token } = params || {};
+    async (): Promise<void> => {
+
       if (!token) {
         console.error("no token");
         return;
@@ -76,7 +76,7 @@ export function useApproveCallback(
       // eslint-disable-next-line
       let useExact = false;
       const estimatedGas = await tokenContract.estimateGas
-        .approve(contract, MaxUint256)
+        .approve(spender, MaxUint256)
         .catch(() => {
           // general fallback for tokens who restrict approval amounts
           useExact = true;
@@ -84,7 +84,7 @@ export function useApproveCallback(
         });
 
       return tokenContract
-        .approve(contract, 0, {
+        .approve(spender, 0, {
           gasLimit: calculateGasMargin(estimatedGas),
         })
         .then((response: TransactionResponse) => {
@@ -99,8 +99,8 @@ export function useApproveCallback(
         });
     },
     [
-      
-      
+      // approvalState,
+      token,
       tokenContract,
       amountToApprove,
       spender,

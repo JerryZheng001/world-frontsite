@@ -1,12 +1,12 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
 import { ListDom, ItemDiv, ItemheadDiv, ColorInner } from "../styled";
 import { shortenAddress } from "../../../utils/index";
-// import { useERC721ApproveAllCallback } from "../../../hooks/useERC721ApproveAllCallback";
-// import { useERC721Contract } from "../../../hooks/useContract";
+import { useERC721ApproveAllCallback } from "../../../hooks/useERC721ApproveAllCallback";
+import { useERC721Contract } from "../../../hooks/useContract";
 // import { ApprovalState } from "../../../hooks/useApproveCallback";
 interface ERC721TYPE {
   project: string;
@@ -22,16 +22,29 @@ interface ERC721TYPE {
 }
 
 export default function Listdom({ data }: { data: ERC721TYPE[] }) {
-  // const OnRevoke = (params: any) => {
-  //   const { contract, nft_address } = params || {};
-  //   const Transaction721Contract = useERC721Contract(nft_address);
-  //   const [approvalState, approvalCallback] = useERC721ApproveAllCallback(
-  //     Transaction721Contract,
-  //     contract
-  //   );
+  const [initLoad,setInitLoad] = useState(false);
+  const [erc721address,setErc721address] =useState('0xF43B79193c33dAc3530Db9307C54E4885df364de');
+  const [erc721contract,setErc721Contract] =useState('0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433');
 
-  //   approvalCallback();
-  // };
+
+  const Transaction721Contract = useERC721Contract(erc721address);
+  // eslint-disable-next-line
+  const [approvalState, approvalCallback] = useERC721ApproveAllCallback(
+    Transaction721Contract,
+    erc721contract
+  );
+  const OnRevoke = (params: any) => {
+    const { contract, nft_address } = params || {};
+    setInitLoad(true)
+    setErc721address(nft_address)
+    setErc721Contract(contract)
+  };
+
+  useEffect(()=>{
+    if(!initLoad) return; 
+    approvalCallback();
+    // eslint-disable-next-line
+  },[erc721address,erc721contract])
 
   return (
     <ListDom>
@@ -133,16 +146,14 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="251px" type={2}>
-                    -- &nbsp;&nbsp;
-                    {/* <div
+                    <div
                       className="btn1"
                       onClick={() => {
                         OnRevoke(item);
                       }}
                     >
-                     --
                       Revoke Access
-                    </div> */}
+                    </div>
                   </ItemDiv>
                 </div>
               );

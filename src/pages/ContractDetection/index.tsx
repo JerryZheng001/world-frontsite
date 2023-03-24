@@ -1,10 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-// import ethPic from '../../assets/images/tokenDetec/ethPic@2x.png'
-// import bscPic from '../../assets/images/tokenDetec/bscPic@2x.png'
-// // import tronPic from '../../assets/images/tokenDetec/avaPic@2x.png'
-// import polyPic from '../../assets/images/tokenDetec/polyPic@2x.png'
-// import avaPic from '../../assets/images/tokenDetec/tronPic@2x.png'
-// import optimismPic from '../../assets/images/tokenDetec/optimismPic.png'
 import ErrModel from "./component/ErrModel";
 import leftShowPic from "../../assets/images/tokenDetec/leftShowPic.png";
 import rightShowPic from "../../assets/images/tokenDetec/rightShowPic.png";
@@ -155,52 +149,6 @@ export default function ContractDetection(): JSX.Element {
       });
   };
 
-  //查询检测状态 0 （可以继续检测）1（当前正在检测）2（检测上限）
-  // const GetTestStatusStart = useCallback(
-  //   () => {
-  //     let timer2: any;
-
-  //     if (!account) return;
-
-  //     getTestStatus({ user_address: account }).then((res: any) => {
-  //       if (res.code === 200) {
-  //         const { data, msg } = res;
-
-  //         if (data.status === "2") {
-  //           setErrOpen(true);
-  //           seterrorMsg(msg);
-  //         }
-  //         if (data.status === "1") {
-  //           setAddressContract(data.address);
-  //           localStorage.setItem("chain", data.chain);
-  //           setselectChain(data.chain);
-  //           setTesting(true);
-  //           const reParams = {
-  //             token_address: data.address,
-  //             chain: data.chain,
-  //             user_address: account,
-  //           };
-  //           timer2 = setTimeout(() => {
-  //             testAddress(1, reParams);
-  //           }, 3000);
-  //         }
-  //         if (data.status === "0") {
-  //           setTesting(false);
-  //           setdetectIng(false);
-  //           clearTimeout(timer2);
-  //           if (contrastRegex.test(AddressContract)) {
-  //             testAddress();
-  //           }
-  //         }
-  //       } else {
-  //         setErrOpen(true);
-  //         seterrorMsg(res.msg);
-  //       }
-  //     });
-  //   },
-  //   // eslint-disable-next-line
-  //   [AddressContract, account, selectChain]
-  // );
 
   //初始化
   const PageStart = useCallback(

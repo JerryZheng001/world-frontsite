@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React, { useState,useEffect } from "react";
 // import Right from "../../../assets/images/contrastDetec/right@2x.png";
 import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
@@ -7,6 +7,8 @@ import danger from "../../../assets/images/danger.png";
 import JSBI from "jsbi";
 import { Token } from "../../../constants/token";
 import { TokenAmount } from "../../../constants/token";
+// import { useActiveWeb3React } from '../../../hooks'
+
 import {
   ListDom,
   ItemDiv,
@@ -33,27 +35,38 @@ interface ERC20TYPE {
 
 export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
+  const [initLoad,setInitLoad] = useState(false);
+  const [erc20address,setErc20address] =useState('0xF43B79193c33dAc3530Db9307C54E4885df364de');
+  const [erc20Token,setErc20Token] = useState('token')
+  const [erc20contract,setErc20Contract] =useState('0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433');
+
   const ERC20TokenAmount = new TokenAmount(
     new Token(
       56,
-      "0xF43B79193c33dAc3530Db9307C54E4885df364de",
+      erc20address,
       18,
-      "token",
-      "token"
+      erc20Token,
+      erc20Token
     ),
     JSBI.BigInt("0")
   );
-
+// eslint-disable-next-line
   const [triasApprovalState ,triasApprovalCallback] = useApproveCallback(
     ERC20TokenAmount,
-    "0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433"
+    erc20contract
   );
 
   const Revokefun = (params: any) => {
-    console.log(triasApprovalState);
-    
-    triasApprovalCallback(params)
+    setInitLoad(true)
+    setErc20address(params?.token_address)
+    setErc20Contract(params?.contract)
+    setErc20Token(params?.token)
   };
+  useEffect(()=>{
+    if (!initLoad) return;
+    triasApprovalCallback()
+    // eslint-disable-next-line
+  },[erc20address,erc20contract])
 
   return (
     <ListDom>
@@ -171,14 +184,12 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="202px" type={2}>
-                    {/* -- &nbsp;&nbsp; */}
                     <div
                       className="btn"
                       onClick={() => {
                         Revokefun(item);
                       }}
                     >
-                    
                       Revoke Access
                     </div>
                   </ItemDiv>

@@ -28,6 +28,7 @@ import AddressBg from "../../assets/images/addressBg.png";
 import Tokenbg from "../../assets/images/contrastDetec/tokenbg.png";
 import arrowRight from "../../assets/images/arrowRight.png";
 import TitleIcon from "../../assets/images/titleIcon.png";
+import BtnIcon from "../../assets/img/btnicon.png";
 
 export const ContainerCon = styled.div<{ isPadding?: boolean }>`
   width: 100%;
@@ -1684,23 +1685,41 @@ export const ItemDiv = styled.div<{ width: string; type: number }>`
     }
   }
   .btn {
-    width: 144px;
+    width: 159px;
     height: 36px;
     background: #3772ff;
     border-radius: 6px;
     line-height: 36px;
     text-align: center;
-    margin-left: 65px;
+    margin-left: 49px;
     cursor: pointer;
+    &::before {
+      content:'';
+      display:inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right:8px;
+      background:url(${BtnIcon});
+      background-size:100% 100%;
+    }
   }
   .btn1 {
-    width: 144px;
+    width: 159px;
     height: 36px;
     background: #3772ff;
     border-radius: 6px;
     line-height: 36px;
     text-align: center;
-    margin-left: 96px;
+    margin-left: 105px;
+    &::before {
+      content:'';
+      display:inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right:5px;
+      background:url(${BtnIcon});
+      background-size:100% 100%;
+    }
   }
 `;
 
