@@ -7,6 +7,7 @@ import danger from "../../../assets/images/danger.png";
 import JSBI from "jsbi";
 import { Token } from "../../../constants/token";
 import { TokenAmount } from "../../../constants/token";
+// import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
 // import { useActiveWeb3React } from '../../../hooks'
 
 import {

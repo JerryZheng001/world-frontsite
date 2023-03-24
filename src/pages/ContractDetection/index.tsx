@@ -70,7 +70,6 @@ export default function ContractDetection(): JSX.Element {
         history.push(`/wallet_security/detail/${account}`);
       } else {
         setErrOpen(true);
-        seterrorMsg("123");
       }
     });
   };
