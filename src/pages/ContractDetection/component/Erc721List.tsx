@@ -78,7 +78,7 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
       return;
     }
     // eslint-disable-next-line
-  }, [erc721address, erc721contract, mathnum]);
+  }, [mathnum]);
 
   return (
     <ListDom>

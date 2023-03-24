@@ -65,6 +65,7 @@ export function useERC721ApproveAllCallback(
           summary: 'UnApprove NFT',
           approval: { tokenAddress: contract.address, spender }
         })
+        return response
       })
       .catch((error: Error) => {
         console.debug('Failed to approve nft', error)

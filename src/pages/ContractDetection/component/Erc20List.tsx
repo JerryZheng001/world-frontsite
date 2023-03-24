@@ -87,14 +87,14 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
       }).catch(()=>{
         setAttemptingTxn(false)
         setError(true)
-        setErrorMsg('auction commit err')
-        console.error('auction commit err')
+        setErrorMsg('you are rejected')
+        console.error('you are rejected')
       });
     } else {
       return;
     }
     // eslint-disable-next-line
-  }, [erc20address, erc20contract, mathnum]);
+  }, [mathnum]);
 
   return (
     <ListDom>
