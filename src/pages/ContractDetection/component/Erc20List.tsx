@@ -36,7 +36,7 @@ interface ERC20TYPE {
 export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
   const [initLoad, setInitLoad] = useState(false);
-  // const [mathnum, setMathnum] = useState(1);
+  const [mathnum, setMathnum] = useState(1);
   const [erc20address, setErc20address] = useState(
     "0xF43B79193c33dAc3530Db9307C54E4885df364de"
   );
@@ -66,7 +66,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   );
 
   const Revokefun = (params: any) => {
-    // setMathnum(Math.random());
+    setMathnum(Math.random());
     setInitLoad(true);
     setErc20address(params?.token_address);
     setErc20Contract(params?.contract);
@@ -74,9 +74,11 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   };
 
   useEffect(() => {
-    if (!initLoad) return;
-    console.log(ApprovalState,"---------")
+    console.log('firet');
+    console.log(triasApprovalState)
+    if (!initLoad && triasApprovalState===0) return;
     if (triasApprovalState === ApprovalState.APPROVED) {
+      console.log('jinqu');
       setTransactionModalOpen(true)
       setAttemptingTxn(true)
       triasApprovalCallback().then((res:any) => {
@@ -95,7 +97,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
       return;
     }
     // eslint-disable-next-line
-  }, [erc20address,erc20contract]);
+  }, [erc20address,erc20contract,mathnum,triasApprovalState]);
 
   return (
     <ListDom>

@@ -24,7 +24,7 @@ interface ERC721TYPE {
 
 export default function Listdom({ data }: { data: ERC721TYPE[] }) {
   const [initLoad, setInitLoad] = useState(false);
-  // const [mathnum, setMathnum] = useState(1);
+  const [mathnum, setMathnum] = useState(1);
   const [erc721address, setErc721address] = useState(
     "0x89ec61846E20e45A23CFC2a4000F4a74e406b52e"
   );
@@ -49,15 +49,15 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
     erc721contract
   );
   const OnRevoke = (params: any) => {
-    // setMathnum(Math.random());
+    setMathnum(Math.random());
     setInitLoad(true);
     setErc721address(params?.nft_address)
     setErc721Contract(params?.contract)
   };
 
   useEffect(() => {
-    if (!initLoad) return;
-    if (approvalState === ApprovalState.APPROVED) {
+    if (!initLoad && approvalState === 0) return;
+    if (approvalState === ApprovalState.NOT_APPROVED) {
       setTransactionModalOpen(true);
       setAttemptingTxn(true);
       approvalCallback()
@@ -71,14 +71,14 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
         .catch(() => {
           setAttemptingTxn(false);
           setError(true);
-          setErrorMsg("auction commit err");
-          console.error("auction commit err");
+          setErrorMsg("you are rejected");
+          console.error("you are rejected");
         });
     } else {
       return;
     }
     // eslint-disable-next-line
-  }, [erc721address,erc721contract]);
+  }, [erc721address,erc721contract,mathnum,approvalState]);
 
   return (
     <ListDom>
