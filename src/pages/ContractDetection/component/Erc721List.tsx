@@ -24,7 +24,7 @@ interface ERC721TYPE {
 
 export default function Listdom({ data }: { data: ERC721TYPE[] }) {
   const [initLoad, setInitLoad] = useState(false);
-  const [mathnum, setMathnum] = useState(1);
+  // const [mathnum, setMathnum] = useState(1);
   const [erc721address, setErc721address] = useState(
     "0x89ec61846E20e45A23CFC2a4000F4a74e406b52e"
   );
@@ -49,7 +49,7 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
     erc721contract
   );
   const OnRevoke = (params: any) => {
-    setMathnum(Math.random());
+    // setMathnum(Math.random());
     setInitLoad(true);
     setErc721address(params?.nft_address)
     setErc721Contract(params?.contract)
@@ -78,7 +78,7 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
       return;
     }
     // eslint-disable-next-line
-  }, [mathnum]);
+  }, [erc721address,erc721contract]);
 
   return (
     <ListDom>

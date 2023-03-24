@@ -36,7 +36,7 @@ interface ERC20TYPE {
 export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
   const [initLoad, setInitLoad] = useState(false);
-  const [mathnum, setMathnum] = useState(1);
+  // const [mathnum, setMathnum] = useState(1);
   const [erc20address, setErc20address] = useState(
     "0xF43B79193c33dAc3530Db9307C54E4885df364de"
   );
@@ -56,7 +56,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
     setTransactionModalOpen(false)
   }
   const ERC20TokenAmount = new TokenAmount(
-    new Token(56, erc20address, 18, erc20Token, erc20Token),
+    new Token(97, erc20address, 18, erc20Token, erc20Token),
     JSBI.BigInt("0")
   );
   // eslint-disable-next-line
@@ -66,7 +66,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   );
 
   const Revokefun = (params: any) => {
-    setMathnum(Math.random());
+    // setMathnum(Math.random());
     setInitLoad(true);
     setErc20address(params?.token_address);
     setErc20Contract(params?.contract);
@@ -94,7 +94,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
       return;
     }
     // eslint-disable-next-line
-  }, [mathnum]);
+  }, [erc20address,erc20contract]);
 
   return (
     <ListDom>
