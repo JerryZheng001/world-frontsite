@@ -4,10 +4,9 @@ import ethPic from "../../../assets/images/contrastDetec/ethPic.png";
 import bscPic from "../../../assets/images/contrastDetec/bscPic.png";
 import safe from "../../../assets/images/safe.png";
 import danger from "../../../assets/images/danger.png";
-// import JSBI from "jsbi";
-// import { Token } from "../../../constants/token";
-// import { TokenAmount } from "../../../constants/token";
-// // import TransactionConfirmationModal from '../../../components/TransactionConfirmationModal'
+import JSBI from "jsbi";
+import { Token } from "../../../constants/token";
+import { TokenAmount } from "../../../constants/token";
 import {
   ListDom,
   ItemDiv,
@@ -16,10 +15,9 @@ import {
   ColorInner1,
 } from "../styled";
 import { shortenAddress } from "../../../utils/index";
-// import {
-//   ApprovalState,
-//   useApproveCallback,
-// } from "../../../hooks/useCancleApprove";
+import {
+  useApproveCallback,
+} from "../../../hooks/useCancleApprove";
 interface ERC20TYPE {
   project: string;
   contract: string;
@@ -35,29 +33,27 @@ interface ERC20TYPE {
 
 export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   // const history = useHistory();
-  // const token_address1 = localStorage.getItem('token_address') || '0xF43B79193c33dAc3530Db9307C54E4885df364de'
-  // const contract1 = localStorage.getItem('contract') || '0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433'
+  const ERC20TokenAmount = new TokenAmount(
+    new Token(
+      56,
+      "0xF43B79193c33dAc3530Db9307C54E4885df364de",
+      18,
+      "token",
+      "token"
+    ),
+    JSBI.BigInt("0")
+  );
 
+  const [triasApprovalState ,triasApprovalCallback] = useApproveCallback(
+    ERC20TokenAmount,
+    "0x2E8aF2195a6Da7Dd8b8E89173E258B91E9712433"
+  );
 
-  // const ERC20TokenAmount = new TokenAmount(
-  //   new Token(
-  //     56,
-  //     "0xF43B79193c33dAc3530Db9307C54E4885df364de",
-  //     18,
-  //     "token",
-  //     "token"
-  //   ),
-  //   JSBI.BigInt("0")
-  // );
-
-
-  
-
-  // const Revokefun = (params: any) => {
-  //   const { contract, token_address, token } = params || {};
-
-  //   // triasApprovalCallback();
-  // };
+  const Revokefun = (params: any) => {
+    console.log(triasApprovalState);
+    
+    triasApprovalCallback(params)
+  };
 
   return (
     <ListDom>
@@ -175,8 +171,8 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     </ColorInner>
                   </ItemDiv>
                   <ItemDiv width="202px" type={2}>
-                    -- &nbsp;&nbsp;
-                    {/* <div
+                    {/* -- &nbsp;&nbsp; */}
+                    <div
                       className="btn"
                       onClick={() => {
                         Revokefun(item);
@@ -184,7 +180,7 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
                     >
                     
                       Revoke Access
-                    </div> */}
+                    </div>
                   </ItemDiv>
                 </div>
               );

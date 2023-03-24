@@ -56,31 +56,31 @@ export  function userMintCallback(): {
 
 export  function userErc20(): {
   state: ClaimNFTCallbackState
-  callback: undefined | ((amounts:any,) => Promise<string>)
+  callback: ((amounts:any,spender:string) => Promise<string>)
   error: string | null
 } {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contract = useTokenContract()
-   // eslint-disable-next-line react-hooks/rules-of-hooks
-  // const { account } = useActiveWeb3React()
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+  const tokenAddress = localStorage.getItem('tokenaddress') || ''
+  const contract = useTokenContract(tokenAddress)
   const addTransaction = useTransactionAdder()
 
-    
   return {
     state: ClaimNFTCallbackState.VALID,
-    callback: async function onClaim(...args): Promise<string> {
+    callback: async function unapprove(...args): Promise<string> {
+       
+  
       if (!contract) {
         throw new Error('Unexpected error. Contract error')
       }
       
       return contract
-        .userBatchMint(...args)
+        .approve(...args)
         .then((response: TransactionResponse) => {
 
           addTransaction(response, {
             summary: `unapprove`
           })
+          console.log(45665);
+          
           return response
         })
 

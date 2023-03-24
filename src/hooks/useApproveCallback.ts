@@ -20,8 +20,7 @@ export enum ApprovalState {
 export function useApproveCallback(
   amountToApprove?: CurrencyAmount,
   spender?: string
-): [ApprovalState, () => Promise<void>] {
-  console.log(4545);
+): [ApprovalState,() => Promise<void>] {
   
   const { account } = useActiveWeb3React()
   const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined
@@ -93,5 +92,5 @@ export function useApproveCallback(
       })
   }, [approvalState, token, tokenContract, amountToApprove, spender, addTransaction])
 
-  return [approvalState, approve]
+  return [approvalState ,approve]
 }
