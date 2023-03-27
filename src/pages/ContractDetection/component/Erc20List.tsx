@@ -74,11 +74,8 @@ export default function Listdom({ resultList }: { resultList: ERC20TYPE[] }) {
   };
 
   useEffect(() => {
-    console.log('firet');
-    console.log(triasApprovalState)
     if (!initLoad && triasApprovalState===0) return;
     if (triasApprovalState === ApprovalState.APPROVED) {
-      console.log('jinqu');
       setTransactionModalOpen(true)
       setAttemptingTxn(true)
       triasApprovalCallback().then((res:any) => {

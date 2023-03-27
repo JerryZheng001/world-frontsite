@@ -11,8 +11,6 @@ function useGetApproved(contract: Contract | null, spender: string) {
   const { account } = useActiveWeb3React()
   const res = useSingleCallResult(account ? contract : null, 'isApprovedForAll', [account || '', spender])
   return useMemo(() => {
-    console.log('res.result',res.result);
-    
     if (res.loading || !res.result) return undefined
     return res.result[0]
   }, [res.loading, res.result])
@@ -25,7 +23,6 @@ export function useERC721ApproveAllCallback(
   // const { account } = useActiveWeb3React()
   const isApproved = useGetApproved(contract, spender)
   const pendingApproval = useHasPendingApproval(contract?.address, spender)
-  console.log('isApproved',isApproved);
   
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
