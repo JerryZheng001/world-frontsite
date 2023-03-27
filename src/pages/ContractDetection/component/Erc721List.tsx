@@ -59,10 +59,9 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
 
     if (!initLoad && approvalState === 0) return;
     console.log(approvalState,ApprovalState.NOT_APPROVED,'erc721')
-    if (approvalState === ApprovalState.NOT_APPROVED && erc721contract !== '0xF568dB7Fd1A4afd826A6500134aFB385D7562E8b') {
+    if (approvalState === ApprovalState.APPROVED && erc721contract !== '0xF568dB7Fd1A4afd826A6500134aFB385D7562E8b') {
       setTransactionModalOpen(true);
       setAttemptingTxn(true);
-      console.log(erc721contract);
       
       approvalCallback()
         .then((res: any) => {
