@@ -57,8 +57,8 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
 
   useEffect(() => {
     if (!initLoad && approvalState === 0) return;
-
-    if (approvalState !== ApprovalState.APPROVED) {
+    console.log(approvalState,ApprovalState.NOT_APPROVED,'erc721')
+    if (approvalState === ApprovalState.NOT_APPROVED) {
       setTransactionModalOpen(true);
       setAttemptingTxn(true);
       approvalCallback()
