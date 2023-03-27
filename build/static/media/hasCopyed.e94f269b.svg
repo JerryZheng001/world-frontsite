@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="合约地址检测结果" transform="translate(-914.000000, -770.000000)">
+            <g id="编组" transform="translate(914.000000, 770.000000)">
+                <rect id="矩形" x="0" y="0" width="22" height="22" rx="11"></rect>
+                <g transform="translate(5.000000, 5.000000)">
+                    <rect id="矩形" x="0" y="0" width="12" height="12"></rect>
+                    <path d="M10.7728,2.555535 C11.0657,2.84843 11.0657,3.3233 10.7728,3.616195 L5.1513,9.2377 C4.8389,9.5501 4.33237,9.5501 4.01995,9.2377 L1.22688,6.4446 C0.933985,6.15175 0.933985,5.67685 1.22688,5.38395 C1.51977,5.09105 1.994645,5.09105 2.28754,5.38395 L4.585635,7.68205 L9.71215,2.555535 C10.00505,2.26264 10.47995,2.26264 10.7728,2.555535 Z" id="路径" fill="#575A61" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
