@@ -23,6 +23,8 @@ export function useERC721ApproveAllCallback(
   // const { account } = useActiveWeb3React()
   const isApproved = useGetApproved(contract, spender)
   const pendingApproval = useHasPendingApproval(contract?.address, spender)
+  console.log(isApproved,123333);
+  
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // if (!spender) return ApprovalState.UNKNOWN
