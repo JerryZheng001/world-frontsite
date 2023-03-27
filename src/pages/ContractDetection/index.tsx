@@ -54,15 +54,15 @@ export default function ContractDetection(): JSX.Element {
     setTesting(true);
     const params = {
       chain: "BSC",
-      user_address: '0x877D9D69bb4cAA7C7a302Cdc03A646917eA3e4Af',
+      user_address: account,
     };
 
     getList(params).then((res: any) => {
       if (res?.data) {
         const { erc20, nft721 } = res?.data;
         const totalNum =
-          JSON.parse(erc20?.count_risk || 0) +
-          JSON.parse(nft721?.count_risk || 0);
+        JSON.parse(erc20?.count_risk || 0) +
+        JSON.parse(nft721?.count_risk || 0);
         setTesting(false);
         localStorage.setItem("totalNum", totalNum);
         localStorage.setItem("ercData", JSON.stringify(erc20));

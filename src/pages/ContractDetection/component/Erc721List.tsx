@@ -56,10 +56,9 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
   };
 
   useEffect(() => {
-
     if (!initLoad && approvalState === 0) return;
     console.log(approvalState,ApprovalState.NOT_APPROVED,'erc721')
-    if (approvalState === ApprovalState.APPROVED && erc721contract !== '0xF568dB7Fd1A4afd826A6500134aFB385D7562E8b') {
+    if (approvalState === ApprovalState.APPROVED) {
       setTransactionModalOpen(true);
       setAttemptingTxn(true);
       
@@ -69,8 +68,7 @@ export default function Listdom({ data }: { data: ERC721TYPE[] }) {
             setTransactionModalOpen(true);
             setAttemptingTxn(false);
             setHash(res?.hash);
-            setErc721Contract('0xF568dB7Fd1A4afd826A6500134aFB385D7562E8b')
-            setErc721address('0x89ec61846E20e45A23CFC2a4000F4a74e406b52e')
+           
           }
         })
         .catch(() => {
