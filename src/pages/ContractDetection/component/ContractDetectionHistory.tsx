@@ -97,13 +97,14 @@ export default function ContractDetectionHistory(): JSX.Element {
           //   token_address: "0x167fcfed3aad2d11052fcde0cbf704d879939473",
           //   token_symbol: "GEON"
           // }]
-
-          setErc20resultList(erc20?.data || []);
+          console.log(erc20?.result)
+          console.log(nft721?.result)
+          setErc20resultList(erc20?.result || []);
           setNftresultList(nft721?.result || []);
           const totalNum =
             JSON.parse(erc20?.count_risk || 0) +
             JSON.parse(nft721?.count_risk || 0);
-          localStorage.setItem("totalNum", totalNum);
+            localStorage.setItem("totalNum", totalNum);
           // localStorage.setItem("ercData", JSON.stringify(erc20));
           // localStorage.setItem("nftData", JSON.stringify(nft721));
         }
