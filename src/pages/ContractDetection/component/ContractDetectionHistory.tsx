@@ -10,6 +10,7 @@ import Icon_green from "../../../assets/svg/icon_green.svg";
 import Icon_red from "../../../assets/svg/icon_red.svg";
 import Icon_yellow from "../../../assets/svg/icon_yellow.svg";
 import { Tabs } from "antd";
+import { getList } from "../../../utils/fetch/detect";
 const { TabPane } = Tabs;
 
 interface ResultList {
@@ -55,7 +56,6 @@ export default function ContractDetectionHistory(): JSX.Element {
 
   useEffect(() => {
     const addressString = window.location.href;
-
     if (
       addressString.substring(addressString.lastIndexOf("/") + 1) !== account ||
       !account
@@ -74,6 +74,42 @@ export default function ContractDetectionHistory(): JSX.Element {
     // eslint-disable-next-line
   }, [account]);
   // eslint-disable-next-line
+  useEffect(() => {
+    setInterval(() => {
+      const params = {
+        chain: "BSC",
+        user_address: account,
+      };
+
+      getList(params).then((res: any) => {
+        if (res?.data) {
+          const { erc20, nft721 } = res?.data;
+          // const data: any = [{
+          //   project: null,
+          //   contract: "0x118e308b4cfc11ce789240c1ce2a01290fa80d2b",
+          //   chain: "56",
+          //   advice: 1,
+          //   approved_amount:'Unlimited',
+          //   balance:0,
+          //   malicious_behavior:'',
+          //   risk:1,
+          //   token: "Dungeon Token",
+          //   token_address: "0x167fcfed3aad2d11052fcde0cbf704d879939473",
+          //   token_symbol: "GEON"
+          // }]
+
+          setErc20resultList(erc20?.data || []);
+          setNftresultList(nft721?.result || []);
+          const totalNum =
+            JSON.parse(erc20?.count_risk || 0) +
+            JSON.parse(nft721?.count_risk || 0);
+          localStorage.setItem("totalNum", totalNum);
+          // localStorage.setItem("ercData", JSON.stringify(erc20));
+          // localStorage.setItem("nftData", JSON.stringify(nft721));
+        }
+      });
+    }, 30000);
+  }, [account]);
 
   return (
     <HistoryContainer>
