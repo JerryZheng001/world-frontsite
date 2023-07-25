@@ -6,9 +6,9 @@ import { CloseIcon } from '../../theme'
 import { RowBetween } from '../Row'
 import { AutoColumn } from '../Column'
 import { useActiveWeb3React } from '../../hooks'
-import { LoadingView, SubmittedView } from '../../components/ModalViews'
+import { LoadingView, SubmittedView } from '../ModalViews'
 import { ChainId } from '../../constants/chain'
-import Loader from '../../components/Loader'
+import Loader from '../Loader'
 
 const Wrapper = styled.div`
   width: 384px;

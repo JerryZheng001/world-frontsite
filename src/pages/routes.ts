@@ -1,14 +1,9 @@
 import { lazy } from "react";
 import ConnectRouter from "../components/ConnectRouter";
-// const HomePage = lazy(() => import('./homePage'))
-const ContractDetection = lazy(() => import("./ContractDetection"));
-const ContractDetectionDetail = lazy(
-  () => import("./ContractDetection/component/ContractDetectionDetailPro")
-);
-const ContractDetectionHistory = lazy(
-  () => import("./ContractDetection/component/ContractDetectionHistory")
-);
 
+const Claimpage = lazy(() => import('./Claim/index'))
+const ContractDetection = lazy(() => import("./ContractDetection"));
+const Luckdroppage = lazy(() => import("./Luckdrop"));
 // const NotFound = lazy(() => import('./single/NotFound'))
 
 // eslint-disable-next-line
@@ -26,28 +21,16 @@ export default [
     component: ConnectRouter(ContractDetection),
   },
   {
-    name: "ContractDetection",
-    path: "/contract_detection",
+    name: "contract_detection",
+    path: "/claim",
     show: true,
-    component: ConnectRouter(ContractDetection),
+    component: ConnectRouter(Claimpage),
   },
   {
-    name: "ContractDetectionHistory",
-    path: "/wallet_security/detail/:id",
+    name: "contract_detection",
+    path: "/luckdrop",
     show: true,
-    component: ConnectRouter(ContractDetectionHistory),
-  },
-  {
-    name: "ContractDetectionDetail",
-    path: "/contract_detection/:id",
-    show: true,
-    component: ConnectRouter(ContractDetectionDetail),
-  },
+    component: ConnectRouter(Luckdroppage),
 
-  // {
-  //   name: 'NotFound',
-  //   path: '*',
-  //   show: true,
-  //   component: ConnectRouter(NotFound)
-  // },
+  },
 ];

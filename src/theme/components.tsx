@@ -217,9 +217,9 @@ const StyledHeaderLink = styled.a`
   white-space: nowrap;
   transition: 0.5s;
   margin-right: 56px;
-  :hover {
+  /* :hover {
     color: #fff;
-  }
+  } */
 `
 
 export function ExternalHeaderLink({

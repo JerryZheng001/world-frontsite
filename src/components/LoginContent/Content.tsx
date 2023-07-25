@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Title from '../../components/Title'
+import Title from '../Title'
 // import { Card } from 'antd'
 const StyleTitleContent = styled(Title).attrs({
     size:'24'

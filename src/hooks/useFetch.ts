@@ -1,6 +1,6 @@
 import { BAST_TOKEN } from '../constants'
 import { TokenAmount } from '../constants/token'
-import { useActiveWeb3React } from '../hooks'
+import { useActiveWeb3React } from '.'
 import { useCallback, useEffect, useState } from 'react'
 
 import { useBlockNumber } from '../state/application/hooks'

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getEnv } from '../../utils/base/string'
+import { getEnv } from '../base/string'
 
 const URLs = [window.location.protocol, '//', window.location.host, '/']
 // const isLocalhost = /localhost/gi.test(window.location.hostname)

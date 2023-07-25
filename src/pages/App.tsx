@@ -1,29 +1,21 @@
 // @ts-nocheck
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 // import styled from 'styled-components'
 import { Route, Switch, HashRouter } from "react-router-dom";
 import { createTheme } from "@material-ui/core/styles";
-import AppIphone from './AppIphone'
-
 import "antd/dist/antd.css";
 import { ThemeProvider as MaterialThemeProvider } from "@material-ui/core/styles";
-// import MainPage from "./homePage";
 import TextLoader from "../components/Loader/TextLoader";
 import Web3ReactManager from "../components/Web3ReactManager";
-// import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import routes from "./routes";
 import NavHeader from "../components/Header/NavHeader";
-// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 import "../i18n/config";
 import styled from "styled-components";
 export const Marginer = styled.div`
   ${({ theme }) => theme.desktop}
 `;
-// function TopLevelModals() {
-//   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
-//   const toggle = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-//   return <AddressClaimModal isOpen={open} onDismiss={toggle} />
-// }
+
 
 const materialTheme = createTheme({
   palette: {
@@ -32,27 +24,15 @@ const materialTheme = createTheme({
 });
 
 function App() {
-  const [flag, setFlag] = useState(false);
-
-  useEffect(() => {
-    resizeFun();
-  }, []);
-
-  const resizeFun = () => {
-    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-      setFlag(false);
-    } else {
-      setFlag(true);
-    }
-  };
 
   return (
     <MaterialThemeProvider theme={materialTheme}>
      {
-      flag?<div
+      <div
+      
       id="root"
       style={{
-        background: " #111112",
+        background: "#fff",
         minHeight:'100vh'
       }}
     >
@@ -77,11 +57,11 @@ function App() {
                 );
               })}
             </Switch>
-            {/* <Footer></Footer> */}
+            <Footer></Footer>
           </Web3ReactManager>
         </Suspense>
       </HashRouter>
-    </div>:<AppIphone></AppIphone>
+    </div>
      }
       
     </MaterialThemeProvider>

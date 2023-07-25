@@ -33,6 +33,8 @@ import { ShowSmall, TYPE } from "../../theme";
 
 const Web3StatusError = styled.div`
   cursor: pointer;
+  background-color: black;
+  border-radius:25px;
   width: 194px;
   height: 44px;
   text-align: center;
@@ -43,17 +45,17 @@ const Web3StatusError = styled.div`
   font-weight: 600;
   color: #ffffff;
   &:after {
-    content: "";
+    /* content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    transform: skewX(-10deg);
+    bottom: 0; */
+    /* transform: skewX(-10deg);
     border: 1px solid #ffffff;
     border-radius: 8px;
 
-    z-index: -1;
+    z-index: -1; */
   }
 `;
 
@@ -68,6 +70,8 @@ const Web3StatusConnect = styled.div<{ faded?: boolean }>`
   font-family: Poppins-SemiBold, Poppins;
   font-weight: 600;
   color: #ffffff;
+  border-radius: 25px;
+  background-color: rgba(0, 0, 0, 1);
   &:after {
     content: "";
     position: absolute;
@@ -75,10 +79,8 @@ const Web3StatusConnect = styled.div<{ faded?: boolean }>`
     left: 0;
     right: 0;
     bottom: 0;
-    transform: skewX(-10deg);
     border: 1px solid #ffffff;
-    border-radius: 8px;
-
+    border-radius: 25px;
     z-index: -1;
   }
 `;
@@ -87,11 +89,11 @@ const Web3StatusConnected = styled.div<{ pending?: boolean }>`
   color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
   :hover,
   :focus {
-    color: ${({ pending, theme }) =>
+    /* color: ${({ pending, theme }) =>
       pending ? darken(0.1, theme.primary1) : theme.text1};
     border: none;
     box-shadow: none;
-    background-color: transparent;
+    background-color: transparent; */
   }
   cursor: pointer;
   width: 169px;
@@ -103,6 +105,8 @@ const Web3StatusConnected = styled.div<{ pending?: boolean }>`
   font-family: Poppins-SemiBold, Poppins;
   font-weight: 600;
   color: #ffffff;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 25px;
   &:after {
     content: "";
     position: absolute;
@@ -110,10 +114,9 @@ const Web3StatusConnected = styled.div<{ pending?: boolean }>`
     left: 0;
     right: 0;
     bottom: 0;
-    transform: skewX(-10deg);
+    /* transform: skewX(-10deg); */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-
+    border-radius: 50%;
     z-index: -1;
   }
 `;

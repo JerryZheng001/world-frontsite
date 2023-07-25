@@ -1,5 +1,5 @@
-import { ColumnCenter } from '../../components/Column'
-import { Dots } from '../../components/styleds'
+import { ColumnCenter } from '../Column'
+import { Dots } from '../styleds'
 // import { Dots } from 'components/styleds'
 import React from 'react'
 
