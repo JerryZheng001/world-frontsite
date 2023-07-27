@@ -125,8 +125,7 @@ export default function ContractDetection(): JSX.Element {
         </div>
         <div className="item">
           <p>
-            <span style={{ background: `rgba(230, 230, 230, 1)` }}></span>初始
-            LP
+            <span style={{ background: `rgba(230, 230, 230, 1)` }}></span>Initial LP
           </p>
           <p>
             <span style={{ background: `rgba(222, 222, 222, 1)` }}></span>Zealy
@@ -153,14 +152,14 @@ export default function ContractDetection(): JSX.Element {
           </div>
           <div className="items">
             <img src={Icon2} alt="" />
-            <h3>2.等待公布奖励</h3>
-            <p>Luckdrop每1个小时开奖一次</p>
+            <h3>2.Awaiting reward announcement</h3>
+            <p>Luckdrop draws once every hour</p>
             <p></p>
           </div>
           <div className="items">
             <img src={Icon3} alt="" />
-            <h3>3.Awaiting reward announcement</h3>
-            <p>Luckdrop draws once every hour</p>
+            <h3>3.Claiming the reward</h3>
+            <p>To claim rewards and participate in the next round of Luckdrop</p>
           </div>
         </div>
         {/* btn claim */}

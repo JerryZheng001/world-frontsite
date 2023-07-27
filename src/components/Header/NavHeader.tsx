@@ -256,7 +256,7 @@ const NavRouter: Tab[] = [
   },
   {
     name: "BUY  WC",
-    link: "https://www.triathon.space/#/battleground",
+    link: "https://twitter.com/WorldCashWorld",
   },
   // {
   //   name: 'Product',
@@ -360,7 +360,6 @@ export default function NavHeader(): JSX.Element {
     };
   }, [calcBgOpacity]);
   useEffect(() => {
-    
     if (window.location.hash === "#/home" ||window.location.hash === "#/" ) {
       const navConLink = document.querySelector(".navCon a:first-child");
       if (navConLink) {
